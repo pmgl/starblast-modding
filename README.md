@@ -3,7 +3,8 @@
 Starblast Modding interface can be found here: https://starblast.io/modding.html (ECP required)
 
 Starblast Modding interface allows you to create custom mods for Starblast. The interface is made of a code editor window, on the left, and a console window, on the right. The code editor is where you type the JavaScript code for your mod. The console is where you can type commands to start your mod, stop it or interact with it while it is running.
-Creating your first mod
+
+#### Creating your first mod
 In the Mod Code window, type the code for your first mod:
 
 ```
@@ -16,9 +17,9 @@ this.tick = function(game) {
 };
 ```
 
-this.options is a data structure where you can set options for your custom, modded game. These options are used for initializing the game when you start your mod. Changing them while the mod is running does not affect the game. See “Options reference” later in the document.
+```this.options``` is a data structure where you can set options for your custom, modded game. These options are used for initializing the game when you start your mod. Changing them while the mod is running does not affect the game. See “Options reference” later in the document.
 
-this.tick is a JavaScript function which is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automatically while the game is running. This function can be modified while the modded game is running and the changes will apply automagically.
+```this.tick``` is a JavaScript function which is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automatically while the game is running. This function can be modified while the modded game is running and the changes will apply automagically.
 
 #### Running and testing a mod
 
@@ -30,7 +31,7 @@ Region set to Europe
 > █
 ```
 
-Currently modding is only available in these 3 zones: Europe, America, Asia.
+*Currently modding is only available in these 3 zones: Europe, America, Asia.*
 
 Then to start running your mod, type command “start”:
 ```
