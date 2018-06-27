@@ -18,8 +18,10 @@ this.tick = function(game) {
 
 this.options is a data structure where you can set options for your custom, modded game. These options are used for initializing the game when you start your mod. Changing them while the mod is running does not affect the game. See “Options reference” later in the document.
 
-this.tick is a JavaScript function which is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automatically while the game is running. Note that these actions are currently very limited, there will be more to come. This function can be modified while the modded game is running and the changes will apply automagically.
-Running and testing a mod
+this.tick is a JavaScript function which is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automatically while the game is running. This function can be modified while the modded game is running and the changes will apply automagically.
+
+#### Running and testing a mod
+
 Once your mod code is ready, in the console, start by selecting your preferred region for modding (example: Europe):
 
 ```
@@ -52,18 +54,17 @@ Mod stopped
 
 # Custom ships and custom tree
 
-The first useful feature we have implemented for this version Alpha 1 is the ability to import ships made with Starblast Ship Editor. In the Ship Editor, use “Mod Export” feature to export a JavaScript code snippet for the modding interface. Then paste this snipped in the coding window and add this:
+You can import ships made with Starblast Ship Editor. In the Ship Editor, use “Mod Export” feature to export a JavaScript code snippet for the modding interface. Then paste this snipped in the coding window and add this:
 
 ```
 var myship_101 = "{ … … <this is your exported ship code> …";
 
-var ships = [];
-ships.push(myship_101); // add your ship to an array of ship
+var ships = [myship_101]; // add your ship to an array of ship
 
 this.options = {
   root_mode: "survival",
   ships: ships,         // specifying a list of ships to complement / replace existing ships
-  reset_tree: true,     // set to true if you want to remove the original ship tree
+  reset_tree: true,     // set to true if you want to remove the original ship tree, false if you just want to replace some of the ships
   map_size: 30
 };
 
@@ -271,6 +272,15 @@ You can later show it again using:
 > ship.showInstructor()
 > █
 ```
+A second, optional parameter allows you to choose which one of the instructor characters will talk to the player. Example:
+```
+> ship.instructorSays("Here is your report commander","Maria")
+> █
+```
+#### Available characters
+|Lucina|Klaus|Maria|Kan|Zoltar|
+|-|-|-|-|-|
+|![Lucina](https://starblast.data.neuronality.com/img/tutorial-survival.png)|![Klaus](https://starblast.data.neuronality.com/img/tutorial-battleroyale.png)|![Maria](https://starblast.data.neuronality.com/img/tutorial-team.png)|![Kan](https://starblast.data.neuronality.com/img/tutorial-invasion.png)|![Zoltar](https://starblast.data.neuronality.com/img/tutorial-deathmatch.png)|
 
 # Custom UI components
 The mod can create custom UI components that will show up on the player’s screen. This is done by calling setUIComponent on the ship, passing in a component descriptor.
