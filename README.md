@@ -230,7 +230,7 @@ this.options = {
 }
 ```
 
-In the example above, 9 sets the biggest size of asteroid. You can use smaller values for adding smaller asteroids to the grid. Any value other than a digit will be interpreted as no asteroid. If you map size is set to 30, make sure to create 30 lines and 30 columns, or you may get unpredictable results.
+In the example above, 9 sets the biggest size of asteroid. You can use smaller values for adding smaller asteroids to the grid. Any value other than a digit will be interpreted as no asteroid. If your ```map_size``` is set to 30, make sure to create 30 lines and 30 columns, or you may get unpredictable results.
 
 # Collectibles
 You can spawn collectible weapons in the playfield. Here is an example:
@@ -253,8 +253,7 @@ Here is the list of supported codes:
 |90|Energy refill|
 |91|Shield refill|
 
-You can check the number of collectibles still available to collect in the playfield by using:
-game.collectibles.length
+You can check the number of collectibles still available to collect in the playfield by using: ```game.collectibles.length```
 
 
 # Instructor
@@ -275,7 +274,7 @@ You can later show it again using:
 ```
 A second, optional parameter allows you to choose which one of the instructor characters will talk to the player. Example:
 ```
-> ship.instructorSays("Here is your report commander","Maria")
+> ship.instructorSays("Here is your report, Commander","Maria")
 > █
 ```
 #### Available characters
@@ -314,6 +313,8 @@ Example:
 
 
 The example below creates a warp button for every player, which can be clicked and results in the ship warping to another random location, also adding 3 seconds invulnerability to it:
+
+Full example: https://github.com/pmgl/starblast-modding/blob/master/examples/warp_button.js
 ```
 var warp_button = {
   id: "warp",
@@ -329,8 +330,8 @@ var warp_button = {
 };
 
 var warpShip = function(ship) {
-  x = (Math.random()-.5)*ship.game.options.map_size*10 ;
-  y = (Math.random()-.5)*ship.game.options.map_size*10 ;
+  x = (Math.random()-.5) * ship.game.options.map_size*10 ;
+  y = (Math.random()-.5) * ship.game.options.map_size*10 ;
   ship.set({x:x,y:y,vx:0,vy:0,invulnerable:180}) ;
 } ;
 
@@ -364,8 +365,86 @@ this.event = function(event,game) {
 } ;
 ```
 
+# Add 3D objects to the scenery
+The mod can create custom, textured 3D objects and add them to the scenery. These objects have
+no physics for now (physics is planned in a near future).
+
+Example:
+```
+var cube = {
+  id: "cube",
+  obj: "https://raw.githubusercontent.com/pmgl/starblast-modding/master/objects/cube/cube.obj",
+  diffuse: "https://raw.githubusercontent.com/pmgl/starblast-modding/master/objects/cube/diffuse.jpg"
+} ;
+
+game.setObject({
+  id: "cube",
+  type: cube,
+  position: {x:0,y:0,z:0},
+  rotation: {x:0,y:0,z:0},
+  scale: {x:1,y:1,z:1}
+}) ;
+```
+
+#### Object type options
+|option|value|
+|-|-|
+|id|a unique identifier for this object type, mandatory|
+|obj|a URL (HTTPS) to the OBJ file|
+|diffuse|a URL (HTTPS) to a diffuse texture file (optional)|
+|emissive|a URL (HTTPS) to an emissive texture file (optional)|
+|specular|a URL (HTTPS) to a specularity texture file (optional)|
+|bump|a URL (HTTPS) to a bump texture map (optional)|
+|diffuseColor|diffuse color of the object, e.g. 0xFF0000 (for red)|
+|emissiveColor|emissive color of the object, e.g. 0x00FFFF (for cyan)|
+|specularColor|specular color of the object|
+|transparent|whether the object's texture has transparency or not|
+|bumpScale|scale for bump mapping (default: 0.1)|
+
+#### Object instance options
+|option|value|
+|-|-|
+|id|a unique identifier for this object instance (mandatory, allows changing the object afterwards)|
+|type|the object type definition|
+|position|coordinates for placing the object|
+|scale|allows to scale the object|
+|rotation|allows to rotate the object|
+
+#### changing or moving an object
+Use ```game.setObject``` again with the same object instance id.
+
+#### removing an object
+```game.removeObject(id)``` removes the object with given id. You can omit the id parameter, which will remove all custom objects in the scene.
+
+Working example, adding cube objects to the scenery: https://github.com/pmgl/starblast-modding/blob/master/examples/adding_cube.js
+
 # Events
-Your mod can receive events through the function this.events. Currently only clickable UI components generate events, see example above.
+Your mod can receive events through the function this.events.
+
+```
+this.event = function(event,game) {
+  switch (event.name)
+  {
+    case "ship_spawned":
+      if (event.ship != null)
+      {
+        shipJustSpawned(event.ship) ;
+      }
+      break ;
+  }
+} ;
+```
+
+#### Available events
+|event.name|description|additional event fields|
+|-|-|-|
+|ship_spawned|A ship just spawned in game or respawned|event.ship|
+|ship_destroyed|A ship was just destroyed|event.ship, event.killer|
+|alien_destroyed|An alien was just killed|event.alien, event.killer|
+|asteroid_destroyed|An asteroid was just destroyed|event.asteroid, event.killer|
+|collectible_picked|A ship just picked a collectible item|event.collectible, event.ship|
+
+
 
 # Options reference
 Most of the options are inherited from the usual custom games. A few more options have been added, specifically for modding (top of the list):

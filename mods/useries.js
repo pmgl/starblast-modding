@@ -24,7 +24,7 @@
 * U-Monitor increased broadside damage, faster front cannon ROF, higher energy capacity + regen
 * U-Barricade energy regen and capacity increased, speed increased
 *
-* 
+*
 *
 */
 //Tier 1
@@ -105,18 +105,12 @@ ships.push(Shadow_X_27_704);
 this.options = {
   ships:ships,
   reset_tree: true,
-  root_mode: "survival",
-  map_name: "U-Series Sandbox",
-  lives: 0,
-  survival_level: 8,
-  map_size: 90,
-  map_id: 500,
-  crystal_value: 5,
-  asteroids_strength: 1,
-  //friendly_colors: 1,
-  //starting_ship_maxed: false,
+  root_mode: "team",
+  map_size: 80,
+  friendly_colors: 2,
+  crystal_value: 1,
+  asteroids_strength: 1
 };
 
 this.tick = function(game) {
-
 };
