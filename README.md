@@ -295,7 +295,8 @@ Example:
   visible: true,
   components: [
     { type:"box",position:[0,0,100,100],fill:"#456",stroke:"#CDE",width:2},
-    { type: "text",position: [0,0,100,100],color: "#FFF",value: "My Text"}
+    { type: "text",position: [0,0,100,50],color: "#FFF",value: "My Text"},
+    { type: "player",id: 1, position: [0,0,50,50],color: "#FFF"},
   ]
 })
 > █
@@ -309,7 +310,7 @@ Example:
 |shortcut|When the component is clickable, a keyboard shortcut allowing to trigger the click event|
 |visible|Whether the component is visible or not. Resend the same data with visible set to false to hide the component|
 |components|gives a list of graphical features to render within the component. Positions of these subcomponents are meant within the main component coordinates.|
-|type|currently supported: "round", "text" or "box"|
+|type|currently supported: "round", "text", "box" or "player" (in case of the latter, add the id of the player (ship) which name must be displayed)|
 
 
 The example below creates a warp button for every player, which can be clicked and results in the ship warping to another random location, also adding 3 seconds invulnerability to it:
@@ -364,6 +365,9 @@ this.event = function(event,game) {
   }
 } ;
 ```
+
+#### Customizing the scoreboard
+The built-in scoreboard can be replaced by your own custom scoreboard component. As soon as an UI component with id ```"scoreboard"``` is created, you will be responsible for updating the scoreboard. Your scoreboard component does not have to include a ```position``` because it will automatically fill the area already reserved for the scoreboard.
 
 # Add 3D objects to the scenery
 The mod can create custom, textured 3D objects and add them to the scenery. These objects have
@@ -484,3 +488,11 @@ Most of the options are inherited from the usual custom games. A few more option
 |auto_refill|When set to true, collecting an energy or shield pill immediately refills energy or shield ; the collected pill is not added to the active weapons
 |projectile_speed|Affects the speed of rockets, missiles and torpedoes ; use 1 for default speed
 |choose_ship|e.g. setting to [301,302,303] will let player choose a ship from these 3 ships before entering the game (only works when no root_mode has been specified)
+
+#### Team mode specific options
+|option|description|
+|-|-|
+|station_regeneration|factor to apply to station shield regen, default value 1|
+|station_size|size of the stations ; integer from 1 to 5|
+|station_crystal_capacity|factor to apply to the station crystal capacity, range [0.1,10]|
+|station_repair_threshold|part of the station crystal capacity that must be refilled to repair a module. In the range [0,1]|
