@@ -111,6 +111,9 @@ Accepted options:
 |vy|Velocity vector Y component|
 |code|Type of alien, integer in range [10-20]|
 |level|Level of the alien, in range [0-X] where X depends of the alien type|
+|points|The number of points you earn when you kill this alien|
+|crystal_drop|The crystal amount to be dropped when this alien is killed|
+|weapon_drop|The code of a collectible weapon to be dropped by this alien when killed|
 
 A new ```Alien``` object is immediately added to game.aliens ; however it cannot be used before it has been assigned an id (positive integer) by the server.
 
@@ -368,6 +371,34 @@ this.event = function(event,game) {
 
 #### Customizing the scoreboard
 The built-in scoreboard can be replaced by your own custom scoreboard component. As soon as an UI component with id ```"scoreboard"``` is created, you will be responsible for updating the scoreboard. Your scoreboard component does not have to include a ```position``` because it will automatically fill the area already reserved for the scoreboard.
+
+# Customizing the emote-chat system
+The vocabulary used for the emote-chat system can be customized by setting the field ```vocabulary``` in the game option
+as follows:
+
+```
+var vocabulary = [
+      { text: "Hello", icon:"\u0045", key:"O" },
+      { text: "Bye", icon:"\u0046", key:"B" },
+      { text: "Yes", icon:"\u004c", key:"Y" },
+      { text: "No", icon:"\u004d", key:"N" },
+
+      { text: "Flower", icon:"\u{1F33B}", key:"F" },
+      { text: "Snowman", icon:"\u26c4", key:"M" },
+      { text: "Shark", icon:"\u{1F988}", key:"S" },
+      { text: "Ghost", icon:"\u{1F47B}", key:"G" }
+    ] ;
+
+this.options = {
+  vocabulary: vocabulary,
+  (...)
+};```
+
+This allows using Starblast built-in emote icons, which are listed here for reference: http://local.starblast.io/glyphs.html
+
+You can also use unicode icons, here is a good source for reference: https://unicode.org/emoji/charts/full-emoji-list.html
+
+Note that wide unicode characters (using more than 2 bytes) require a specific Javascript syntax as shown in the example above (example: ```\u{1F47B}```)
 
 # Add 3D objects to the scenery
 The mod can create custom, textured 3D objects and add them to the scenery. These objects have
