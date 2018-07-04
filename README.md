@@ -394,7 +394,7 @@ this.options = {
   (...)
 };```
 
-This allows using Starblast built-in emote icons, which are listed here for reference: http://local.starblast.io/glyphs.html
+This allows using Starblast built-in emote icons, which are listed here for reference: https://starblast.io/glyphs.html
 
 You can also use unicode icons, here is a good source for reference: https://unicode.org/emoji/charts/full-emoji-list.html
 
