@@ -392,7 +392,8 @@ var vocabulary = [
 this.options = {
   vocabulary: vocabulary,
   (...)
-};```
+};
+```
 
 This allows using Starblast built-in emote icons, which are listed here for reference: https://starblast.io/glyphs.html
 
