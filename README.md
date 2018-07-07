@@ -491,6 +491,7 @@ Most of the options are inherited from the usual custom games. A few more option
 |reset_tree|Set to true to remove the original ship tree|
 |ships|An array of ships to add to the tree|
 |map_size|Size of the map, range from 20 to 200|
+|soundtrack|"procedurality.mp3", "argon.mp3" or "crystals.mp3"|
 |max_players|From 1 to 120|
 |crystal_value|Float, from 0 to 5|
 |lives|Number of lives, from 1 to 5|
