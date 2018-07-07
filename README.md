@@ -17,7 +17,7 @@ this.tick = function(game) {
 };
 ```
 
-```this.options``` is a data structure where you can set options for your custom, modded game. These options are used for initializing the game when you start your mod. Changing them while the mod is running does not affect the game. See “Options reference” later in the document.
+```this.options``` is a data structure where you can set options for your custom, modded game. These options are used for initializing the game when you start your mod. Changing them while the mod is running does not affect the game. See "Options reference" later in the document.
 
 ```this.tick``` is a JavaScript function which is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automatically while the game is running. This function can be modified while the modded game is running and the changes will apply automagically.
 
@@ -41,12 +41,12 @@ https://starblast.io#1234@12.34.56.78:3000
 Use 'test' to open game frame for testing
 > █
 ```
-As instructed by the console, you may want to open a test window to join your modded game with a Starblast client. Type “test”:
+As instructed by the console, you may want to open a test window to join your modded game with a Starblast client. Type "test":
 ```
 > test
 > █
 ```
-You can stop your mod anytime by using command “stop”. Note that this will kill the game and disconnect all connected players:
+You can stop your mod anytime by using command "stop". Note that this will kill the game and disconnect all connected players:
 ```
 > stop
 Mod stopped
@@ -55,7 +55,7 @@ Mod stopped
 
 # Custom ships and custom tree
 
-You can import ships made with Starblast Ship Editor. In the Ship Editor, use “Mod Export” feature to export a JavaScript code snippet for the modding interface. Then paste this snipped in the coding window and add this:
+You can import ships made with Starblast Ship Editor. In the Ship Editor, use "Mod Export" feature to export a JavaScript code snippet for the modding interface. Then paste this snipped in the coding window and add this:
 
 ```
 var myship_101 = "{ … … <this is your exported ship code> …";
@@ -73,7 +73,7 @@ this.tick = function(game) {
 };
 ```
 
-Then run your mod. If your ship is set to level=1 model=1, your ship will replace the Fly. You can replace other ships in the tree in a similar way, using reset_tree: false. Or you can remove the original ship tree completely and provide a whole new one using ```reset_tree: true```.
+Then run your mod. If your ship is set to level=1 model=1, your ship will replace the Fly. You can replace other ships in the tree in a similar way, using ```reset_tree: false```. Or you can remove the original ship tree completely and provide a whole new one using ```reset_tree: true```.
 
 # Asteroids
 
@@ -115,7 +115,7 @@ Accepted options:
 |crystal_drop|The crystal amount to be dropped when this alien is killed|
 |weapon_drop|The code of a collectible weapon to be dropped by this alien when killed|
 
-A new ```Alien``` object is immediately added to game.aliens ; however it cannot be used before it has been assigned an id (positive integer) by the server.
+A new ```Alien``` object is immediately added to game.aliens; however it cannot be used before it has been assigned an id (positive integer) by the server.
 
 Once an alien is live and has an assigned id, you can set options to it.
 Example:
@@ -496,9 +496,9 @@ Most of the options are inherited from the usual custom games. A few more option
 |crystal_value|Float, from 0 to 5|
 |lives|Number of lives, from 1 to 5|
 |max_level|Max level you can reach, from 1 to 7|
-|friendly_colors|Serves to define teams ; how many teams (or 0)|
+|friendly_colors|Serves to define teams; how many teams (or 0)|
 |map_name|Name of the map|
-|survival_time|When to trigger survival mode ; 0 or a value in minutes (only for survival-based games)|
+|survival_time|When to trigger survival mode; 0 or a value in minutes (only for survival-based games)|
 |survival_level|Level which triggers survival mode|
 |1 to 7 (only for survival-based games)|8 for no trigger
 |starting_ship|Enter desired ship code: 101, 201, 404...
@@ -519,13 +519,13 @@ Most of the options are inherited from the usual custom games. A few more option
 |weapons_store|Set to false to remove access to the weapon store
 |radar_zoom|Set value to 1, 2 or 4
 |auto_refill|When set to true, collecting an energy or shield pill immediately refills energy or shield ; the collected pill is not added to the active weapons
-|projectile_speed|Affects the speed of rockets, missiles and torpedoes ; use 1 for default speed
+|projectile_speed|Affects the speed of rockets, missiles and torpedoes; use 1 for default speed
 |choose_ship|e.g. setting to [301,302,303] will let player choose a ship from these 3 ships before entering the game (only works when no root_mode has been specified)
 
 #### Team mode specific options
 |option|description|
 |-|-|
 |station_regeneration|factor to apply to station shield regen, default value 1|
-|station_size|size of the stations ; integer from 1 to 5|
+|station_size|size of the stations; integer from 1 to 5|
 |station_crystal_capacity|factor to apply to the station crystal capacity, range [0.1,10]|
 |station_repair_threshold|part of the station crystal capacity that must be refilled to repair a module. In the range [0,1]|
