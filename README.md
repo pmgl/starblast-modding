@@ -487,7 +487,7 @@ Most of the options are inherited from the usual custom games. A few more option
 
 |option|description|
 |-|-|
-|root_mode|The mod to inherit from: “survival”, “team”, “invasion”, “deathmatch”, "battleroyale" (or unspecified)|
+|root_mode|The mod to inherit from: "survival", "team", "invasion", "deathmatch", "battleroyale" (or unspecified)|
 |reset_tree|Set to true to remove the original ship tree|
 |ships|An array of ships to add to the tree|
 |map_size|Size of the map, range from 20 to 200|
