@@ -115,6 +115,22 @@ Accepted options:
 |crystal_drop|The crystal amount to be dropped when this alien is killed|
 |weapon_drop|The code of a collectible weapon to be dropped by this alien when killed|
 
+Here is the list of supported codes:
+
+|code|description|
+|-|-|
+|10|Chicken|
+|11|Crab|
+|12|Fortress|
+|13|Some weird new thingy|
+|14|Candlestick|
+|15|Hirsute|
+|16|Phirana|
+|17|Pointu|
+|18|Fork|
+|19|Saucer|
+|20|FinalBoss|
+
 A new ```Alien``` object is immediately added to game.aliens; however it cannot be used before it has been assigned an id (positive integer) by the server.
 
 Once an alien is live and has an assigned id, you can set options to it.
