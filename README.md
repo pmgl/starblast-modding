@@ -125,7 +125,7 @@ Here is the list of supported codes:
 |13|Some weird new thingy|
 |14|Candlestick|
 |15|Hirsute|
-|16|Phirana|
+|16|Piranha|
 |17|Pointu|
 |18|Fork|
 |19|Saucer|
