@@ -93,7 +93,25 @@ Accepted options:
 
 A new ```Asteroid``` object is immediately added to ```game.asteroids``` ; however it cannot be used before it has been assigned an id (positive integer) by the server.
 
-Setting field/options to live Asteroids is not implemented yet.
+Once an asteroid is live and has an assigned id, you can set options to it.
+Example:
+
+```
+> game.asteroids[0].set({size:100});
+> █
+```
+
+Will move the first alien in the list to the center of the map
+Accepted options when using alien.set:
+
+|option|value|
+|-|-|
+|x|X coordinate|
+|y|Y coordinate|
+|vx|Velocity vector X component|
+|vy|Velocity vector Y component|
+|size|Asteroid size in the range [1,100] ; note that changing asteroid size resets its life points|
+|kill|Set ```kill: true``` to destroy the asteroid|
 
 # Aliens
 
@@ -155,6 +173,7 @@ Accepted options when using alien.set:
 |damage|Laser damage|
 |laser_speed|Laser speed|
 |rate|Firing rate|
+|kill|Set ```kill: true``` to destroy the alien|
 
 # Ships
 You can access to the list of ships (players) through the array game.ships
@@ -167,9 +186,17 @@ You have read access to the ship’s main fields and options:
 |ship.vx|Velocity vector X component|
 |ship.vy|Velocity vector Y component|
 |ship.r|Rotation angle of the ship|
+|ship.name|player's name|
 |ship.alive|Whether the ship is alive or destroyed|
 |ship.type|Ship type code (e.g. 101)|
 |ship.stats|Ship current stats upgrades, compiled into a single integer. Example: 10012301 means the 8 stats upgrade levels are 1,0,0,1,2,3,0 and 1|
+|ship.idle|tells if the ship is in idle status or not|
+|ship.team|the id of the team this ship is in|
+|ship.score|player's score|
+|ship.shield|current shield value|
+|ship.generator|current generator value|
+|ship.crystals|current crystals value|
+|ship.healing|whether the ship's lasers are in healing mode or not|
 
 You can set different options on the ships.
 Example:
@@ -190,6 +217,14 @@ Accepted options when using ship.set:
 |vy|Velocity vector Y component|
 |invulnerable|Use to set the ship invulnerable for X ticks (e.g. 60 for one second invulnerability)|
 |type|changes the type of ship (use the ship code, e.g. {type:403} )|
+|angle|changes the direction the ship is facing|
+|score|sets player's score|
+|idle|set to true to force the ship to stay idle (and false to revert)|
+|generator|sets the value of the generator|
+|healing|sets ship's lasers mode to healing (true or false)|
+|stats|sets the stats upgrades of the ship|
+|kill|Set ```kill: true``` to destroy the ship|
+
 
 You can send the ship to intermission (a screen with results, offering to respawn). This screen allows you to display custom results information:
 
