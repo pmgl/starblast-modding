@@ -1,0 +1,69 @@
+return model =
+  name: 'Asteroids Ship'
+  level: 1
+  model: 1
+  size: 1
+  specs:
+    shield:
+      capacity: [1,1]
+      reload: [1,1]
+    generator:
+      capacity: [40,60]
+      reload: [10,15]
+    ship:
+      mass: 60
+      speed: [200,200]
+      rotation: [110,130]
+      acceleration: [30,30]
+  bodies:
+    deco:
+      section_segments: 6
+      offset:
+        x: 30
+        y: 60
+        z: 0
+      position:
+        x: [0,0,0]
+        y: [-80,5,40]
+        z: [0,0,0,0]
+      width: [0,15,0]
+      height: [0,30,0]
+      angle: 0
+      propeller: false
+      texture: [3,3]
+    cannon:
+      section_segments: 6
+      offset:
+        x: 0
+        y: -15
+        z: -25
+      position:
+        x: [0,0,0,0,0,0,0]
+        y: [-40,-50,-20,0,90,110,100]
+        z: [0,0,0,0,0,0,0]
+      width: [0,5,8,11,40,30,0]
+      height: [0,5,8,11,10,9,0]
+      angle: 0
+      laser:
+        damage: [5,6]
+        rate: 4
+        type: 1
+        speed: [160,180]
+        number: 1
+        error: 2.5
+      propeller: true
+      texture: [3,3,10,3,12,17]
+  wings: main:
+    length: [60,20]
+    width: [180,50,40]
+    angle: [0,0]
+    position: [0,60,90]
+    doubleside: true
+    offset:
+      x: 0
+      y: 10
+      z: 0
+    bump:
+      position: 20
+      size: 20
+    texture: [1,63]
