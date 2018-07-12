@@ -362,6 +362,15 @@ var checkShip = function(ship) {
     }
     else
     {
+      if (checkpoint_times[ship.custom.checkpoint_count] == null)
+      {
+        checkpoint_times[ship.custom.checkpoint_count] = ship.game.step/60 ;
+        ship.custom.checkpoint_delta = 0 ;
+      }
+      else
+      {
+        ship.custom.checkpoint_delta = Math.round(ship.game.step/60-checkpoint_times[ship.custom.checkpoint_count]) ;
+      }
       ship.custom.checkpoint_count++ ;
       ship.custom.checkpoint_time = ship.game.step/60/3600 ;
     }
@@ -427,6 +436,7 @@ createCheckPoint = function() {
 }
 
 var extra_bit = 0 ;
+var checkpoint_times = [] ;
 
 var checkCheckPoint = function(ship,checkpoint) {
   var vx = Math.cos(checkpoint.direction);
@@ -487,6 +497,7 @@ var updateScoreboard = function(game) {
   }
 
   var score = 10 ;
+  var delta = 0 ;
 
   for (var i=0;i<game.ships.length;i++)
   {
@@ -507,8 +518,16 @@ var updateScoreboard = function(game) {
     var ship = game.ships[i];
     if (game.custom.status != "qualification")
     {
-      scoreboard.components.push({ type: "text", position: [0,line*10+1,14,8],color: "#FFF",align:"right",value:line+"."});
+      if (game.custom.status != "race_end" || ship.custom.lap_count>race_laps)
+      {
+        scoreboard.components.push({ type: "text", position: [0,line*10+1,14,8],color: "#FFF",align:"right",value:line+"."});
+      }
       scoreboard.components.push({ type: "player",id: ship.id, position: [15,line*10+1.5,85,7],color: "#FFF",align:"left"});
+      if (ship.custom.checkpoint_delta != null && ship.custom.checkpoint_delta>delta)
+      {
+        delta = ship.custom.checkpoint_delta ;
+        scoreboard.components.push({ type: "text",position: [80,line*10+1,18,8],color: "#FFF",value: "+"+delta+"''",align:"right"});
+      }
     }
     else
     {
@@ -663,7 +682,7 @@ var manageGame = function(game,second) {
       {
         race_info.components[0].value = "Next Race!";
         race_info.visible = true ;
-        ship.setUIComponent(race_info);
+        game.setUIComponent(race_info);
       }
       if (t == 0)
       {
@@ -714,6 +733,7 @@ var createStartingGrid = function(game) {
     ship.custom.checkpoint_count = 0 ;
     ship.custom.checkpoint_time = 0 ;
     ship.custom.lap_start = null ;
+    ship.custom.checkpoint_delta = 0 ;
     if (i%2 ==0)
     {
       ship.set({x:x,y:-115,vx:0,vy:0,idle:true,angle:0,generator:200}) ;
@@ -736,7 +756,9 @@ var startRace = function(game) {
     ship.custom.checkpoint_count = 0 ;
     ship.custom.checkpoint_time = 0 ;
     ship.custom.lap_start = null ;
+    ship.custom.checkpoint_delta = 0 ;
   }
+  checkpoint_times = [] ;
 }
 
 this.tick = function(game) {
