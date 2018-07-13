@@ -102,6 +102,7 @@ Example:
 ```
 
 Will move the first asteroid in the list to the center of the map
+
 Accepted options when using asteroid.set:
 
 |option|value|
