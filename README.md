@@ -224,6 +224,8 @@ Accepted options when using ship.set:
 |healing|sets ship's lasers mode to healing (true or false)|
 |stats|sets the stats upgrades of the ship|
 |kill|Set ```kill: true``` to destroy the ship|
+|team|Sets the team this ship belongs to (in range [0..2] when 3 teams for example)|
+|hue|Sets the color of the ship (range [0..359])![Hue map](https://i.stack.imgur.com/YOBFy.png)|
 
 
 You can send the ship to intermission (a screen with results, offering to respawn). This screen allows you to display custom results information:
