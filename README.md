@@ -101,8 +101,9 @@ Example:
 > █
 ```
 
-Will move the first alien in the list to the center of the map
-Accepted options when using alien.set:
+Will move the first asteroid in the list to the center of the map
+
+Accepted options when using asteroid.set:
 
 |option|value|
 |-|-|
