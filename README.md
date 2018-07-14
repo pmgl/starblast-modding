@@ -160,6 +160,7 @@ Example:
 ```
 
 Will move the first alien in the list to the center of the map
+
 Accepted options when using alien.set:
 
 |option|value|
@@ -177,6 +178,7 @@ Accepted options when using alien.set:
 
 # Ships
 You can access to the list of ships (players) through the array game.ships
+
 You have read access to the ship’s main fields and options:
 
 |field|value|
@@ -207,6 +209,7 @@ Example:
 ```
 
 Will move the first ship in the list to the center of the map
+
 Accepted options when using ship.set:
 
 |option|value|
