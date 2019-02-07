@@ -89,7 +89,7 @@ Accepted options:
 |y|Y coordinate|
 |vx|Velocity vector X component|
 |vy|Velocity vector Y component|
-|size|Size of the asteroid in the range [1,100]|
+|size|Size of the asteroid in the range [1-100]|
 
 A new ```Asteroid``` object is immediately added to ```game.asteroids``` ; however it cannot be used before it has been assigned an id (positive integer) by the server.
 
@@ -101,8 +101,9 @@ Example:
 > █
 ```
 
-Will move the first alien in the list to the center of the map
-Accepted options when using alien.set:
+Will move the first asteroid in the list to the center of the map
+
+Accepted options when using asteroid.set:
 
 |option|value|
 |-|-|
@@ -110,7 +111,7 @@ Accepted options when using alien.set:
 |y|Y coordinate|
 |vx|Velocity vector X component|
 |vy|Velocity vector Y component|
-|size|Asteroid size in the range [1,100] ; note that changing asteroid size resets its life points|
+|size|Asteroid size in the range [1-100] ; note that changing asteroid size resets its life points|
 |kill|Set ```kill: true``` to destroy the asteroid|
 
 # Aliens
@@ -160,6 +161,7 @@ Example:
 ```
 
 Will move the first alien in the list to the center of the map
+
 Accepted options when using alien.set:
 
 |option|value|
@@ -177,6 +179,7 @@ Accepted options when using alien.set:
 
 # Ships
 You can access to the list of ships (players) through the array game.ships
+
 You have read access to the ship’s main fields and options:
 
 |field|value|
@@ -207,6 +210,7 @@ Example:
 ```
 
 Will move the first ship in the list to the center of the map
+
 Accepted options when using ship.set:
 
 |option|value|
@@ -224,8 +228,8 @@ Accepted options when using ship.set:
 |healing|sets ship's lasers mode to healing (true or false)|
 |stats|sets the stats upgrades of the ship|
 |kill|Set ```kill: true``` to destroy the ship|
-|team|Changes the team this ship belongs to (in range [0..2] when 3 teams for example)|
-|hue|Sets the color of the ship (range [0..359])![Hue map](https://i.stack.imgur.com/YOBFy.png)|
+|team|Changes the team this ship belongs to (in range [0-X] where X is teams - 1)|
+|hue|Sets the color of the ship (range [0-359])![Hue map](https://i.stack.imgur.com/YOBFy.png)|
 
 
 You can send the ship to intermission (a screen with results, offering to respawn). This screen allows you to display custom results information:
@@ -560,7 +564,7 @@ Most of the options are inherited from the usual custom games. A few more option
 |friction_ratio|0 to 2
 |speed_mod|0 to 2
 |rcs_toggle|true or false
-|map_id|Number in the range 0-9999
+|map_id|Number in the range [0-9999]
 |weapon_drop|0 to 1 (probability that an asteroid will drop a weapon)
 |mines_self_destroy|true or false
 |mines_destroy_delay|In minutes
