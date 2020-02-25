@@ -7,7 +7,7 @@ Starblast Modding interface allows you to create custom mods for Starblast. The 
 #### Creating your first mod
 In the Mod Code window, type the code for your first mod:
 
-```
+```js
 this.options = {
   root_mode: "survival",
   map_size: 30
@@ -57,7 +57,7 @@ Mod stopped
 
 You can import ships made with Starblast Ship Editor. In the Ship Editor, use "Mod Export" feature to export a JavaScript code snippet for the modding interface. Then paste this snipped in the coding window and add this:
 
-```
+```js
 var myship_101 = "{ … … <this is your exported ship code> …";
 
 var ships = [myship_101]; // add your ship to an array of ship
@@ -250,7 +250,7 @@ You can also trigger the gameover screen for any given ship. Here again, you can
 You can create a custom map of asteroids. This allows creating a maze for example. The custom map you provide is actually a JavaScript character string which is used to "paint" the map.
 
 Example:
-```
+```js
 var map =
 "999999999999999999999999999999\n"+
 "99                          99\n"+
@@ -295,7 +295,7 @@ In the example above, 9 sets the biggest size of asteroid. You can use smaller v
 # Collectibles
 You can spawn collectible weapons in the playfield. Here is an example:
 ```
-game.addCollectible({code:10,x:0,y:0});
+> game.addCollectible({code:10,x:0,y:0});
 ```
 This will add a new collectible pack of rockets to coordinates 0,0
 Here is the list of supported codes:
@@ -348,17 +348,17 @@ The mod can create custom UI components that will show up on the player’s scre
 Example:
 ```
 > ship.setUIComponent({
-  id:"myid",
-  position:[0,0,25,25],
-  clickable: true,
-  shortcut: "X",
-  visible: true,
-  components: [
-    { type:"box",position:[0,0,100,100],fill:"#456",stroke:"#CDE",width:2},
-    { type: "text",position: [0,0,100,50],color: "#FFF",value: "My Text"},
-    { type: "player",id: 1, position: [0,0,50,50],color: "#FFF"},
-  ]
-})
+    id:"myid",
+    position:[0,0,25,25],
+    clickable: true,
+    shortcut: "X",
+    visible: true,
+    components: [
+      { type:"box",position:[0,0,100,100],fill:"#456",stroke:"#CDE",width:2},
+      { type: "text",position: [0,0,100,50],color: "#FFF",value: "My Text"},
+      { type: "player",id: 1, position: [0,0,50,50],color: "#FFF"},
+    ]
+  })
 > █
 ```
 
@@ -376,7 +376,7 @@ Example:
 The example below creates a warp button for every player, which can be clicked and results in the ship warping to another random location, also adding 3 seconds invulnerability to it:
 
 Full example: https://github.com/pmgl/starblast-modding/blob/master/examples/warp_button.js
-```
+```js
 var warp_button = {
   id: "warp",
   position: [2,50,8,14],
@@ -433,7 +433,7 @@ The built-in scoreboard can be replaced by your own custom scoreboard component.
 The vocabulary used for the emote-chat system can be customized by setting the field ```vocabulary``` in the game option
 as follows:
 
-```
+```js
 var vocabulary = [
       { text: "Hello", icon:"\u0045", key:"O" },
       { text: "Bye", icon:"\u0046", key:"B" },
@@ -463,7 +463,7 @@ The mod can create custom, textured 3D objects and add them to the scenery. Thes
 no physics for now (physics is planned in a near future).
 
 Example:
-```
+```js
 var cube = {
   id: "cube",
   obj: "https://raw.githubusercontent.com/pmgl/starblast-modding/master/objects/cube/cube.obj",
@@ -512,9 +512,8 @@ Use ```game.setObject``` again with the same object instance id.
 Working example, adding cube objects to the scenery: https://github.com/pmgl/starblast-modding/blob/master/examples/adding_cube.js
 
 # Events
-Your mod can receive events through the function this.events.
-
-```
+Your mod can receive events through the function `this.event`:
+```js
 this.event = function(event,game) {
   switch (event.name)
   {
