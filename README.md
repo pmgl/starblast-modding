@@ -512,8 +512,7 @@ Use ```game.setObject``` again with the same object instance id.
 Working example, adding cube objects to the scenery: https://github.com/pmgl/starblast-modding/blob/master/examples/adding_cube.js
 
 # Events
-Your mod can receive events through the function this.events.
-
+Your mod can receive events through the function `this.event`:
 ```js
 this.event = function(event,game) {
   switch (event.name)
