@@ -58,7 +58,7 @@ Mod stopped
 You can import ships made with Starblast Ship Editor. In the Ship Editor, use "Mod Export" feature to export a JavaScript code snippet for the modding interface. Then paste this snipped in the coding window and add this:
 
 ```js
-var myship_101 = '{ … … <this is your exported ship code> … … };';
+var myship_101 = '{ … … <this is your exported ship code> … … }';
 
 var ships = [myship_101]; // add your ship to an array of ship
 
