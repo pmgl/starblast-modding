@@ -97,7 +97,7 @@ Once an asteroid is live and has an assigned id, you can set options to it.
 Example:
 
 ```
-> game.asteroids[0].set({size:100});
+> game.asteroids[0].set({x:0,y:0});
 > █
 ```
 
@@ -297,7 +297,7 @@ You can spawn collectible weapons in the playfield. Here is an example:
 ```
 > game.addCollectible({code:10,x:0,y:0});
 ```
-This will add a new collectible pack of rockets to coordinates 0,0
+This will add a new collectible pack of rockets to coordinates (0;0)
 Here is the list of supported codes:
 
 |code|description|
@@ -547,7 +547,7 @@ Most of the options are inherited from the usual custom games. A few more option
 |reset_tree|Set to true to remove the original ship tree|
 |ships|An array of ships to add to the tree|
 |map_size|Size of the map, range from 20 to 200|
-|soundtrack|"procedurality.mp3", "argon.mp3" or "crystals.mp3"|
+|soundtrack|"procedurality.mp3", "argon.mp3", "crystals.mp3", "red_mist.mp3", "civilisation.mp3" (or unspecified)|
 |max_players|From 1 to 120|
 |crystal_value|Float, from 0 to 5|
 |lives|Number of lives, from 1 to 5|
