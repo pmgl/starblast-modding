@@ -2,6 +2,89 @@
 
 **Note:** This is the GitHub version of the Official Documentation.
 Official version: https://starblastio.gamepedia.com/Modding_Tutorial
+<details>
+  <summary markdown="span">Contents</summary>
+
+1.  **[Information](#information)**
+1.  **[Documentation and Tutorial](#documentation-and-tutorial)**
+    1.  **[Creating your first mod](#creating-your-first-mod)**
+    1.  **[Running and testing a mod](#running-and-testing-a-mod)**
+        1.  **[Change region](#change-region)**
+        1.  **[Start mod](#start-mod)**
+        1.  **[Test the mod](#test-the-mod)**
+        1.  **[ALWAYS keep the Mod Editor Tab being active while running the mod!](#always-keep-the-mod-editor-tab-being-active-while-running-the-mod)**
+        1.  **[Stop the currently running mod](#stop-the-currently-running-mod)**
+        1.  **[Other terminal commands](#other-terminal-commands)**
+            1.  **[echo](#echo)**
+            1.  **[clear](#clear)**
+            1.  **[help](#help)**
+    1.  **[Main code parts](#main-code-parts)**
+        1.  **[Options](#options)**
+            1.  **[Definition](#definition)**
+            1.  **[Custom ships and custom tree](#custom-ships-and-custom-tree)**
+            1.  **[Customizing the emote-chat system](#customizing-the-emote-chat-system)**
+            1.  **[Custom asteroids maps](#custom-asteroids-maps)**
+            1.  **[Survival mode specific options](#survival-mode-specific-options)**
+            1.  **[Team mode specific options](#team-mode-specific-options)**
+            1.  **[Deatmatch mode specific options](#deatmatch-mode-specific-options)**
+        1.  **[Ticking](#ticking)**
+            1.  **[Definition](#definition-1)**
+        1.  **[Events](#events)**
+            1.  **[General](#general)**
+            1.  **[Available events](#available-events)**
+    1.  **[Game step](#game-step)**
+        1.  **[Definition](#definition-2)**
+        1.  **[Unit](#unit)**
+        1.  **[Uses](#uses)**
+    1. **[Ships](#ships)**
+        1.  **[Accessible fields](#accessible-fields)**
+        1.  **[Configuration](#configuration)**
+        1.  **[Instructor](#instructor)**
+            1.  **[Calling instructor](#calling-instructor)**
+            1.  **[Available characters](#available-characters)**
+        1.  **[Custom UI components](#custom-ui-components)**
+            1.  **[General](#general-1)**
+            1.  **[Subcomponents' accepted options](#subcomponents-accepted-options)**
+            1.  **[Combining with events](#combining-with-events)**
+            1.  **[Customizing the scoreboard or radar](#customizing-the-scoreboard-or-radar)**
+            1.  **[Global UI](#global-ui)**
+        1.  **[Other methods and instances](#other-methods-and-instances)**
+            1.  **[Remove all ship's secondary slots](#remove-all-ships-secondary-slots)**
+    1.  **[Aliens](#aliens)**
+        1.  **[Creation](#creation)**
+        1.  **[Configuration](#configuration-1)**
+    1.  **[Collectibles](#collectibles)**
+        1.  **[Creation](#creation-1)**
+        1.  **[Accessing](#accessing)**
+    1.  **[Asteroids](#asteroids)**
+        1.  **[Creation](#creation-2)**
+        1.  **[Configuration](#configuration-2)**
+    1.  **[Add 3D objects to the scenery](#add-3d-objects-to-the-scenery)**
+        1.  **[Object type options](#object-type-options)**
+        1.  **[Object instance options](#object-instance-options)**
+        1.  **[Accessing](#accessing-1)**
+        1.  **[Changing or moving an object](#changing-or-moving-an-object)**
+        1.  **[Removing an object](#removing-an-object)**
+        1.  **[Example](#example)**
+    1.  **[Reading game's detailed options](#reading-games-detailed-options)**
+        1.  **[Accessing](#accessing-2)**
+        1.  **[Accessible fields](#accessible-fields-1)**
+        1.  **[Team mode specific accessible fields](#team-mode-specific-accessible-fields)**
+    1.  **[Assigning custom properties to some entities/objects](#assigning-custom-properties-to-some-entitiesobjects)**
+        1.  **[Accessing and assigning](#accessing-and-assigning)**
+        1.  **[Supported objects/entities](#supported-objectsentities)**
+        1.  **[Example](#example-1)**
+    1.  **[Other game instances and methods](#other-game-instances-and-methods)**
+        1.  **[Set custom maps in-game](#set-custom-maps-in-game)**
+        1.  **[Lock/unlock the mod from attracting new players](#lockunlock-the-mod-from-attracting-new-players)**
+    1.  **[Common problems and how to fix them](#common-problems-and-how-to-fix-them)**
+        1.  **[Black screen issue](#black-screen-issue)**
+        1.  **[My mod closed accidentally but the game is not stopped](#my-mod-closed-accidentally-but-the-game-is-not-stopped)**
+1.  **[Community resources](#community-resources)**
+    1.  **[Tutorial and Documentation](#tutorial-and-documentation)**
+    1.  **[Tools](#tools)**
+    1.  **[Code resources](#code-resources)**
+</details>
 
 ## Information
 ![Standard Modding Interface, you can see the minimap of the mod in the bottom right corner while the mod is running](https://raw.githubusercontent.com/Bhpsngum/img-src/master/ModdingInterface.png)
