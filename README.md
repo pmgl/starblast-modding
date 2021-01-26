@@ -1,6 +1,7 @@
 # Starblast Modding
 
 **Note:** This is the GitHub version of the Official Documentation.
+
 Official version: https://starblastio.gamepedia.com/Modding_Tutorial
 <details>
   <summary markdown="span">Contents</summary>
