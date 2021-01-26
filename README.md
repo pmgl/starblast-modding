@@ -672,7 +672,7 @@ game.setObject({
 
 #### Object type options
 | Option | Description |
-| - | - | - |
+| - | - |
 | id | a unique identifier for this object type, mandatory |
 | obj | a URL (HTTPS) to the OBJ file |
 | type | Object instance options, see the section below for more details |
@@ -717,10 +717,7 @@ This includes all properties defined in [`this.options`](#options), plus some ex
 #### Team mode specific accessible fields
 | Field | Description |
 | - | - |
-| teams | an array represent teams' most basic info<br>each item in the array contains:
-`base_name`: name of the base<br>
-`faction`: faction name<br>
-`hue`: team hue |
+| teams | an array represent teams' most basic info<br>each item in the array contains:<br>`base_name`: name of the base<br>`faction`: faction name<br>`hue`: team hue |
 | crystal_capacity | an array presenting the capacity of the stations in the increasing level order |
 | deposit_shield<br>spawning_shield<br>structure_shield | an array presenting the the stations' deposits/spawnings/small structures shield in the increasing level order |
 | deposit_regen<br>spawning_regen<br>structure_regen | an array presenting the the stations' deposits/spawnings/small structures regeneration in the increasing level order |
@@ -748,7 +745,7 @@ game.asteroids[0].custom = {init: true} // asteroid entity
 #### Set custom maps in-game
 You can use `game.setCustomMap(<map pattern>)` to set custom map while the game is running
 
-where <map pattern> has the same format as [the custom map in `this.options`]](#custom-asteroids-maps)
+where <map pattern> has the same format as [the custom map in `this.options`](#custom-asteroids-maps)
 
 #### Lock/unlock the mod from attracting new players
 Use `game.setOpen(true/false)` to lock/unlock the mod to be visible to players (only for [Modding Space](https://starblastio.gamepedia.com/Modding_Space) mods)
