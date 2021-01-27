@@ -2,7 +2,7 @@
 
 **Note:** This is the GitHub version of the Official Documentation.
 
-Official version: https://starblastio.gamepedia.com/Modding_Tutorial
+Official version can be found here: https://starblastio.gamepedia.com/Modding_Tutorial
 <details>
   <summary markdown="span">Contents</summary>
 
@@ -307,6 +307,7 @@ Most of the options are inherited from the usual custom games. A few more option
 | starting_ship_maxed | true or false | false |
 | asteroids_strength | 0 to 10 | 5 (deathmatch)<br>0.5 (Battle Royale)<br>1 (others) |
 | friction_ratio | 0 to 2 | 1 |
+| strafe | strafing speed factor, an integer from 0 to 1 | 0 |
 | speed_mod | 0 to 2 | 1.25 (deathmatch)<br>1.2 (survival and team)<br>1 (others) |
 | rcs_toggle | true or false | true |
 | map_id | Number in the range [0-9999] | Game id |
@@ -347,7 +348,7 @@ Most of the options are inherited from the usual custom games. A few more option
 ##### Deatmatch mode specific options
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
-| ship_groups | an array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblastio.gamepedia.com/Deathmatch) for a list of default ship groups |
+| ship_groups | an array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblastio.gamepedia.com/Deathmatch) for a list of default ship groups<br>**Note:** The mod won't run if `reset_tree` option is set to true |
 
 Example:
 ```js
@@ -798,6 +799,7 @@ This includes all properties defined in [`this.options`](#options), plus some ex
 | Field | Description |
 | - | - |
 | bouncing_lasers | if bouncing lasers is enabled or not |
+| max_tier_lives | number of lives when players reaches ships with the highest level (defined in `max_level` option) |
 #### Team mode specific accessible fields
 | Field | Description |
 | - | - |
