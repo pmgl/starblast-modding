@@ -799,7 +799,7 @@ This includes all properties defined in [`this.options`](#options), plus some ex
 | Field | Description |
 | - | - |
 | bouncing_lasers | if bouncing lasers is enabled or not |
-| max_tier_lives | number of lives when players reaches ships with the highest level (defined in `max_level` option) |
+| max_tier_lives | number of lives when player reaches ships with the highest level (defined in `max_level` option) |
 #### Team mode specific accessible fields
 | Field | Description |
 | - | - |
