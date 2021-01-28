@@ -8,6 +8,7 @@ Official version can be found here: https://starblastio.gamepedia.com/Modding_Tu
 
 1.  **[Information](#information)**
 1.  **[Documentation and Tutorial](#documentation-and-tutorial)**
+    1.  **[Important Notes](#important-notes)**
     1.  **[Creating your first mod](#creating-your-first-mod)**
     1.  **[Running and testing a mod](#running-and-testing-a-mod)**
         1.  **[Change region](#change-region)**
