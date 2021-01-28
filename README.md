@@ -102,7 +102,10 @@ Starblast Modding interface allows you to create custom mods for Starblast. The 
 Main programming language uses in this interface is [JavaScript (ECMAScript)](https://www.w3schools.com/js/DEFAULT.asp)
 
 ## Documentation and Tutorial
-**NB:** Make sure to read all of these from the start to the end so that you won't miss any important info!
+### Important Notes
+In newer version of browsers' updates, you can't use the Modding Client in incognito mode anymore as they restrict some incognito features which are used by the editor.
+
+And make sure to read all of these from the start to the end so that you won't miss any important info!
 
 ### Creating your first mod
 In the Mod Code window, type the code for your first mod:
