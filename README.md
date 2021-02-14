@@ -3,6 +3,14 @@
 **Note:** This is the GitHub version of the Official Documentation.
 
 Official version can be found here: https://starblastio.gamepedia.com/Modding_Tutorial
+
+<details>
+  <summary markdown="span">Other languages</summary>
+
+1.  **[French (Français)](README_FR.md)**
+
+</details>
+
 <details>
   <summary markdown="span">Contents</summary>
 
@@ -26,6 +34,7 @@ Official version can be found here: https://starblastio.gamepedia.com/Modding_Tu
             1.  **[Custom ships and custom tree](#custom-ships-and-custom-tree)**
             1.  **[Customizing the emote-chat system](#customizing-the-emote-chat-system)**
             1.  **[Custom asteroids maps](#custom-asteroids-maps)**
+            1.  **[Other common options](#other-common-options)**
             1.  **[Survival mode specific options](#survival-mode-specific-options)**
             1.  **[Team mode specific options](#team-mode-specific-options)**
             1.  **[Deatmatch mode specific options](#deatmatch-mode-specific-options)**
@@ -299,36 +308,37 @@ Most of the options are inherited from the usual custom games. A few more option
 | reset_tree | Set to true to remove the original ship tree | false |
 | ships | An array of ships to add to the tree | None |
 | map_size | Size of the map, range from 20 to 200 | 100 (survival)<br>80 (team and Battle Royale)<br>60 (unspecified)<br>30 (Invasion)<br>20 (deathmatch) |
-| soundtrack |"procedurality.mp3", "argon.mp3", "crystals.mp3", "red_mist.mp3, "civilisation.mp3" or "warp_drive.mp3" | None |
+| soundtrack | "procedurality.mp3", "argon.mp3", "crystals.mp3", "red_mist.mp3, "civilisation.mp3" or "warp_drive.mp3" or none (empty string) | "crystals.mp3" (invasion and Batte Royale)<br>"argon.mp3" (deathmatch)<br>"procedurality.mp3" (others) |
 | max_players | From 1 to 240 | 70 (team)<br>60 (survival)<br>40 (unspecified)<br>30 (Battle Royale)<br>20 (deathmatch)<br>6 (invasion) |
 | crystal_value | Float, from 0 to 10 | 2 (team)<br>0 (deathmatch and Battle Royale)<br>1 (others) |
 | lives | Number of lives, from 1 to 5 | 4 (team)<br>1 (deathmatch and Battle Royale)<br> 3 (others) |
 | max_level | Max level you can reach, from 1 to 7 | 7 |
-| friendly_colors | Serves to define teams; how many teams (or 0) | 3 (team)<br>1 (invasion)<br>0 (others) |
+| friendly_colors | Serves to define teams; how many teams (or 0, maximum 5) | 3 (team)<br>1 (invasion)<br>0 (others) |
 | map_name | Name of the map | Auto-generated name |
-| survival_level | Level which triggers survival mode (8 for no trigger) | 7 (survival)<br>8 (others) |
+| survival_level | Level which triggers survival mode (8 for no trigger, 2 minimum) | 7 (survival)<br>8 (others) |
 | starting_ship | Enter desired ship code: 101, 201, 404, etc. | 101 |
 | starting_ship_maxed | true or false | false |
-| asteroids_strength | 0 to 10 | 5 (deathmatch)<br>0.5 (Battle Royale)<br>1 (others) |
+| asteroids_strength | 0 to 1000000 | 5 (deathmatch)<br>0.5 (Battle Royale)<br>1 (others) |
 | friction_ratio | 0 to 2 | 1 |
 | strafe | strafing speed factor, an integer from 0 to 1 | 0 |
 | speed_mod | 0 to 2 | 1.25 (deathmatch)<br>1.2 (survival and team)<br>1 (others) |
 | rcs_toggle | true or false | true |
 | map_id | Number in the range [0-9999] | Game id |
-| map_density | Density of the map | None |
-| weapon_drop | 0 to 1 (probability that an asteroid will drop a weapon) | 0 |
+| map_density | Density of the map (0 to 2) | None |
+| weapon_drop | 0 to 10 (probability that an asteroid will drop a weapon) | 0 |
 | crystal_drop | percentage of gems can be collected when a ship drain gems | 0.5 (deathmatch)<br>1 (others) |
 | release_crystal | true/false for allowing/forbidding `[V]` to release gems | true (team)<br>false (others) |
 | mines_self_destroy | true or false | true |
-| mines_destroy_delay | all landed mines will be destroyed after this interval if no enemies triggered the mines (in [ticks](#unit)) | 3600 (Battle Royale)<br>18000 (others) |
+| mines_destroy_delay | all landed mines will be destroyed after this interval if no enemies triggered the mines (in [ticks](#unit))<br>minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup> | 3600 (Battle Royale)<br>18000 (others) |
 | healing_enabled | true or false | true (team)<br>false(others) |
-| healing_ratio | 0 to 2 | 1 |
-| shield_regen_factor | 0 to 2 | 1 |
-| power_regen_factor | 0 to 2 | 1 |
+| healing_ratio (not settable) | 0 to 2 | 1 |
+| shield_regen_factor | minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup>) | 1 |
+| power_regen_factor | minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup>) | 1 |
+| invulnerable_ships | Ships are invulnerable or not (true/false) | false |
 | weapons_store | Set to false to remove access to the weapon store | true |
 | radar_zoom | Set value to 1, 2 or 4 | 2 |
 | auto_refill | When set to true, collecting an energy or shield pill immediately refills energy or shield ; the collected pill is not added to the active weapons | false |
-| projectile_speed | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed | 1 |
+| projectile_speed | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup>) | 1 |
 | choose_ship | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
 | collider | enable/disable (true/false) collisions of player ships with anything | true |
 
