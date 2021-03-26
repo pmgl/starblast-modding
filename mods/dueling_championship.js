@@ -2,7 +2,7 @@
 STARBLAST DUELING CHAMPIONSHIP (SDC)
 * Mod Founder: Lexagon and Thuliux (Eggsagon)
 * Mod Developer: Bhpsngum
-* Shipbuilders: Lexagon, Thuliux (Eggsagon), Nova and Neuronality
+* Shipbuilders: Lexagon, Thuliux (Eggsagon), Nova, SChickenMan and Neuronality
 
 Season 2 - Main version
 
