@@ -308,7 +308,7 @@ Most of the options are inherited from the usual custom games. A few more option
 | reset_tree | Set to true to remove the original ship tree | false |
 | ships | An array of ships to add to the tree | None |
 | map_size | Size of the map, range from 20 to 200 | 100 (survival)<br>80 (team and Battle Royale)<br>60 (unspecified)<br>30 (Invasion)<br>20 (deathmatch) |
-| soundtrack | "procedurality.mp3", "argon.mp3", "crystals.mp3", "red_mist.mp3, "civilisation.mp3" or "warp_drive.mp3" or none (empty string) | "crystals.mp3" (invasion and Batte Royale)<br>"argon.mp3" (deathmatch)<br>"procedurality.mp3" (others) |
+| soundtrack | "procedurality.mp3", "argon.mp3", "crystals.mp3", "red_mist.mp3", "civilisation.mp3" or "warp_drive.mp3" or none (empty string) | "crystals.mp3" (invasion and Batte Royale)<br>"argon.mp3" (deathmatch)<br>"procedurality.mp3" (others) |
 | max_players | From 1 to 240 | 70 (team)<br>60 (survival)<br>40 (unspecified)<br>30 (Battle Royale)<br>20 (deathmatch)<br>6 (invasion) |
 | crystal_value | Float, from 0 to 10 | 2 (team)<br>0 (deathmatch and Battle Royale)<br>1 (others) |
 | lives | Number of lives, from 1 to 5 | 4 (team)<br>1 (deathmatch and Battle Royale)<br> 3 (others) |
