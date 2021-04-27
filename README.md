@@ -725,6 +725,7 @@ Working example, adding cube objects to the scenery: https://github.com/pmgl/sta
 Once the mod starts running, all detailed options will be passed into the `game.options` object
 #### Accessible fields
 This includes all properties defined in [`this.options`](#options), plus some extended fields listed below (except if they are not defined):
+
 | Field | Description |
 | - | - |
 | bouncing_lasers | if bouncing lasers is enabled or not |
