@@ -207,6 +207,7 @@ You can use [Online Map Editor](https://bhpsngum.github.io/starblast/mapeditor/)
 
 ##### Other common options
 Most of the options are inherited from the usual custom games. A few more options have been added, specifically for modding (top of the list):
+
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
 | root_mode | The mod to inherit from: "survival", "team", "invasion", "deathmatch", "battleroyale" (or unspecified) | Unspecified |
@@ -331,6 +332,7 @@ You can access to the list of ships (players) through the array `game.ships`
 You can also find a ship with specific id using `game.findShip(id)`, which returns an object represent the matched ship or `null` (if there are no ships matching the provided id)
 #### Accessible fields
 You have read access to the ship’s main fields and options:
+
 | Field | Description |
 | - | - |
 | x | X coordinate |
@@ -359,6 +361,7 @@ You can set different options on the ships. For example:
 Will move the first ship in the list to the center of the map
 
 List of accepted options when using `ship.set`:
+
 | Option | Description | Server response error message<br>(if improper) |
 | - | - | - |
 | x | X coordinate | Wrong coordinate |
@@ -439,6 +442,7 @@ For example:
 > █
 ```
 Here is the list of UIComponent's accepted options:
+
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
 | id | a unique identifier for this component, mandatory | None |
@@ -535,6 +539,7 @@ To create an alien, use `game.addAlien({ options })`
 List of accepted options:
 
 (Note: Server will response with `Incorrect data` when at least one input property value is improper)
+
 | Option | Description | Default value (if omitted) |
 | - | - | - |
 | x | X coordinate | 0 |
@@ -548,6 +553,7 @@ List of accepted options:
 | weapon_drop | The code of a collectible weapon to be dropped by this alien when killed | None |
 
 Here is the list of supported codes:
+
 | Code | Alien name |
 | - | - |
 | 10 | Chicken |
@@ -572,6 +578,7 @@ Once an alien is live and has an assigned id, you can set options to it. For exa
 Will move the first alien in the list to the center of the map
 
 Accepted options when using `alien.set`:
+
 | Option | Description | Server response error message<br>(if improper) |
 | - | - | - |
 | x | X coordinate | Wrong coordinate |
@@ -600,6 +607,7 @@ This will add a new collectible pack of rockets to coordinates (0;0)
 Here is the list of supported codes:
 
 (Note: Server will response with `Incorrect data` when at least one input property value is improper)
+
 | Code | Description |
 | - | - |
 | 10 | 4 rockets pack |
@@ -626,6 +634,7 @@ To create an asteroid, use `game.addAsteroid({ options })`.
 Here is the list of accepted options:
 
 (Note: Server will response with `Incorrect data` when at least one input property value is improper)
+
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
 | x | X coordinate | 0 |
@@ -644,6 +653,7 @@ Once an asteroid is live and has an assigned id, you can set options to it. For 
 Will move the first asteroid in the list to the center of the map
 
 List of accepted options when using `asteroid.set`:
+
 | Option | Description | Server response error message<br>(if improper) |
 | - | - | - |
 | x | X coordinate | Wrong coordinate |
