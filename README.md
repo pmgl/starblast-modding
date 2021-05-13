@@ -380,6 +380,7 @@ List of accepted options when using `ship.set`:
 | stats | sets the stats upgrades of the ship | None |
 | kill | Set `kill: (any "truthy" value, e.g: true)` to destroy the ship | No violation |
 | team | Changes the team this ship belongs to (in range [0-X] where X is teams - 1) | None |
+| collider | Change the ship's collider (ship can interact with other objects in-game or not) | true |
 | hue | Sets the color of the ship (range [0-359])![Hue map](https://i.stack.imgur.com/YOBFy.png) | None |
 
 #### Intermission
@@ -664,8 +665,11 @@ List of accepted options when using `asteroid.set`:
 | kill | Set `kill: (any "truthy" value, e.g: true)` to destroy the asteroid | No violation |
 
 ### Add 3D objects to the scenery
-The mod can create custom, textured 3D objects and add them to the scenery using `game.setObject` method. These objects have
-no physics for now (physics is planned in a near future).
+The mod can create custom, textured 3D objects and add them to the scenery using `game.setObject` method.
+**Notes**:
+
+* These objects have no physics for now (physics is planned in a near future).
+* All links included in the method must be `raw.githubusercontent.com` (Raw GitHub) links
 
 For example:
 ```js
