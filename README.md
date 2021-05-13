@@ -799,6 +799,8 @@ Also keep in mind that you can't reconnect to your previously crashed server, ev
 ### Tutorial and Documentation
 * [How to add ship to the mod - by InterdictorSD](https://www.youtube.com/watch?v=3b2zKArOkXk)
 * [Modding Live #2 by PMGL](https://www.twitch.tv/videos/270359062)
+* [General modding tutorial](https://www.youtube.com/watch?v=35SM5rFteIs&t)
+
 
 ### Tools
 * [Map Editor](https://bhpsngum.github.io/starblast/mapeditor/)
