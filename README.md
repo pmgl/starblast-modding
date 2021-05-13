@@ -666,8 +666,8 @@ List of accepted options when using `asteroid.set`:
 
 ### Add 3D objects to the scenery
 The mod can create custom, textured 3D objects and add them to the scenery using `game.setObject` method.
-**Notes**:
 
+**Notes**:
 * These objects have no physics for now (physics is planned in a near future).
 * All links included in the method must be `raw.githubusercontent.com` (Raw GitHub) links
 
@@ -799,7 +799,7 @@ Also keep in mind that you can't reconnect to your previously crashed server, ev
 ### Tutorial and Documentation
 * [How to add ship to the mod - by InterdictorSD](https://www.youtube.com/watch?v=3b2zKArOkXk)
 * [Modding Live #2 by PMGL](https://www.twitch.tv/videos/270359062)
-* [General modding tutorial](https://www.youtube.com/watch?v=35SM5rFteIs&t)
+* [General modding tutorial by Wolfan](https://www.youtube.com/watch?v=35SM5rFteIs&t)
 
 
 ### Tools
