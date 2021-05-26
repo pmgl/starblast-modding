@@ -765,7 +765,7 @@ game.asteroids[0].custom = {init: true} // asteroid entity
 #### Set custom maps in-game
 You can use `game.setCustomMap(<map pattern>)` to set custom map while the game is running
 
-where <map pattern> has the same format as [the custom map in `this.options`](#custom-asteroids-maps)
+where `<map pattern>` has the same format as [the custom map in `this.options`](#custom-asteroids-maps)
 
 #### Lock/unlock the mod from attracting new players
 Use `game.setOpen(true/false)` to lock/unlock the mod to be visible to players (only for [Modding Space](https://starblastio.gamepedia.com/Modding_Space) mods)
