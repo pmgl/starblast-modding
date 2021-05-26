@@ -797,10 +797,10 @@ Also keep in mind that you can't reconnect to your previously crashed server, ev
 
 ## Community resources
 ### Tutorial and Documentation
+* [Gamepedia/Fandom version](https://starblastio.fandom.com/wiki/Modding_Tutorial)
 * [How to add ship to the mod - by InterdictorSD](https://www.youtube.com/watch?v=3b2zKArOkXk)
 * [Modding Live #2 by PMGL](https://www.twitch.tv/videos/270359062)
 * [General modding tutorial by Wolfan](https://www.youtube.com/watch?v=35SM5rFteIs&t)
-
 
 ### Tools
 * [Map Editor](https://bhpsngum.github.io/starblast/mapeditor/)
