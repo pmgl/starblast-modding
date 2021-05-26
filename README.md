@@ -447,7 +447,7 @@ Here is the list of UIComponent's accepted options:
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
 | id | a unique identifier for this component, mandatory | None (component won't be set)|
-| position | expressed in percentage of the main screen, the position of the component [x,y,width,height]. Example: [45,45,10,10] creates a component in the center of the screen, which width and height are 10% of the screen width and height. | [0,0,100,100] |
+| position | expressed in percentage of the main screen, the position of the component [x,y,width,height]. Example: [45,45,10,10] creates a component in the center of the screen, which width and height are 10% of the screen width and height. | `[0,0,100,100]` |
 | visible | Whether the component is visible or not. Resend the same data with visible set to false to hide the component | true |
 | clickable | Whether this component can be clicked or not | false |
 | shortcut | When the component is clickable, a keyboard shortcut allowing to trigger the click event | None (no shorcuts) |
