@@ -446,24 +446,24 @@ Here is the list of UIComponent's accepted options:
 
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
-| id | a unique identifier for this component, mandatory | None |
-| position | expressed in percentage of the main screen, the position of the component [x,y,width,height]. Example: [45,45,10,10] creates a component in the center of the screen, which width and height are 10% of the screen width and height. | None |
+| id | a unique identifier for this component, mandatory | None (component won't be set)|
+| position | expressed in percentage of the main screen, the position of the component [x,y,width,height]. Example: [45,45,10,10] creates a component in the center of the screen, which width and height are 10% of the screen width and height. | [0,0,100,100] |
 | visible | Whether the component is visible or not. Resend the same data with visible set to false to hide the component | true |
 | clickable | Whether this component can be clicked or not | false |
-| shortcut | When the component is clickable, a keyboard shortcut allowing to trigger the click event | None |
-| components | gives a list (array) of graphical features to render within the component, which will be described below | Empty array |
+| shortcut | When the component is clickable, a keyboard shortcut allowing to trigger the click event | None (no shorcuts) |
+| components | gives a list (array) of graphical features to render within the component, which will be described below | Empty array (`[]`) |
 
 ##### Subcomponents' accepted options
 | Option | Description | Default value (if omitted) |
 | - | - | - |
-| type | type of the subcomponents<br>currently supported: "round", "text", "box" or "player" | None |
-| id ("player" type only) | id of the player associated with the subcomponent, which will be disapleyd as their name and badge (if exists) in the rendered subcomponent | None |
-| position | positions of the subcomponents, formatted as `[x,y,width,height]`<br>these subcomponents are meant within the main component coordinates | None |
-| value | value of the subcomponent, e.g `value:"Sample text"` | Empty string |
-| color | text color of the subcomponent, this can be a string with any color formats (hex, hsla, rgb, etc.), e.g `"#fff"` | None |
-| fill | background color of the subcomponent, same format as the `color` property | None |
+| type | type of the subcomponent<br>currently supported: "round", "text", "box" or "player" | None (subcomponent won't be rendered) |
+| id ("player" type only) | id of the player associated with the subcomponent, which will be disapleyd as their name and badge (if exists) in the rendered subcomponent | None (blank player info) |
+| position | positions of the subcomponent, formatted as `[x,y,width,height]`<br>that subcomponent are meant within the main component coordinates | None |
+| value | value of the subcomponent, e.g `value:"Sample text"` | Empty string (`""`) |
+| color | text color of the subcomponent, this can be a string with any color formats (hex, hsla, rgb, etc.), e.g `"#fff"` | [Black](https://convertingcolors.com/hex-color-000000.html) (with opacity 1) |
+| fill | background color of the subcomponent, same format as the `color` property | [Black](https://convertingcolors.com/hex-color-000000.html) (with opacity 0) |
 | width | width of the subcomponent's border (in percent) | 0 |
-| stroke | border color of the subcomponent, same format as the `color` property | None |
+| stroke | border color of the subcomponent, same format as the `color` property | [Black](https://convertingcolors.com/hex-color-000000.html) (with opacity 0) |
 | align | alignment of the texts inside the subcomponent<br>"left", "right" or "center" only | `"center"` |
 
 ##### Combining with events
@@ -667,7 +667,7 @@ List of accepted options when using `asteroid.set`:
 ### Add 3D objects to the scenery
 The mod can create custom, textured 3D objects and add them to the scenery using `game.setObject` method.
 
-**Notes**:
+####Notes####
 * These objects have no physics for now (physics is planned in a near future).
 * All links included in the method must be `raw.githubusercontent.com` (Raw GitHub) links
 
