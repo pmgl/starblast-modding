@@ -380,7 +380,7 @@ List of accepted options when using `ship.set`:
 | stats | sets the stats upgrades of the ship | None |
 | kill | Set `kill: (any "truthy" value, e.g: true)` to destroy the ship | No violation |
 | team | Changes the team this ship belongs to (in range [0-X] where X is teams - 1) | None |
-| collider | Change the ship's collider (ship can interact with other objects in-game or not) | true |
+| collider | Change the ship's collider (ship can interact with other objects in-game or not), must be `true` or `false` | None |
 | hue | Sets the color of the ship (range [0-359])![Hue map](https://i.stack.imgur.com/YOBFy.png) | None |
 
 #### Intermission
@@ -447,7 +447,7 @@ Here is the list of UIComponent's accepted options:
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
 | id | a unique identifier for this component, mandatory | None (component won't be set)|
-| position | expressed in percentage of the main screen, the position of the component [x,y,width,height]. Example: [45,45,10,10] creates a component in the center of the screen, which width and height are 10% of the screen width and height. | `[0,0,100,100]` |
+| position | expressed in percentage of the main screen, the position of the component [x,y,width,height]. Example: `[45,45,10,10]` creates a component in the center of the screen, which width and height are 10% of the screen width and height. | Client-based positions (`"radar_background"` and `"scoreboard"` id, see [this section](#customizing-the-scoreboard-or-radar))<br>`[0,0,100,100]` (others) |
 | visible | Whether the component is visible or not. Resend the same data with visible set to false to hide the component | true |
 | clickable | Whether this component can be clicked or not | false |
 | shortcut | When the component is clickable, a keyboard shortcut allowing to trigger the click event | None (no shorcuts) |
@@ -521,7 +521,7 @@ this.event = function(event,game) {
 ```
 
 ##### Customizing the scoreboard or radar
-The built-in scoreboard can be replaced by your own custom scoreboard component. As soon as an UI component with id `"scoreboard"` or `"radar_background"` is created, you will be responsible for updating the scoreboard/radar. Your custom scoreboard/radar component does not have to include a `position` because it will automatically fill the area already reserved for the perspective UI Component.
+The built-in scoreboard or radar can be replaced by your own custom scoreboard/radar component. As soon as an UI component with id `"scoreboard"` or `"radar_background"` is created, you will be responsible for updating the scoreboard/radar. Your custom scoreboard/radar component does not have to include a `position` because it will automatically fill the area already reserved for the perspective UI Component.
 
 ##### Global UI
 You can use `game.setUIComponent({ options })` to set the UI to all current players in the game
@@ -668,8 +668,12 @@ List of accepted options when using `asteroid.set`:
 The mod can create custom, textured 3D objects and add them to the scenery using `game.setObject` method.
 
 #### Notes
-* These objects have no physics for now (physics is planned in a near future).
-* All links included in the method must be `raw.githubusercontent.com` (Raw GitHub) links
+* All URLs included in this method must satisfy these conditions:
+  1. The protocol must be `https`
+  1. The domain only matches one of these domains:
+    * `starblast.io` (Official Starblast site)
+    * `starblast.data.neuronality.com` (Starblast Data site)
+    * `raw.githubusercontent.com` (Raw GitHub)
 
 For example:
 ```js
@@ -692,15 +696,15 @@ game.setObject({
 | Option | Description |
 | - | - |
 | id | a unique identifier for this object type, mandatory |
-| obj | a URL (HTTPS) to the OBJ file |
+| obj | a URL to the OBJ file |
 | type | Object instance options, see the section below for more details |
-| diffuse | a URL (HTTPS) to a diffuse texture file (optional) |
-| emissive | a URL (HTTPS) to an emissive texture file (optional) |
-| specular | a URL (HTTPS) to a specularity texture file (optional) |
-| bump | a URL (HTTPS) to a bump texture map (optional) |
-| diffuseColor | diffuse color of the object, e.g. 0xFF0000 (for red) |
-| emissiveColor | emissive color of the object, e.g. 0x00FFFF (for cyan) |
-| specularColor | specular color of the object |
+| diffuse | a URL to a diffuse texture file (optional) |
+| emissive | a URL to an emissive texture file (optional) |
+| specular | a URL to a specularity texture file (optional) |
+| bump | a URL to a bump texture map (optional) |
+| diffuseColor | diffuse color of the object, e.g. `0xFF0000` (for red) |
+| emissiveColor | emissive color of the object, e.g. `0x00FF00` (for green) |
+| specularColor | specular color of the object, e.g. `0x0000FF` (for blue) |
 | transparent | whether the object's texture has transparency or not |
 | bumpScale | scale for bump mapping (default: 0.1) |
 
@@ -780,18 +784,18 @@ Follow these rules to avoid it:
 
 1. Your ship tree must have a ship with type/code 101.
 1. If your ship tree has level 2 ships, then it should have level 1 ships too.
-1. Either models should go in the right order without gaps: 1, 2, 3 etc (not 1, 6, 17) or control all ship tree routes by next param in ship codes (but keep correct order for unreachable ships).
-1. You can't have possibly infinite ship tree routes, made by next params - all routes should end at some ship, there shouldn't be able to come back to some ship again.
+1. Either models should go in the right order without gaps: 1, 2, 3 etc (not 1, 6, 17) or control all ship tree routes by `next` parameter in ship codes (but keep correct order for unreachable ships).
+1. You can't have possibly infinite ship tree routes, made by `next` parameters - all routes should end at some ship, there shouldn't be able to come back to some ship again.
 
 #### My mod closed accidentally but the game is not stopped
-Sometimes, some unexpected problem can crash the mod, but it only disconnects from the modding side, or so-called "controller" side, the game itself will continue running without control from your modding client until it meets the closing requirements (or even in some serious occasions, game developers - like PMGL - need to close it by themeselves).
+Sometimes, some unexpected problems can crash the mod, but it only disconnects from the modding side, or so-called "controller" side, the game itself will continue running without control from your modding client until it meets the closing requirements (or even in some serious occasions, game developers - like PMGL - need to close it by themselves).
 
 Here is some reasons which can lead to mod crashing:
 
 1. Closing/Reloading the modding tab/window without stopping the mod first (Most common one)
 1. Very unstable internet connection
 1. Server resolve error (which will automatically disconnect the controller by itself)
-1. Browser tab hangs/crashed (careful of infinite while/for loops)
+1. Browser tab hangs/crashes (careful of infinite while/for loops)
 
 Also keep in mind that you can't reconnect to your previously crashed server, even if it's still running.
 
