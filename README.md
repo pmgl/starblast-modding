@@ -218,6 +218,7 @@ Most of the options are inherited from the usual custom games. A few more option
 | max_players | From 1 to 240 | 70 (team)<br>60 (survival)<br>40 (unspecified)<br>30 (Battle Royale)<br>20 (deathmatch)<br>6 (invasion) |
 | crystal_value | Float, from 0 to 10 | 2 (team)<br>0 (deathmatch and Battle Royale)<br>1 (others) |
 | lives | Number of lives, from 1 to 5 | 4 (team)<br>1 (deathmatch and Battle Royale)<br> 3 (others) |
+| maxtierlives | number of lives when player reaches ships with the highest level (defined in `max_level` option) | 0 (team and deathmatch)<br>1 (Battle Royale)<br>3 (others) |
 | max_level | Max level you can reach, from 1 to 7 | 7 |
 | friendly_colors | Serves to define teams; how many teams (or 0, maximum 5) | 3 (team)<br>1 (invasion)<br>0 (others) |
 | map_name | Name of the map | Auto-generated name |
@@ -247,7 +248,6 @@ Most of the options are inherited from the usual custom games. A few more option
 | projectile_speed | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup>) | 1 |
 | choose_ship | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
 | collider | enable/disable (true/false) collisions of player ships with anything | true |
-
 
 ##### Survival mode specific options
 | Option | Description | Default value<br>(if omitted) |
