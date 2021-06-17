@@ -24,6 +24,14 @@ BALANCING:
     * Solar Spear: Rotation Decrease (16->12) + Shield Cap Increase (1405->1505) +  Mass Decrease (890->880)
     * Solarium Barricade: Shield Cap Increase (925->995) Rotation Decrease (40->28)
     * Solarium Berserker: Energy Regen Decrease (145->130)
+CHANGELOG 1.1.5:
+  * Motherships can no longer camp inside their base
+CHANGELOG 1.2.5
+  * Fixed scoreboard positioning
+  * Motherships are now teleported near the center when game starts
+  * Patched Solar blade infinite firerate bug
+  * Removed player collision at start while in waiting phase
+  * Improved client performance
 */
 
 var mothership_health = 300000;
@@ -326,6 +334,13 @@ var modUtils = {
   }
 };
 
+var sendUI = function(ship, UI) {
+  if (ship != null && typeof ship.setUIComponent == "function") {
+    if (UI.visible || UI.visible == null) ship.setUIComponent(UI);
+    else ship.setUIComponent({id: UI.id, position: [0,0,0,0], visible: false});
+  }
+};
+
 var mothershipability = {
   tick: function(ship){
     this.abilityactivation(ship);
@@ -340,7 +355,7 @@ var mothershipability = {
   abilityinfo: function(ship){
     let a = this.names.length;
     for (let i=0; i<a; i++)
-    ship.setUIComponent({
+    sendUI(ship, {
       id: "abilityinfo"+i,
       position: [2.5,37+(i-1)*6,15,10],
       visible: true,
@@ -361,7 +376,7 @@ var mothershipability = {
     }
     let reloadtimes = [0.1/12,0.1/12,0.1/12,0.1/12,0.1/12];//0.1 = 10sec
     for (let i=0; i<a; i++){
-      ship.setUIComponent({
+      sendUI(ship, {
         id: "ability"+i,
         position: [2.5,37+(i-1)*6,15,10],
         clickable: ship.custom.a[i].clickable,
@@ -398,12 +413,12 @@ var mothershipability = {
   },
   missile_swarm: function(ship){
     ship.custom.spam = true;
-    ship.setUIComponent({
+    sendUI(ship, {
       id:"spam",position:[42,18,32,30],visible:true,
       components: [{type:"text",position:[2,5,80/1.5,33/1.5],value:"Spam Alt!",color:def_clr}]
     });
     modUtils.setTimeout(function(){
-      ship.setUIComponent({id:"spam",visible:false});
+      sendUI(ship, {id:"spam",visible:false});
       ship.custom.spam = false;
     },240);
   },
@@ -466,14 +481,14 @@ var mothershipability = {
   overdrive: function(ship){
     ship.set({type:794});
     ship.custom.overdrive = true;
-    ship.setUIComponent({
+    sendUI(ship, {
       id:"owarn",position:[34,14,40,40],visible:true,
       components: [{type:"text",position:[2,5,80,33],value:"Your ship will take damage while in overdrive!",color:"hsla(0, 100%, 85%, 1)"}]
     });
     modUtils.setTimeout(function(){
       ship.custom.overdrive = false;
       ship.set({type:791});
-      ship.setUIComponent({id:"owarn",visible:false});
+      sendUI(ship, {id:"owarn",visible:false});
     },300);
   }
 };
@@ -483,7 +498,7 @@ function configMotherships(game){
   let c = [240,0];
   for (let ship of game.ships){
     let i = teams.motherships.indexOf(ship.id);
-    (i != -1) && ship.set({type:791,shield:teams.motherships_health[i],hue:c[i]});
+    (i != -1) && ship.set({type:791,shield:teams.motherships_health[i],hue:c[i],x:ship.team?120:-120});
   }
   echoc("Motherships have been set","#fecce5");
 }
@@ -495,10 +510,10 @@ function checkMotherships(game) {
 this.tick = function(game){
   modUtils.tick();
   if (game.step === delay){
-    modUtils.setTimeout(function(){game.setUIComponent({id:"delay time",visible:false});},10);
+    modUtils.setTimeout(function(){sendUI(game, {id:"delay time",visible:false});},10);
     for (let ship of game.ships){
-      ship.set({idle:false});
-      ship.setUIComponent({id:"delay",visible:false});
+      ship.set({idle:false,collider:true,angle:ship.team*180});
+      sendUI(ship, {id:"delay",visible:false});
       if (ship.custom.wait){
         ship.custom.wait = false;
       }
@@ -515,7 +530,15 @@ this.tick = function(game){
         ship.deaths = 0;
         setteam(ship);
         setup(ship);
-        ship.setUIComponent(getRadarInfo());
+        sendUI(ship, {
+          id: "buy_lifes_blocker",
+          visible: true,
+          clickable: true,
+          shortcut: String.fromCharCode(187),
+          position: [65,0,10,10],
+          components: []
+        });
+        sendUI(ship, getRadarInfo());
         echoc(`${ship.name} spawned`,"#fefecc");
         if (!game.custom.delayed){
           game.custom.delayed = true;
@@ -528,12 +551,12 @@ this.tick = function(game){
     }
     if (game.step < delay){
       for (let ship of game.ships){
-        ship.set({idle:true,vx:0,vy:0});
-        ship.setUIComponent({
+        ship.set({idle:true,vx:0,vy:0,collider:false});
+        sendUI(ship, {
           id:"delay",position:[39,18,42,40],visible:true,
           components: [{type: "text",position:[2,5,80/1.5,33/1.5],value:"Waiting for more players...",color:def_clr}]
         });
-        ship.setUIComponent({
+        sendUI(ship, {
           id:"scoreboard",visible:true,
           components: [{type: "text",position:[15,0,70,10],value:"Waiting for more players...",color:def_clr}]
         });
@@ -551,7 +574,7 @@ this.tick = function(game){
           if (ship.id != teams.motherships[i]) {
             let mth = game.findShip(teams.motherships[i]);
             if (mth) drawdirectionmarker(ship,mth.x,mth.y,true,true,teams.names[i],getcolor(teams.hues[i]),"\u{1F30C}");
-            else game.setUIComponent({id:teams.names[i],visible:false});
+            else sendUI(game,  {id:teams.names[i],visible:false});
           }
         }
       }
@@ -571,7 +594,7 @@ this.tick = function(game){
           if (!suc) endgame(game, succ, "left the game");
           else if (teams.motherships_health.indexOf(0) == -1) {
             configMotherships(game);
-            game.setUIComponent({
+            sendUI(game,  {
               id: "reset",
               visible: true,
               position: [20,5,100,100],
@@ -581,7 +604,7 @@ this.tick = function(game){
               ]
             });
             modUtils.setTimeout(function(){
-              game.setUIComponent({id:"reset",visible:false});
+              sendUI(game,  {id:"reset",visible:false});
             },280);
           }
         }
@@ -597,7 +620,7 @@ this.tick = function(game){
           let minutes = ~~(steps / 3600);
           let seconds = ~~((steps % 3600) / 60);
           if (seconds < 10) seconds = "0" + seconds;
-          game.setUIComponent({
+          sendUI(game,  {
             id: "delay time",
             position: [45.7,26,10,7],
             visible: true,
@@ -646,7 +669,7 @@ function shipshield(ship, b){
       value = (ship.shield/1000000).toFixed(2);
     }
     let filled = ship.shield/shipshield;
-    ship.setUIComponent({
+    sendUI(ship, {
       id: "shieldBar",
       position: [3.3,10.5,17.4,3],
       visible: true,
@@ -657,12 +680,12 @@ function shipshield(ship, b){
       ]
     });
   } else {
-    ship.setUIComponent({id:"shieldBar",visible:false});
+    sendUI(ship, {id:"shieldBar",visible:false});
   }
 }
 
 function mothershiphealthbar(game){
-  game.setUIComponent({
+  sendUI(game,  {
     id: "blue",
     position:[22,5,6,7],
     visible: true,
@@ -672,7 +695,7 @@ function mothershiphealthbar(game){
       {type:"text",position:[10,10,80,80],value:"\u{1F6E1}",color:"hsla(0, 0%, 100%, 1)"}
     ]
   });
-  game.setUIComponent({
+  sendUI(game,  {
     id: "orange",
     position:[22,14,6,7],
     visible: true,
@@ -686,7 +709,7 @@ function mothershiphealthbar(game){
   let color = [193,33];
   teams.motherships_health = teams.motherships.map(i=> game.findShip(i).shield);
   teams.motherships_health.map(i => i/mothership_health*100).forEach((i,j) => {
-    game.setUIComponent({
+    sendUI(game,  {
       id: color[j]+" health",
       position:[29,5+9*j,6,7],
       visible: true,
@@ -734,7 +757,7 @@ function endgame(game, succ, message){
   game.custom.ended = true;
   game.setOpen(false);
   let winner = Math.abs(succ-1), endmessage = `${teams.names[succ]}'s mothership ${message}!`, winmessage = `${teams.names[winner]} team wins the game!`;
-  game.setUIComponent({
+  sendUI(game,  {
     id: "win",
     visible: true,
     position: [20,5,100,100],
@@ -754,10 +777,10 @@ function endgame(game, succ, message){
 function checkteambase(game){
   for (let ship of game.ships){
     let t = ship.custom.team;
-    if (dist2points(ship.x, ship.y, teams.x[t], 0) <= base_AoE_radius && ship.type < 790){
+    if (dist2points(ship.x, ship.y, teams.x[t], 0) <= base_AoE_radius && ship.type < 780){
       ship.set({invulnerable:100,generator:0});
       if (game.step > delay)
-      ship.setUIComponent({
+      sendUI(ship, {
         id: "open",
         visible: true,
         clickable: true,
@@ -770,19 +793,32 @@ function checkteambase(game){
         ]
       });
     } else {
-      ship.setUIComponent({id:"open",visible:false});
+      sendUI(ship, {id:"open",visible:false});
       selectship(ship,false,true);
     }
+    if (dist2points(ship.x, ship.y, teams.x[t], 0) <= base_AoE_radius && ship.type > 780){
+      if (game.step-delay > 3600/2){
+        rekt(ship,mothership_health/180);
+        sendUI(ship, {
+          id: "warnin",
+          position: [28,20,40*1.4,40],
+          visible: true,
+          components: [{type:"text",position:[0,0,80,33*1.4],value:"Camping in your base ruins the game for others - your ship will take damage whilst inside the base!",color:"hsla(0, 88%, 80%, 1)"}]
+        });
+      }
+      sendUI(ship, {id:"open",visible:false});
+      selectship(ship,false,true);
+    } else sendUI(ship, {id:"warnin",visible:false});
     let q = 1-ship.custom.team;
-    if (dist2points(ship.x, ship.y, teams.x[q], 0) <= base_AoE_radius) {
+    if (dist2points(ship.x, ship.y, teams.x[q], 0) <= base_AoE_radius){
       rekt(ship,(ship.type < 790)?(10*Math.trunc(ship.type/100)):2000);
-      ship.setUIComponent({
+      sendUI(ship, {
         id: "warning",
         position: [34,20,40,40],
         visible: true,
         components: [{type:"text",position:[0,0,80,33],value:"You are in the emeny's base - your ship will take damage!",color:"hsla(0, 88%, 80%, 1)"}]
       });
-    } else ship.setUIComponent({id:"warning",visible:false});
+    } else sendUI(ship, {id:"warning",visible:false});
   }
 }
 
@@ -795,7 +831,7 @@ function drawbutton(ship,x,y,id,fill,bordercol,textcol,visible,shortcut,text,bwi
   	{type: "text",position:[11,20,78,30],value:text,color:tcol},
   	{type: "text",position:[20,40,60,40],value:"["+shortcut+"]",color:tcol}
   ];
-  ship.setUIComponent({
+  sendUI(ship, {
     id: id,
     position: [x,y,7,7],
     clickable: visible,
@@ -818,7 +854,7 @@ function drawshipbutton(ship,x,y,id,fill,visible,shortcut,text,ch,cl){
   	{type: "text",position:[20,42,60,40],value:`[${shortcut}]`,color:tcol},
   	{type: "text",position:[-7,11,78*1.5,10*1.5],value:cl,color:tcol}
   ];
-  ship.setUIComponent({
+  sendUI(ship, {
     id: id,
     position: [x,y,8,12],
     clickable: visible,
@@ -930,10 +966,10 @@ function shortestPath(x1, y1, x2, y2, wrapV = true, wrapH = true){
   var coords = [];
   var xx = x2-x1;
   var yy = y2-y1;
-  if(!wrapH&&!wrapV)return [xx, yy];
+  if (!wrapH&&!wrapV) return [xx, yy];
   coords.push(xx, yy);
   var shortest = [xx, yy];
-  if(wrapH){
+  if (wrapH){
     xx = x2+map_size*2-x1;
     yy = y2-y1;
     coords.push(xx, yy);
@@ -941,7 +977,7 @@ function shortestPath(x1, y1, x2, y2, wrapV = true, wrapH = true){
     yy = y2-y1;
     coords.push(xx, yy);
   }
-  if(wrapV){
+  if (wrapV){
     xx = x2-x1;
     yy = y2+map_size*2-y1;
     coords.push(xx, yy);
@@ -949,7 +985,7 @@ function shortestPath(x1, y1, x2, y2, wrapV = true, wrapH = true){
     yy = y2-map_size*2-y1;
     coords.push(xx, yy);
   }
-  if(wrapV&&wrapH){
+  if (wrapV&&wrapH){
     xx = x2+map_size*2-x1;
     yy = y2+map_size*2-y1;
     coords.push(xx, yy);
@@ -963,7 +999,7 @@ function shortestPath(x1, y1, x2, y2, wrapV = true, wrapH = true){
     yy = y2-map_size*2-y1;
     coords.push(xx, yy);
   }
-  for(var i = 0; i<9; i++){
+  for (var i = 0; i<9; i++){
     var dist = sqrDist(coords[i*2], coords[i*2+1]);
     if(dist<shortestDist){
       shortestDist = dist;
@@ -978,7 +1014,7 @@ function drawdirectionmarker(ship, x, y, wrapV, wrapH, id, color, label){
   var dist = distance(sp[0],sp[1]);
   var x1 = sp[0]/dist;
   var y1 = sp[1]/dist;
-  ship.setUIComponent({
+  sendUI(ship, {
     id: id,
     position:[47+x1*30,49-y1*30,6*1.5,2*1.5],
     clickable: false,
@@ -1013,36 +1049,38 @@ var updateScoreboard = function(game){
     let shipicon = icons[(ship.type-700)-1];
     if (ship.type > 790) shipicon = "\u{1F30C}";
     let length = Math.log(ship.score) * Math.LOG10E + 1 | 0;
-    let fix = length*2.4;
-    switch (ship.custom.team){
-      case 0:
-        if (line>=5) break;
-        scoreboard.components.push(
-          {type:"player",id:ship.id,position:[1,7+(line*8+1.5),60,7],color:def_clr,align:"left"},
-          {type:"text",position:[91,7+(line*8+1.5),60,7],value:shipicon,color:def_clr,align:"left"},
-          {type:"text",position:[84-fix,7+(line*8+1.5),60,7],value:ship.score,color:def_clr,align:"left"}
-        )
-        line++;
-      break;
-      case 1:
-        if (line2>=5) break;
-        scoreboard.components.push(
-          {type:"player",id:ship.id,position:[1,57+(line2*8+1.5),60,7],color:def_clr,align:"left"},
-          {type:"text",position:[91,57+(line2*8+1.5),60,7],value:shipicon,color:def_clr,align:"left"},
-          {type:"text",position:[84-fix,57+(line2*8+1.5),60,7],value:ship.score,color:def_clr,align:"left"}
-        )
-        line2++;
-      break;
+    let fix = 0//length*2.4;
+    if (ship != null){
+      switch (ship.custom.team){
+        case 0:
+          if (line>=5) break;
+          scoreboard.components.push(
+            {type:"player",id:ship.id,position:[1,7+(line*8+1.5),60,7],color:def_clr,align:"left"},
+            {type:"text",position:[65,7+(line*8+1.5),60,7],value:shipicon,color:def_clr},
+            {type:"text",position:[29-fix,7+(line*8+1.5),60,7],value:ship.score,color:def_clr,align:"right"}
+          )
+          line++;
+        break;
+        case 1:
+          if (line2>=5) break;
+          scoreboard.components.push(
+            {type:"player",id:ship.id,position:[1,57+(line2*8+1.5),60,7],color:def_clr,align:"left"},
+            {type:"text",position:[65,57+(line2*8+1.5),60,7],value:shipicon,color:def_clr},
+            {type:"text",position:[29-fix,57+(line2*8+1.5),60,7],value:ship.score,color:def_clr,align:"right"}
+          )
+          line2++;
+        break;
+      }
     }
   }
   outputScoreboard(game);
 };
 
-var outputScoreboard = function(game) {
+var outputScoreboard = function(game){
   for (let ship of game.ships) {
     let o = [...scoreboard.components], t = scoreboard.components.map(x => (x.id != null)?x.id:-1).indexOf(ship.id);
     if (t != -1) scoreboard.components.splice(t,0,{type:"box",position:scoreboard.components[t].position.map((j,i) => (i==2)?100:j),fill:"hsla(210,24.3%,29%,0.5)"});
-    ship.setUIComponent(scoreboard);
+    sendUI(ship, scoreboard);
     scoreboard.components = [...o];
   }
 }
@@ -1064,20 +1102,20 @@ this.event = function(event,game) {
           selectship(ship,false,true);
           break;
         default:
-          if (ship.type < 790)
-          ship.set({type:findShipCode(component),stats:88888888});
+          if (ship.type < 790 && ship.type != findShipCode(component))
+          ship.set({type:findShipCode(component),stats:88888888,collider:true});
         break;
       }
       break;
     case "ship_destroyed":
       let killer = event.killer;
-      if (killer != null) {
+      if (killer != null){
         killer.frags++;
-        killer.set({score:Math.round(killer.score+ship.score/2+2000)});
+        killer.set({score:Math.round(killer.score+ship.score/2+2000),collider:true});
       }
-      if (ship != null) {
+      if (ship != null){
         ship.deaths++;
-        ship.set({score:Math.round(ship.score/2)});
+        ship.set({score:Math.round(ship.score/2),collider:true});
       }
       break;
     case "ship_spawned":
