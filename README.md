@@ -248,6 +248,7 @@ Most of the options are inherited from the usual custom games. A few more option
 | projectile_speed | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup>) | 1 |
 | choose_ship | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
 | collider | enable/disable (true/false) collisions of player ships with anything | true |
+| acw_allowed | Unlock limits in some options in order to do an AOW/ACW-like matches | false |
 
 ##### Survival mode specific options
 | Option | Description | Default value<br>(if omitted) |
