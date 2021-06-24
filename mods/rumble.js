@@ -7,7 +7,8 @@ var modifier = {
   kills_to_win: 100,
   yeet_gems: true,
   healer_button: false,
-  round_timer: 30,
+  round_timer: 30, // in minutes
+  game_delay: 60, // in seconds
   round_ship_tier: "random",//choose from 3-7 or "random"
   gems_upon_spawning: 0,//removed
   laggy_objs: false
@@ -1213,7 +1214,7 @@ function addRadarSpot (x, y, type, width, height, alpha, color){
 }
 
 var update = 1;
-var delay = 1*3600;
+var delay = modifier.game_delay * 60;
 if (!game.custom.map) game.custom.map = maps[Math.trunc(Math.random()*maps.length)];
 var map = game.custom.map; // for debugging
 for (let i=0; i<map.shipspawn.length; i++){
@@ -1243,6 +1244,7 @@ this.options = {
 };
 
 var check = function(game, isWaiting, isGameOver) {
+  modUtils.tick();
   if (game.step % 30 === 0) {
     teams.count = [0,0];
     for (let ship of game.ships) {
@@ -1278,25 +1280,28 @@ var check = function(game, isWaiting, isGameOver) {
       ship.emptyWeapons();
     }
   }
+}, FormatTime = function(tick, forced, forceAll) {
+  var array = Array(3).fill(0).map((i,j) => Math.floor((tick%(60**(j+2)))/(60**(j+1)))).reverse();
+  while (array.length > forceAll && array[0] == 0) array.splice(0,1);
+  forced = forced.reverse().slice(0,array.length).reverse();
+  return array.map((i,j) => (i<10&&(j==0?forced[j]:!0))?"0"+i.toString():i).join(":");
 }
 
-var endgametext = ["Unknown", "Unknown"];
+var endgametext = ["Unknown", "Unknown"], endgamestatus = {};
 var gameover = function (ship){
-  let top3 = game.ships.sort((a,b) => (b.custom.frags || 0) - (a.custom.frags || 0)).slice(0,3);
-  let endgamestatus = {[top3[0].name]:top3[0].custom.frags,[top3[1].name]:top3[1].custom.frags,[top3[2].name]:top3[2].custom.frags}
   ship.gameover({
     "Match status": endgametext[0],
     "Match results": endgametext[1],
     "Frags": ship.custom.frags,
     "Deaths": ship.custom.deaths,
-    "Best killers":"Frags",
+    " ": " ",
+    "#. Best killers":"Frags",
     ...endgamestatus
   });
   ship.custom.exited = true;
 }
 
 var waiting = function (game) {
-  modUtils.tick();
   check(game, true);
   if (game.step % 30 === 0) for (let ship of game.ships){
     sendUI(ship, {
@@ -1323,43 +1328,33 @@ var waiting = function (game) {
     this.tick = main_game;
   }
   else {
-    let steps = delay - game.step;
-    let minutes = ~~(steps / 3600);
-    let seconds = ~~((steps % 3600) / 60);
-    if (seconds < 10) seconds = "0" + seconds;
     sendUI(game, {
       id: "delay time",
       position: [45.7,26,10,7],
       visible: true,
       components: [
-        {type: "text",position:[0,0,100,50],value:`${minutes}:${seconds}`,color:"#cde"},
+        {type: "text",position:[0,0,100,50],value:`${FormatTime(delay - game.step, [], 1)}`,color:"#cde"},
       ]
     });
   }
 }, main_game = function(game){
-  modUtils.tick();
   check(game);
-  if (Math.min(...teams.count) == 0) finishgame(this, game, 2);
-  else if (Math.max(...teams.points) >= modifier.kills_to_win) finishgame(this, game, 1);
+  if (Math.min(...teams.count) == 0) finishgame(game, 2);
+  else if (Math.max(...teams.points) >= modifier.kills_to_win) finishgame(game, 1);
   else if (game.step % 30 === 0){
     let time = delay+modifier.round_timer*3600;
     if (game.step < time){
       if (game.step > delay){
-        let steps = time - game.step;
-        let minutes = ~~(steps / 3600);
-        let seconds = ~~((steps % 3600) / 60);
-        if (seconds < 10) seconds = "0" + seconds;
-        if (minutes < 10) minutes = "0" + minutes;
         sendUI(game, {
           id: "timer",
           position: [2.5,28,15,10],
           visible: true,
           components: [
-            {type: "text",position:[0,0,100,50],value:`Time left: ${minutes}:${seconds}`,color:"#cde"},
+            {type: "text",position:[0,0,100,50],value:`Time left: ${FormatTime(time - game.step, [false, true, true], 2)}`,color:"#cde"},
           ]
         });
       }
-    } else finishgame(this, game, 0);
+    } else finishgame(game, 0);
   }
   if (update){
     checkscores(game);
@@ -1370,7 +1365,7 @@ var waiting = function (game) {
     checkteambase(game)
     updatescoreboard(game);
   }
-}, finishgame = function(internals, game, condition) {
+}, finishgame = function(game, condition) {
   // conditions: 0 (time's up), 1 (reach enough kills), 2 (all one team left)
   let win;
   if (condition != 2) {
@@ -1386,6 +1381,9 @@ var waiting = function (game) {
     win = 1 - win;
     endgametext = [`All ${teams.names[1-win]} players left`, `${teams.names[win]} team wins!`];
   }
+  game.ships.sort((a,b) => (b.custom.frags || 0) - (a.custom.frags || 0)).slice(0,3).forEach((ship,i) => {
+    endgamestatus[(i+1)+". "+ship.name] = ship.custom.frags
+  });
   game.custom.ended = true;
   game.setOpen(false);
   sendUI(game, {
@@ -1406,9 +1404,8 @@ var waiting = function (game) {
     ]
   });
   echo(endgametext);
-  internals.tick = endgame;
-}, endgame = function (game){
-  modUtils.tick();
+  this.tick = endgame;
+}.bind(this), endgame = function (game) {
   check(game, false, true);
 };
 
