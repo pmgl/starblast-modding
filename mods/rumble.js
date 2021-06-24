@@ -7,7 +7,7 @@ var modifier = {
   kills_to_win: 100,
   yeet_gems: true,
   healer_button: false,
-  round_timer: 2,
+  round_timer: 30,
   round_ship_tier: "random",//choose from 3-7 or "random"
   gems_upon_spawning: 0,//removed
   laggy_objs: false
@@ -1355,7 +1355,7 @@ var waiting = function (game) {
           position: [2.5,28,15,10],
           visible: true,
           components: [
-            {type: "text",position:[0,0,100,50],value:`Time left: ${hours}:${minutes}:${seconds}`,color:"#cde"},
+            {type: "text",position:[0,0,100,50],value:`Time left: ${minutes}:${seconds}`,color:"#cde"},
           ]
         });
       }
