@@ -7,7 +7,7 @@ var modifier = {
   kills_to_win: 100,
   yeet_gems: true,
   healer_button: false,
-  round_timer: 30,
+  round_timer: 2,
   round_ship_tier: "random",//choose from 3-7 or "random"
   gems_upon_spawning: 0,//removed
   laggy_objs: false
@@ -1190,7 +1190,7 @@ var maps = [
   shipspawn: [{x:0,y:-250},{x:0,y:250}],
   radar: {type:"box",width:20,height:10},
   basedmg: [{x:-40,x2:40,y:-225,y2:-275},{x:-40,x2:40,y:225,y2:275}]
-  },
+  },  
 ];
 
 game.custom.radar_background = {
@@ -1243,45 +1243,54 @@ this.options = {
 };
 
 var check = function(game, isWaiting, isGameOver) {
-  if (game.step % 30 === 0) for (let ship of game.ships){
-    if (!ship.custom.init){
-      ship.custom.init = true;
-      ship.custom.frags = 0;
-      ship.custom.deaths = 0;
-      setteam(ship);
-      setup(ship);
-      sendUI(ship, {
-        id: "buy_lifes_blocker",
-        visible: true,
-        clickable: true,
-        shortcut: String.fromCharCode(187),
-        position: [65,0,10,10],
-        components: []
-      });
-      sendUI(ship, game.custom.radar_background);
-      echo(`${ship.name} spawned`);
-      ship.custom.rand = ["","",""];
-      ship.custom.buttons = false;
-      if (isGameOver) gameover(ship);
+  if (game.step % 30 === 0) {
+    teams.count = [0,0];
+    for (let ship of game.ships) {
+      if (!ship.custom.init){
+        ship.custom.init = true;
+        ship.custom.frags = 0;
+        ship.custom.deaths = 0;
+        setteam(ship);
+        setup(ship);
+        sendUI(ship, {
+          id: "buy_lifes_blocker",
+          visible: true,
+          clickable: true,
+          shortcut: String.fromCharCode(187),
+          position: [65,0,10,10],
+          components: []
+        });
+        sendUI(ship, game.custom.radar_background);
+        echo(`${ship.name} spawned`);
+        ship.custom.rand = ["","",""];
+        ship.custom.buttons = false;
+        if (isGameOver) gameover(ship);
+      }
+      else if (isGameOver && !ship.custom.exited) modUtils.setTimeout(function(){gameover(ship)},300);
+      if (!ship.custom.joined && !isWaiting && !isGameOver) {
+        joinmessage(ship);
+        ship.custom.joined = true;
+      }
+      ship.set({idle: !!isWaiting, collider: !(isWaiting || isGameOver)})
+      checkButtons(ship);
+      teams.count[ship.custom.team]++;
+      (ship.score != ship.custom.frags) && ship.set({score:ship.custom.frags});
+      ship.emptyWeapons();
     }
-    else if (isGameOver && !ship.custom.exited) modUtils.setTimeout(function(){gameover(ship)},300);
-    if (!ship.custom.joined && !isWaiting && !isGameOver) {
-      joinmessage(ship);
-      ship.custom.joined = true;
-    }
-    ship.set({idle: !!isWaiting, collider: !(isWaiting || isGameOver)})
-    checkButtons(ship);
-    teams.count[ship.custom.team]++;
-    (ship.score != ship.custom.frags) && ship.set({score:ship.custom.frags});
   }
 }
 
-var endgametext = "Unknown";
-var gameover = function (ship) {
+var endgametext = ["Unknown", "Unknown"];
+var gameover = function (ship){
+  let top3 = game.ships.sort((a,b) => (b.custom.frags || 0) - (a.custom.frags || 0)).slice(0,3);
+  let endgamestatus = {[top3[0].name]:top3[0].custom.frags,[top3[1].name]:top3[1].custom.frags,[top3[2].name]:top3[2].custom.frags}
   ship.gameover({
-    "Match results": endgametext,
+    "Match status": endgametext[0],
+    "Match results": endgametext[1],
     "Frags": ship.custom.frags,
-    "Deaths": ship.custom.deaths
+    "Deaths": ship.custom.deaths,
+    "Best killers":"Frags",
+    ...endgamestatus
   });
   ship.custom.exited = true;
 }
@@ -1330,29 +1339,9 @@ var waiting = function (game) {
 }, main_game = function(game){
   modUtils.tick();
   check(game);
-  if (game.step % 30 === 0){
-    teams.count = [0,0];
-    for (let i=0; i<2; i++){
-      if (teams.points[i] >= modifier.kills_to_win){
-        if (!game.custom.ended2){
-          game.custom.ended2 = true;
-          endgame(game);
-          game.ships.forEach(ship => ship.set({collider: false}));
-          sendUI(game, {
-            id: "end",
-            position: [39,18,42,40],
-            visible: true,
-            components: [{type: "text",position:[2,5,80/1.5,33/1.5],value:`${teams.names[i]} team wins!`,color:"#cde"}]
-          });
-          modUtils.setTimeout(function(){
-            for (let ship of game.ships){
-              ship.gameover({"Winner":`${teams.names[i]} team`,"Frags":ship.custom.frags,"Deaths":ship.custom.deaths});
-            }
-          }, 300);
-          echo(`${teams.names[i]} team wins!`);
-        }
-      }
-    }
+  if (Math.min(...teams.count) == 0) finishgame(this, game, 2);
+  else if (Math.max(...teams.points) >= modifier.kills_to_win) finishgame(this, game, 1);
+  else if (game.step % 30 === 0){
     let time = delay+modifier.round_timer*3600;
     if (game.step < time){
       if (game.step > delay){
@@ -1366,44 +1355,58 @@ var waiting = function (game) {
           position: [2.5,28,15,10],
           visible: true,
           components: [
-            {type: "text",position:[0,0,100,50],value:`Time left: ${minutes}:${seconds}`,color:"#cde"},
+            {type: "text",position:[0,0,100,50],value:`Time left: ${hours}:${minutes}:${seconds}`,color:"#cde"},
           ]
         });
       }
-    } else {
-      game.setOpen(false);
-      sendUI(game, {
-        id: "timer",
-        position: [2.5,28,15,10],
-        visible: true,
-        components: [
-          {type: "text",position:[0,0,100,50],value:`Time's up!`,color:"#cde"},
-        ]
-      });
-      let win;
-      if (teams.points[0] != teams.points[1]){
-        win = teams.points.indexOf(Math.max(...teams.points));
-        endgametext = `${teams.names[win]} team wins!`;
-      } else endgametext = "It's a draw!";
-      sendUI(game, {
-        id: "end",
-        position: [39,18,42,40],
-        visible: true,
-        components: [{type:"text",position:[2,5,80/1.5,33/1.5],value: "Game finished!" + endgametext,color:"#cde"}]
-      });
-      echo(endgametext);
-      this.tick = endgame;
-    }
+    } else finishgame(this, game, 0);
   }
   if (update){
     checkscores(game);
-    ///updatescoreboard(game);
+    updatescoreboard(game);
     update = 0;
   }
   if (game.step % 60 === 0){
     checkteambase(game)
     updatescoreboard(game);
   }
+}, finishgame = function(internals, game, condition) {
+  // conditions: 0 (time's up), 1 (reach enough kills), 2 (all one team left)
+  let win;
+  if (condition != 2) {
+    if (teams.points[0] != teams.points[1]){
+      win = teams.points.indexOf(Math.max(...teams.points));
+      endgametext = `${teams.names[win]} team wins!`;
+    } else endgametext = "It's a draw!";
+    endgametext = [condition?`${teams.names[win]} team reaches ${modifier.kills_to_win} kills`:"Time's up!", endgametext];
+  }
+  else {
+    win = teams.count.indexOf(0);
+    if (win == -1) return;
+    win = 1 - win;
+    endgametext = [`All ${teams.names[1-win]} players left`, `${teams.names[win]} team wins!`];
+  }
+  game.custom.ended = true;
+  game.setOpen(false);
+  sendUI(game, {
+    id: "timer",
+    position: [2.5,28,15,10],
+    visible: true,
+    components: [
+      {type: "text",position:[0,0,100,50],value:"Game finished!",color:"#cde"},
+    ]
+  });
+  sendUI(game, {
+    id: "end",
+    position: [35,20,30,15],
+    visible: true,
+    components: [
+      {type:"text",position:[0,0,100,50],value:endgametext[0],color:"#cde"},
+      {type:"text",position:[0,50,100,50],value:endgametext[1],color:"#cde"}
+    ]
+  });
+  echo(endgametext);
+  internals.tick = endgame;
 }, endgame = function (game){
   modUtils.tick();
   check(game, false, true);
@@ -1557,9 +1560,9 @@ function checkscores(game){
     position: [33,10,42,40],
     visible: true,
     components: [
-      {type: "text",position:[2,5,80/1.5,33/1.5],value:teams.points[0],color:getcolor(teams.hues[0])},
+      {type: "text",position:[2-((Math.log(teams.points[0])*Math.LOG10E+1|0)*5)/2,5,80/1.5,33/1.5],value:teams.points[0],color:getcolor(teams.hues[0])},
       {type: "text",position:[0,0,80,33],value:"-",color:"#CDE"},
-      {type: "text",position:[25,5,80/1.5,33/1.5],value:teams.points[1],color:getcolor(teams.hues[1])},
+      {type: "text",position:[25+((Math.log(teams.points[1])*Math.LOG10E+1|0)*5)/2,5,80/1.5,33/1.5],value:teams.points[1],color:getcolor(teams.hues[1])},
     ]
   });
 }
@@ -1570,7 +1573,7 @@ function joinmessage(ship){
     position: [36,16,34,32],
     visible: true,
     components: [
-      {type: "text",position:[0,0,85+3,38+3],value:`First team to ${modifier.kills_to_win} kills wins`,color:"#cde"},
+      {type: "text",position:[0,0,85+3,38+3],value:`First team to reach ${modifier.kills_to_win} kills wins`,color:"#cde"},
       {type: "text",position:[5.5,20,80-4,33-4],value:"Good luck and have fun!",color:"#cde"},
     ]
   });
