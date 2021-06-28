@@ -1268,7 +1268,10 @@ var check = function(game, isWaiting, isGameOver) {
         ship.custom.buttons = false;
         if (isGameOver) gameover(ship);
       }
-      else if (isGameOver && !ship.custom.exited) modUtils.setTimeout(function(){gameover(ship)},300);
+      else if (isGameOver && !ship.custom.exited) {
+        ship.custom.exited = true;
+        modUtils.setTimeout(function(){gameover(ship)},300);
+      }
       if (!ship.custom.joined && !isWaiting && !isGameOver) {
         joinmessage(ship);
         ship.custom.joined = true;
