@@ -1,8 +1,8 @@
 /*
 STARBLAST DUELING CHAMPIONSHIP (SDC)
-* Mod Founder: Thuliux (Eggsagon)
+* Mod Founder: Thuliux
 * Mod Developer: Bhpsngum
-* Shipbuilders: Thuliux (Eggsagon), Nova, SChickenMan, Nexagon, Admiral Forever, Neuronality and others
+* Shipbuilders: Thuliux, Nova, SChickenMan, Nexagon, Admiral Forever, Neuronality and others
 Season 2 (v1.1) - Main version
 */
 
@@ -11,11 +11,12 @@ var fixed_gems = 500;
 var arena_radius = 15;
 var min_radius_ratio = false;
 var fixed_min_radius = 5;
+var allow_full_cargo_pickup = true; // allows ships to pick up gems after the crystal cargo is full
 var shrink_start_time = 1.5; // in minutes
 var shrink_end_time = 0.5; // in minutes
 var shrink_interval = 10; // in seconds
 var edge_dps = 50; // damage per second when standing in the edge of the safe zone
-var dps_increase = 50; //dps increase per 10 blocks farther from the safe zone
+var dps_increase = 25; //dps increase per 10 blocks farther from the safe zone
 var break_interval = 1/2; // in minutes
 var duel_countdown = 10; // countdown before duel starts (in seconds)
 var duel_duration = 2.5; // in minutes
@@ -47,6 +48,13 @@ var Hornet_610 = '{"name":"Hornet","designer":"Admiral Forever","level":6,"model
 
 var Spectator_101 = '{"name":"Spectator","level":1,"model":1,"size":0.025,"zoom":0.075,"specs":{"shield":{"capacity":[1e-30,1e-30],"reload":[1000,1000]},"generator":{"capacity":[1e-30,1e-30],"reload":[1,1]},"ship":{"mass":1,"speed":[200,200],"rotation":[1000,1000],"acceleration":[1000,1000]}},"bodies":{"face":{"section_segments":100,"angle":0,"offset":{"x":0,"y":0,"z":0},"position":{"x":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"y":[-2,-2,2,2],"z":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},"width":[0,1,1,0],"height":[0,1,1,0],"vertical":true,"texture":[6]}},"typespec":{"name":"Spectator","level":1,"model":1,"code":101,"specs":{"shield":{"capacity":[1e-30,1e-30],"reload":[1000,1000]},"generator":{"capacity":[1e-30,1e-30],"reload":[1,1]},"ship":{"mass":1,"speed":[200,200],"rotation":[1000,1000],"acceleration":[1000,1000]}},"shape":[0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001],"lasers":[],"radius":0.001}}';
 
+var modShip = function(ship, handler) {
+  typeof handler == "function" && [[],["typespec"]].forEach(i => {
+    let param = ship;
+    i.forEach(j => (param = param[j]));
+    handler(param);
+  });
+}
 
 var ships = [];
 ships.push(A_Speedster_601);
@@ -60,10 +68,32 @@ ships.push(Mk47_608);
 ships.push(Aspect_609);
 ships.push(Hornet_610);
 
+var ships_count = ships.length;
+var zeroes = [1e-30, 1e-30];
 var ship_infos = ships.map(i => {
-  let t = JSON.parse(i);
+  let t = JSON.parse(i), clone = JSON.parse(i);
+  modShip(clone, function (ship) {
+    ship.specs.generator = {
+      capacity: zeroes,
+      reload: zeroes
+    }
+    Object.assign(ship.specs.ship, {
+      speed: zeroes,
+      rotation: zeroes,
+      acceleration: zeroes,
+    });
+    ship.model += ships_count;
+    delete ship.specs.ship.dash;
+  });
+  clone.typespec.code = clone.level * 100 + clone.model;
+  ["bodies","wings"].map(i => Object.values(clone[i]||{})).flat().filter(i => i).forEach(body => {
+    delete body.laser;
+  });
+  clone.typespec.lasers = [];
+  ships.push(JSON.stringify(clone));
   return {name: t.name, designer: t.designer||"", code: t.level*100 + t.model}
 }), codes = ship_infos.map(info => info.code), maxNamelength = Math.max(...ship_infos.map(info => info.name.length)), maxDesignerlength = Math.max(...ship_infos.map(info => info.designer.length));
+
 
 ships.push(Spectator_101);
 
@@ -298,14 +328,17 @@ var modUtils = {
 }, max = function(ship, type) {
   if (ship != null) {
     if (ship.custom.spectate) ship.set({type: spectator, crystals: 0});
-    else if (type != null) {
-      type = type || ship.custom.prevShipCode || ship.custom.type;
-      ship.custom.prevShipCode = null;
-      ship.custom.type = (ship_infos.find(info => info.code === type)||ship_infos[0]).code;
-      ship.set({type: ship.custom.type});
+    else {
+      if (type != null || (ship.custom.type == spectator && !ship.custom.spectator)) {
+        type = type || ship.custom.prevShipCode || ship.custom.type;
+        ship.custom.prevShipCode = null;
+        ship.custom.type = (ship_infos.find(info => info.code === type)||ship_infos[0]).code;
+        ship.set({type: ship.custom.type});
+      }
+      let crystals = (gem_ratio === false)?fixed_gems:20*(Math.trunc(type/100)**2)*gem_ratio;
+      ship.set({crystals: crystals, shield: 1e4})
     }
-    let crystals = (gem_ratio === false)?fixed_gems:20*(Math.trunc(type/100)**2)*gem_ratio;
-    ship.set({stats: 88888888,crystals: crystals,shield: 1e4});
+    ship.set({stats: 88888888});
   }
 }, rekt = function (ship,num){
   if (ship.shield<num){
@@ -375,7 +408,7 @@ var modUtils = {
   var array = [Math.floor(time/3600), Math.floor((time%3600)/60)]
   if (forced && array[0] == 0) array.splice(0,1);
   return array.map(i => i<10&&!forced?"0"+i.toString():i).join(":");
-}, check = function(game, forced) {
+}, check = function(game, forced, isGameOver) {
   modUtils.tick();
   for (let ship of game.ships) {
     if (!ship.custom.joined) {
@@ -438,7 +471,6 @@ var modUtils = {
         position: [0,0,0,0],
         components: []
       });
-      if (ended) gameover(ship);
       clearInds(ship);
       introductory_paragraph.forEach((sentence, i) => modUtils.setTimeout(function(){ship.instructorSays(sentence, "Zoltar")}, i*instructor_duration*60));
       modUtils.setTimeout(function(){
@@ -452,7 +484,9 @@ var modUtils = {
         joined: true,
         inMatch: false
       }
+      if (isGameOver) gameover(ship);
     }
+    else if (isGameOver && !ship.custom.exited) gameover(ship, true);
   }
   if (game.step % 30 === 0 || forced) {
     for (let ship of game.ships) {
@@ -481,8 +515,10 @@ var modUtils = {
         }
         else {
           setPicker(ship, false);
-          let maxgems = Math.pow(Math.trunc(ship.custom.type/100),2)*20;
-          if (ship.crystals == maxgems) ship.set({crystals: maxgems-1})
+          if (allow_full_cargo_pickup) {
+            let maxgems = Math.pow(Math.trunc(ship.custom.type/100),2)*20;
+            if (ship.crystals == maxgems) ship.set({crystals: maxgems-1})
+          }
         }
       }
       if (!(game_time <= toTick(shrink_start_time) && game_time >= toTick(shrink_end_time)) || ship.custom.currentNode === lobby) removeWarn(ship, "Warning: Arena shrinking!", true);
@@ -490,6 +526,7 @@ var modUtils = {
         score: 0,
         collider: !!(ship.custom.inMatch || (dist(ship.x, ship.y, ...grids[lobby]) <= r && !ship.custom.spectate))
       });
+      ship.emptyWeapons();
       ship.custom.currentNode = t;
       waitnextround(ship);
       let tw = (Array.isArray(ship.custom.warn)?ship.custom.warn:[]).filter(Array.isArray).slice(-max_warns_per_chunk), i = 0;
@@ -554,13 +591,18 @@ var modUtils = {
 }, setStates = function (ship, ...states) {
   let r = ["Win","Lose","Draw"];
   for (let i = 0; i < states.length; i++) ship.custom["just"+r[i]] = states[i];
-}, gameover = function (ship) {
-  ship != null && ship.gameover({
-    "Wins": getStat(ship, "wins"),
-    "Losses": getStat(ship, "loses"),
-    "Draws": getStat(ship, "draws"),
-    "Rank": ship.custom.rank||"Unranked"
-  })
+}, gameover = function (ship, wait) {
+  if (ship != null) {
+    ship.custom.exited = true;
+    modUtils.setTimeout(function(){
+      ship.gameover({
+        "Wins": getStat(ship, "wins"),
+        "Losses": getStat(ship, "loses"),
+        "Draws": getStat(ship, "draws"),
+        "Rank": ship.custom.rank||"Unranked"
+      })
+    }, wait?300:0)
+  }
 }, sendUI = function(ship, UI) {
   if (ship != null && typeof ship.setUIComponent == "function") {
     if (UI.visible || UI.visible == null) ship.setUIComponent(UI);
@@ -603,7 +645,7 @@ var modUtils = {
     if (!globalSearch) break;
   }
   ship.custom.warn = t.slice(-max_warns_per_chunk);
-}, break_time = toTick(break_interval), game_time = toTick(duel_duration), dc_time = toTick(duel_countdown/60), round_started = false, round_break = false, matches = [], ended = false, angles = [], grad = r;
+}, break_time = toTick(break_interval), game_time = toTick(duel_duration), dc_time = toTick(duel_countdown/60), round_started = false, round_break = false, matches = [], angles = [], grad = r;
 
 // game Modules
 var initialization = function(game) {
@@ -629,16 +671,18 @@ var initialization = function(game) {
   }
   else {
     game.setOpen(false);
-    ended = true;
     check(game, true);
     updatescoreboard(game);
     game.ships.forEach(clearInds);
-    let rank = 1, best = leaderboard[0];
+    let rank = 1, best = leaderboard[0], lastStand = false;
     leaderboard.forEach((i,j) => {
       let ship = game.findShip(i.id);
       if (ship != null) {
         let text;
-        if (Math.max(i.wins, i.loses, i.draws) == 0) text = "";
+        if (Math.max(i.wins, i.loses, i.draws) == 0 || lastStand) {
+          text = "";
+          lastStand = true
+        }
         else {
           text = "You";
           if (best.wins != i.wins || best.loses != i.loses || best.draws != i.draws) {
@@ -661,8 +705,7 @@ var initialization = function(game) {
         announce(ship, "Game finished!","",text);
       }
     });
-    modUtils.setTimeout(function(){game.ships.forEach(gameover)}, 300);
-    this.tick = check;
+    this.tick = forceEndgame;
   }
 }, game_break = function (game) {
   check(game);
@@ -698,6 +741,8 @@ var initialization = function(game) {
             aship.custom.spectate = false;
             aship.custom.inMatch = true;
             setNode(aship, lob[i], !!nodeInd);
+            max(aship, aship.custom.type || aship.type);
+            aship.set({type: aship.custom.type + ships_count, stats: 88888888});
           });
           rlist.splice(index, 1);
           let oindex = rlist.indexOf(t);
@@ -739,8 +784,11 @@ var initialization = function(game) {
     }
     else {
       game.ships.forEach(ship => {
-        ship.set({idle: false});
-        (!ship.custom.wait && ship.custom.currentNode !== lobby) && announce(ship, "");
+        ship.set({idle: false, generator: 1e4});
+        if (!ship.custom.wait && ship.custom.currentNode !== lobby) {
+          announce(ship, "");
+          max(ship, ship.custom.type);
+        }
       });
       game_time = toTick(duel_duration);
       this.tick = main_game
@@ -799,6 +847,8 @@ var initialization = function(game) {
     ship.custom.inMatch = false;
   });
   this.tick = waiting;
+}, forceEndgame = function (game) {
+  check(game, null, true);
 }
 this.tick = initialization;
 this.event = function(event, game) {
@@ -815,6 +865,7 @@ this.event = function(event, game) {
           if (ship.custom.spectate && !ship.custom.ready) addWarn(ship, "You will no longer spectate when you're ready!");
           ship.custom.ready = !ship.custom.ready;
           ship.custom.spectate = false;
+          max(ship, ship.custom.prevShipCode || ship.custom.type || ship.type);
           break;
         case "spectate":
           if (ship.custom.ready && !ship.custom.spectate) addWarn(ship, "You will no longer be ready when you're spectating!");
@@ -822,7 +873,8 @@ this.event = function(event, game) {
           ship.custom.mapped = false;
           ship.custom.shipped = false;
           ship.custom.spectate = !ship.custom.spectate;
-          if (ship.custom.spectate) ship.custom.prevShipCode = ship.custom.type;
+          if (ship.custom.spectate) ship.custom.prevShipCode = ship.custom.type || ship.type;
+          max(ship, ship.custom.prevShipCode || ship.custom.type || ship.type);
           break;
         case "map":
           if (ship.custom.spectate && !ship.custom.ready) ship.custom.mapped = !ship.custom.mapped;
