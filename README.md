@@ -8,7 +8,7 @@ All Modding reference in a single article
 *Standard Modding Interface, you can see the minimap of the mod in the bottom right corner while the mod is running*
 
 
-Starblast Modding interface can be found here: https://starblast.io/modding.html ([ECP](https://starblastio.gamepedia.com/Elite_Commander_Pass) required)
+Starblast Modding interface can be found here: https://starblast.io/modding.html ([ECP](https://starblast.fandom.com/Elite_Commander_Pass) required)
 
 
 Starblast Modding interface allows you to create custom mods for Starblast. The interface is made of a code editor window, on the left, and a console window, on the right. The code editor is where you type the JavaScript code for your mod. The console is where you can type commands to start your mod, stop it or interact with it while it is running.
@@ -268,7 +268,7 @@ Most of the options are inherited from the usual custom games. A few more option
 ##### Deatmatch mode specific options
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
-| ship_groups | an array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblastio.gamepedia.com/Deathmatch) for a list of default ship groups<br>**Note:** The mod won't run if `reset_tree` option is set to true |
+| ship_groups | an array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblast.fandom.com/Deathmatch) for a list of default ship groups<br>**Note:** The mod won't run if `reset_tree` option is set to true |
 
 Example:
 ```js
@@ -789,7 +789,7 @@ You can use `game.setCustomMap(<map pattern>)` to set custom map while the game 
 where `<map pattern>` has the same format as [the custom map in `this.options`](#custom-asteroids-maps)
 
 #### Lock/unlock the mod from attracting new players
-Use `game.setOpen(true/false)` to lock/unlock the mod to be visible to players (only for [Modding Space](https://starblastio.gamepedia.com/Modding_Space) mods)
+Use `game.setOpen(true/false)` to lock/unlock the mod to be visible to players (only for [Modding Space](https://starblast.fandom.com/Modding_Space) mods)
 
 There is also game boolean properties `game.is_open` is used to determine if the mod is open or not
 
