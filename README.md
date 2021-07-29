@@ -255,7 +255,6 @@ Most of the options are inherited from the usual custom games. A few more option
 | - | - | - |
 | survival_time | When to trigger survival mode; 0 or a value in minutes | 60 |
 
-
 ##### Team mode specific options
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
