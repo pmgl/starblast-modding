@@ -306,7 +306,7 @@ this.event = function(event,game) {
 | asteroid_destroyed | A movable asteroid was just destroyed (this event won't trigger for non-movable asteroids) | event.asteroid, event.killer |
 | collectible_picked | A ship just picked a collectible item | event.collectible, event.ship |
 
-**Note:** This event only works with unspecified `root_mode` (`root_mode: ""`)
+**Note:** * This event only works with unspecified `root_mode` (`root_mode: ""`)
 ### Game step
 #### Definition
 Can be accessible through `game.step`, is an integer presenting game's duration
