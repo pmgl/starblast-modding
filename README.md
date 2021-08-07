@@ -334,9 +334,9 @@ Map center (x:0, y:0) is located in the Sun
 
 Based on the [Grid definition](#Grid), we have:
 
-Each ray in those Axes will have `map_size` / 2 grids in length
+Each Axis will have `map_size` / 2 grids length in both negative and positive part
 
-Because each grid is a 10x10 square, the boundary of each Axis is `map_size` / 2 x 10 = `map_size` x 5
+Because each grid is a 10x10 square, the boundary of each part is `map_size` / 2 x 10 = `map_size` x 5
 
 Means that each Axis varies from -`map_size` x 5 to `map_size` x 5
 
