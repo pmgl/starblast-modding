@@ -762,7 +762,7 @@ The mod can create custom, textured 3D objects and add them to the scenery using
 | physics | [Object's physics](#object-physics-options) |
 
 #### Object physics options
-**Note:** We recommend not to use this property as it sometimes doesn't work as expected
+**Note:** We recommend not to use this property as it usually doesn't work as expected
 
 | Option | Description |
 | - | - |
