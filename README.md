@@ -317,6 +317,7 @@ All Modding commands relating to coordinates will be visualized on this map
 #### Coordinates
 ##### Axes
 | Axis | Direction in user screen |
+| - | - |
 | X | left to right |
 | Y | bottom to top |
 | Z | map "depth", only used for [setting 3D Objects](#add-3d-objects-to-the-scenery) |
@@ -325,9 +326,9 @@ The map is divided into "grids".
 
 A Grid is a 10x10 square area which can only contains 1 static asteroid (which equals to 1 character to "paint" the map in [`this.options.custom_map`](#custom-asteroids-maps))
 
-`map_size` is actually the number of grids along each dimension, means that number of grids in the map is calulated by the formula `map_size`^2.
+`map_size` is actually the number of grids along each dimension, means that number of grids in the map is calulated by the formula `map_size`<sup>2</sup>.
 
-For example: `map_size` is 30 means that there are 30 grid length along the X Axis and Y Axis, and 30^2 = 900 grids total in the map
+For example: `map_size` is 30 means that there are 30 grid length along the X Axis and Y Axis, and 30<sup>2</sup> = 900 grids total in the map
 ##### Center and Boundaries
 Map center (x:0, y:0) is located in the Sun
 
