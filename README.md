@@ -8,7 +8,7 @@ All Modding reference in a single article
 *Standard Modding Interface, you can see the minimap of the mod in the bottom right corner while the mod is running*
 
 
-Starblast Modding interface can be found here: https://starblast.io/modding.html ([ECP](https://starblast.fandom.com/Elite_Commander_Pass) required)
+Starblast Modding interface can be found here: https://starblast.io/modding.html ([ECP](https://starblast.fandom.com/wiki/Elite_Commander_Pass) required)
 
 
 Starblast Modding interface allows you to create custom mods for Starblast. The interface is made of a code editor window, on the left, and a console window, on the right. The code editor is where you type the JavaScript code for your mod. The console is where you can type commands to start your mod, stop it or interact with it while it is running.
@@ -268,7 +268,7 @@ Most of the options are inherited from the usual custom games. A few more option
 ##### Deatmatch mode specific options
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
-| ship_groups | an array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblast.fandom.com/Deathmatch) for a list of default ship groups<br>**Note:** The mod won't run if `reset_tree` option is set to true |
+| ship_groups | an array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblast.fandom.com/wiki/Deathmatch) for a list of default ship groups<br>**Note:** The mod won't run if `reset_tree` option is set to true |
 
 Example:
 ```js
@@ -307,6 +307,39 @@ this.event = function(event,game) {
 | collectible_picked | A ship just picked a collectible item | event.collectible, event.ship |
 
 **Note:** * This event only works with unspecified `root_mode` (`root_mode: ""`)
+### Map
+#### Definition
+All entities and objects in the game are moving on a 2D plane called "map"
+
+Map can be painted with asteroids using [`this.options.custom_map`](#custom-asteroids-maps) and set size by `this.options.map_size` (even value from 20 to 200)
+
+All Modding commands relating to coordinates will be visualized on this map
+#### Coordinates
+##### Axes
+| Axis | Direction in user screen |
+| X | left to right |
+| Y | bottom to top |
+| Z | map "depth", only used for [setting 3D Objects](#add-3d-objects-to-the-scenery) |
+##### Grid
+The map is divided into "grids".
+
+A Grid is a 10x10 square area which can only contains 1 static asteroid (which equals to 1 character to "paint" the map in [`this.options.custom_map`](#custom-asteroids-maps))
+
+`map_size` is actually the number of grids along each dimension, means that number of grids in the map is calulated by the formula `map_size`^2.
+
+For example: `map_size` is 30 means that there are 30 grid length along the X Axis and Y Axis, and 30^2 = 900 grids total in the map
+##### Center and Boundaries
+Map center (x:0, y:0) is located in the Sun
+
+Based on the [Grid definition](#Grid), we have:
+
+Each ray in those Axes will have `map_size` / 2 grids in length
+
+Because each grid is a 10x10 square, the boundary of each Axis is `map_size` / 2 x 10 = `map_size` x 5
+
+Means that each Axis varies from -`map_size` x 5 to `map_size` x 5
+
+For example: with `map_size` = 30, each Axis in the map varies from -300 (`-60x5`) to 300 (`60x5`)
 ### Game step
 #### Definition
 Can be accessible through `game.step`, is an integer presenting game's duration
@@ -693,6 +726,47 @@ The mod can create custom, textured 3D objects and add them to the scenery using
     * `starblast.io` (Official Starblast site)
     * `starblast.data.neuronality.com` (Starblast Data site)
     * `raw.githubusercontent.com` (Raw GitHub)
+* A dimensional property included in this method is defined as an object with three fields represent 3 Axes in [Coordinates](#coordinates)
+
+| Field | Represent for |
+| - | - |
+| x | X Axis |
+| y | Y Axis |
+| z | Z Axis |
+
+#### Object instance options
+| Option | Description |
+| - | - |
+| id | a unique identifier for this object instance (mandatory, allows changing the object afterwards) |
+| type | [the object type definition](#object-type-options) |
+| position | coordinates for placing the object, dimensional property |
+| scale | allows to scale the object, dimensional property |
+| rotation | allows to rotate the object, dimensional property |
+
+#### Object type options
+| Option | Description |
+| - | - |
+| id | a unique identifier for this object type, mandatory |
+| obj | a URL to the OBJ file |
+| type | Object instance options, see the section below for more details |
+| diffuse | a URL to a diffuse texture file (optional) |
+| emissive | a URL to an emissive texture file (optional) |
+| specular | a URL to a specularity texture file (optional) |
+| bump | a URL to a bump texture map (optional) |
+| diffuseColor | diffuse color of the object, e.g. `0xFF0000` (for red) |
+| emissiveColor | emissive color of the object, e.g. `0x00FF00` (for green) |
+| specularColor | specular color of the object, e.g. `0x0000FF` (for blue) |
+| transparent | whether the object's texture has transparency or not |
+| bumpScale | scale for bump mapping (default: 0.1) |
+| physics | [Object's physics](#object-physics-options) |
+
+#### Object physics options
+**Note:** We recommend not to use this property as it sometimes doesn't work as expected
+
+| Option | Description |
+| - | - |
+| mass | Object mass, same as the `specs.ship.mass` property in [Ship Editor Tutorial](https://starblast.fandom.com/wiki/Ship_Editor_Tutorial)<br>**Note:** If the mass is too small (<100), ships can go through the object |
+| shape | Object's shape, used for creating hitbox<br>You can omit this property to set default shape generated from the object itself or provide an array for your custom shape |
 
 For example:
 ```js
@@ -711,31 +785,6 @@ game.setObject({
 }) ;
 ```
 
-#### Object type options
-| Option | Description |
-| - | - |
-| id | a unique identifier for this object type, mandatory |
-| obj | a URL to the OBJ file |
-| type | Object instance options, see the section below for more details |
-| diffuse | a URL to a diffuse texture file (optional) |
-| emissive | a URL to an emissive texture file (optional) |
-| specular | a URL to a specularity texture file (optional) |
-| bump | a URL to a bump texture map (optional) |
-| diffuseColor | diffuse color of the object, e.g. `0xFF0000` (for red) |
-| emissiveColor | emissive color of the object, e.g. `0x00FF00` (for green) |
-| specularColor | specular color of the object, e.g. `0x0000FF` (for blue) |
-| transparent | whether the object's texture has transparency or not |
-| bumpScale | scale for bump mapping (default: 0.1) |
-
-#### Object instance options
-| Option | Description |
-| - | - |
-| id | a unique identifier for this object instance (mandatory, allows changing the object afterwards) |
-| type | the object type definition |
-| position | coordinates for placing the object |
-| scale | allows to scale the object |
-| rotation | allows to rotate the object |
-| shape | Object's shape (used for creating hitbox)<br>**Note:** We recommend not to use this property as it usually doesn't work as expected |
 #### Accessing
 Game property `game.objects` stores all active 3D Objects maintained by the mod
 
@@ -791,7 +840,7 @@ You can use `game.setCustomMap(<map pattern>)` to set custom map while the game 
 where `<map pattern>` has the same format as [the custom map in `this.options`](#custom-asteroids-maps)
 
 #### Lock/unlock the mod from attracting new players
-Use `game.setOpen(true/false)` to lock/unlock the mod to be visible to players (only for [Modding Space](https://starblast.fandom.com/Modding_Space) mods)
+Use `game.setOpen(true/false)` to lock/unlock the mod to be visible to players (only for [Modding Space](https://starblast.fandom.com/wiki/Modding_Space) mods)
 
 There is also game boolean properties `game.is_open` is used to determine if the mod is open or not
 
