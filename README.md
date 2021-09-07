@@ -1,6 +1,6 @@
 # Starblast Modding
 
-All Modding reference in a single article
+All Modding references in a single article
 
 ## Information
 ![Standard Modding Interface, you can see the minimap of the mod in the bottom right corner while the mod is running](https://raw.githubusercontent.com/Bhpsngum/img-src/master/ModdingInterface.png)
@@ -14,11 +14,11 @@ Starblast Modding interface can be found here: https://starblast.io/modding.html
 Starblast Modding interface allows you to create custom mods for Starblast. The interface is made of a code editor window, on the left, and a console window, on the right. The code editor is where you type the JavaScript code for your mod. The console is where you can type commands to start your mod, stop it or interact with it while it is running.
 
 
-Main programming language uses in this interface is [JavaScript (ECMAScript)](https://www.w3schools.com/js/DEFAULT.asp)
+Main programming language used in this interface is [JavaScript (ECMAScript)](https://www.w3schools.com/js/DEFAULT.asp)
 
 ## Documentation and Tutorial
 ### Important Notes
-In newer version of browsers' updates, you can't use the Modding Client in incognito mode anymore as they restrict some incognito features which are used by the editor.
+In newer versions of browsers' updates, you can't use the Modding Client in incognito mode anymore as they restrict some incognito features which are used by the editor.
 
 And make sure to read all of these from the start to the end so that you won't miss any important info!
 
@@ -71,16 +71,16 @@ but for other mods where some logic in tick function or events - it will affect 
 
 Ticks start to work slower and slower...
 
-Soon everything will be lagging in game, like any reactions on mod buttons, any mod logic like spawning something in tick, etc.
+Soon everything will be lagging in game; any reactions on mod buttons, any mod logic like spawning something in tick, etc.
 
-And... depending on mod complexity it can just CRASH THE ENTIRE MOD - locally, server will continue to work so game will work but without mod logic anymore.
+And... depending on mod complexity it can CRASH THE ENTIRE MOD - locally, server will continue to work so game will still run but without mod logic anymore.
 
-So, always keep the mod editor tab online or you will have unpredictable results!
+So, always keep the mod editor tab online or you may have unpredictable results!
 
 Also, you need to have a stable internet connection if you don't want your mods becoming laggy.
 
 #### Stop the currently running mod
-You can stop your mod anytime by using command `stop`. Note that this will kill the game and disconnect all connected players:
+You can stop your mod anytime by using the command `stop`. Note that this will kill the game and disconnect all connected players:
 ```
 > stop
 Mod stopped
@@ -88,7 +88,7 @@ Mod stopped
 ```
 #### Other terminal commands
 ##### `echo`
-Print any values to the terminal, can be used in both mod code (after mod started) and terminal
+Print any values to the terminal; can be used in both mod code (after mod started) and terminal
 
 Syntax: `echo(<item>)`
 ```
@@ -97,7 +97,7 @@ Message from terminal!
 > █
 ```
 ##### `clear`
-Clear the the terminal, only available in terminal
+Clear the terminal, only available in the terminal
 
 Syntax: `clear`
 ##### `help`
@@ -108,10 +108,10 @@ Syntax: `help`
 ### Main code parts
 #### Options
 ##### Definition
-Stored in `this.options` is a data structure where you can set options for your custom, modded game. These options are used for initializing the game when you start your mod. Changing them while the mod is running does not affect the game.
+Stored in `this.options` is a data structure where you can set options for your custom modded game. These options are used for initializing the game when you start your mod. Changing them while the mod is running does not affect the game.
 ##### Custom ships and custom tree
 
-You can import ships made with Starblast Ship Editor. In the Ship Editor, use "Mod Export" feature to export a JavaScript code snippet for the modding interface. Then paste this snipped in the coding window and add this:
+You can import ships made within the Starblast Ship Editor. Use "Mod Export" feature to export a JavaScript code snippet for the modding interface. Then paste this snipped in the coding window and add this:
 ```js
 var myship_101 = "{ … … <this is your exported ship code> …";
 
@@ -153,10 +153,10 @@ This allows using Starblast built-in emote icons, which are listed here for refe
 
 You can also use unicode icons, here is a good source for reference: https://unicode.org/emoji/charts/full-emoji-list.html
 
-Note that wide unicode characters (using more than 2 bytes) require a specific Javascript syntax as shown in the example above (example: `\u{1F47B}`)
+Note that wide unicode characters (using more than 2 bytes) requires a specific Javascript syntax as shown in the example above (example: `\u{1F47B}`)
 
 ##### Custom asteroids maps
-You can create a custom map of asteroids. This allows creating a maze for example. The custom map you provide is actually a JavaScript character string which is used to "paint" the map.
+You can create a custom map of asteroids. This allows creating a maze for example. The custom map you provide is actually a JavaScript character string that is used to "paint" the map.
 
 For example:
 ```js
@@ -199,7 +199,7 @@ this.options = {
 }
 ```
 
-In the example above, 9 sets the biggest size of asteroid. You can use smaller values for adding smaller asteroids to the grid. Any value other than a digit will be interpreted as no asteroid. If your `map_size` is set to 30, make sure to create 30 lines and 30 columns, or you may get unpredictable results.
+In the example above, 9 sets the biggest size of the asteroid. You can use smaller values for adding smaller asteroids to the grid. Any value other than a digit will be interpreted as no asteroid. If your `map_size` is set to 30, make sure to create 30 lines and 30 columns, or you may get unpredictable results.
 
 **Note:** Use `""` for blank custom map
 
@@ -279,7 +279,7 @@ ship_groups: [
 ```
 #### Ticking
 ##### Definition
-Found in `this.tick` is a JavaScript function which is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automatically while the game is running. This function can be modified while the modded game is running and the changes will apply automagically.
+Found in `this.tick` is a JavaScript function that is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automatically while the game is running. This function can be modified while the modded game is running and the changes will apply automatically.
 #### Events
 ##### General
 Your mod can receive events through the function `this.event`:
@@ -326,9 +326,9 @@ The map is divided into "grids".
 
 A Grid is a 10x10 square area which can only contains 1 static asteroid (which equals to 1 character to "paint" the map in [`this.options.custom_map`](#custom-asteroids-maps))
 
-`map_size` is actually the number of grids along each dimension, means that number of grids in the map is calulated by the formula `map_size`<sup>2</sup>.
+`map_size` is the number of grids along each dimension, which means that the number of grids in the map is calculated by the formula `map_size`<sup>2</sup>.
 
-For example: `map_size` is 30 means that there are 30 grid length along the X Axis and Y Axis, and 30<sup>2</sup> = 900 grids total in the map
+For example: `map_size` being 30 means that there are 30 grid length along the X Axis and Y Axis, and 30<sup>2</sup> = 900 grids total in the map
 ##### Center and Boundaries
 Map center (x:0, y:0) is located in the Sun
 
@@ -343,7 +343,7 @@ Means that each Axis varies from -`map_size` x 5 to `map_size` x 5
 For example: with `map_size` = 30, each Axis in the map varies from -300 (`-60x5`) to 300 (`60x5`)
 ### Game step
 #### Definition
-Can be accessible through `game.step`, is an integer presenting game's duration
+Can be accessible through `game.step`; an integer presenting the game's duration
 #### Unit
 The unit of this value is tick, where 1 tick = 1/60 seconds
 
@@ -363,9 +363,9 @@ this.tick = function (game)
 ```
 
 ### Ships
-You can access to the list of ships (players) through the array `game.ships`
+You can access the list of ships (players) through the array `game.ships`
 
-You can also find a ship with specific id using `game.findShip(id)`, which returns an object represent the matched ship or `null` (if there are no ships matching the provided id)
+You can also find a ship with a specific id using `game.findShip(id)`, which returns an object representing the matched ship or `null` (if no ships are matching the provided id)
 #### Accessible fields
 You have read access to the ship’s main fields and options:
 
@@ -412,12 +412,12 @@ List of accepted options when using `ship.set`:
 | shield | sets the value of the shield | Wrong shield value |
 | generator | sets the value of the generator | Wrong generator value |
 | healing | sets ship's lasers mode to healing (true or false) | None |
-| crystals | sets ship's crystal ammount | Wrong crystals |
-| stats | sets the stats upgrades of the ship | None |
+| crystals | sets ship's crystal amount | Wrong crystals |
+| stats | set the stats upgrades of the ship | None |
 | kill | Set `kill: (any "truthy" value, e.g: true)` to destroy the ship | No violation |
 | team | Changes the team this ship belongs to (in range [0-X] where X is teams - 1) | None |
-| collider | Change the ship's collider (ship can interact with other objects in-game or not), must be `true` or `false` | None |
-| hue | Sets the color of the ship (range [0-359])![Hue map](https://i.stack.imgur.com/YOBFy.png) | None |
+| collider | Change the ship's collider (the ship can interact with other objects in-game or not), must be `true` or `false` | None |
+| hue | Sets the colour of the ship (range [0-359])![Hue map](https://i.stack.imgur.com/YOBFy.png) | None |
 
 #### Intermission
 You can send the ship to intermission (a screen with results, offering to respawn). This screen allows you to display custom results information:
@@ -433,7 +433,7 @@ You can also trigger the gameover screen for any given ship. Here again, you can
 ```
 #### Instructor
 ##### Calling instructor
-You can have the flight instructor send instructions to the player. For this find the players’s ship and use:
+You can have the flight instructor send instructions to the player. For this find the player's ship and use:
 ```
 > ship.instructorSays("Hello!")
 > █
@@ -460,7 +460,7 @@ A second, optional parameter allows you to choose which one of the instructor ch
 
 #### Custom UI components
 ##### General
-The mod can create custom UI components that will show up on the player’s screen. This is done by calling `setUIComponent` on the ship, passing in a component descriptor.
+The mod can create custom UI components that will show up on the player’s screen. This is done by calling `setUIComponent` on the ship - passing in a component descriptor.
 
 For example:
 ```
@@ -483,10 +483,10 @@ Here is the list of UIComponent's accepted options:
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
 | id | a unique identifier for this component, mandatory | None (component won't be set)|
-| position | expressed in percentage of the main screen, the position of the component [x,y,width,height]. Example: `[45,45,10,10]` creates a component in the center of the screen, which width and height are 10% of the screen width and height. | Client-based positions (`"radar_background"` and `"scoreboard"` id, see [this section](#customizing-the-scoreboard-or-radar))<br>`[0,0,100,100]` (others) |
+| position | expressed in percentage of the main screen, the position of the component [x,y,width,height]. Example: `[45,45,10,10]` creates a component in the center of the screen, in which width and height are 10% of the screen width and height. | Client-based positions (`"radar_background"` and `"scoreboard"` id, see [this section](#customizing-the-scoreboard-or-radar))<br>`[0,0,100,100]` (others) |
 | visible | Whether the component is visible or not. Resend the same data with visible set to false to hide the component | true |
 | clickable | Whether this component can be clicked or not | false |
-| shortcut | When the component is clickable, a keyboard shortcut allowing to trigger the click event | None (no shorcuts) |
+| shortcut | When the component is clickable, a keyboard shortcut allowing to trigger the click event | None (no shortcuts) |
 | components | gives a list (array) of graphical features to render within the component, which will be described below | Empty array (`[]`) |
 
 ##### Subcomponents' accepted options
@@ -503,7 +503,7 @@ Here is the list of UIComponent's accepted options:
 | align | alignment of the texts inside the subcomponent<br>"left", "right" or "center" only | `"center"` |
 
 ##### Combining with events
-The example below creates a warp button for every player, which can be clicked and results in the ship warping to another random location, also adding 3 seconds invulnerability to it:
+The example below creates a warp button for every player, which can be clicked and results in the ship warping to another random location, adding 3 seconds invulnerability to it:
 
 Full example: https://github.com/pmgl/starblast-modding/blob/master/examples/warp_button.js
 ```js
@@ -567,15 +567,15 @@ You can use `game.setUIComponent({ options })` to set the UI to all current play
 Syntax: `ship.emptyWeapons()`
 
 ### Aliens
-You can access to the list of aliens through the array `game.aliens`
+You can access the list of aliens through the array `game.aliens`
 
-You can also find an alien with specific id using `game.findAlien(id)`, which returns an object represent the matched alien or `null` (if there are no aliens matching the provided id)
+You can also find an alien with a specific id using `game.findAlien(id)`, which returns an object representing the matched alien or `null` (if no aliens are matching the provided id)
 #### Creation
 To create an alien, use `game.addAlien({ options })`
 
 List of accepted options:
 
-(Note: Server will response with `Incorrect data` when at least one input property value is improper)
+(Note: Server will respond with `Incorrect data` when at least one input property value is improper)
 
 | Option | Description | Default value (if omitted) |
 | - | - | - |
@@ -583,8 +583,8 @@ List of accepted options:
 | y | Y coordinate | 0 |
 | vx | Velocity vector X component | 0 |
 | vy | Velocity vector Y component | 0 |
-| code | Type of alien, must be an integer in range [10-20] | 10 |
-| level | Level of the alien, in range [0-X] where X depends of the alien type | 0 |
+| code | Type of alien must be an integer in range [10-20] | 10 |
+| level | Level of the alien, in range [0-X] where X depends on the alien type | 0 |
 | points | The number of points you earn when you kill this alien | None |
 | crystal_drop | The crystal amount to be dropped when this alien is killed | None |
 | weapon_drop | The code of a collectible weapon to be dropped by this alien when killed | None |
@@ -605,12 +605,12 @@ Here is the list of supported codes:
 | 19 | Saucer |
 | 20 | Final Boss |
 
-A new `Alien` object is immediately added to `game.aliens`; however it cannot be used before it has been assigned an id (positive integer) by the server.
+A new `Alien` object is immediately added to `game.aliens`; however, it cannot be used before it has been assigned an id (positive integer) by the server.
 
 #### Limits
 You can only have **300** alive aliens (including aliens generated by the game mode) at any time in your game
 
-Server will respond with `Too many aliens` for each alien passing the limit
+The server will respond with `Too many aliens` for each alien passing the limit
 
 #### Configuration
 Once an alien is live and has an assigned id, you can set options to it. For example:
@@ -638,7 +638,7 @@ Accepted options when using `alien.set`:
 ### Collectibles
 You can spawn collectible weapons in the playfield
 
-You can also find a collectible with specific id using `game.findCollectible(id)`, which returns an object represent the matched collectible or `null` (if there are no collectibles matching the provided id)
+You can also find a collectible with a specific id using `game.findCollectible(id)`, which returns an object represents the matched collectible or `null` (if no collectibles are matching the provided id)
 #### Creation
 Here is an example:
 ```
@@ -649,7 +649,7 @@ This will add a new collectible pack of rockets to coordinates (0;0)
 
 Here is the list of supported codes:
 
-(Note: Server will response with `Incorrect data` when at least one input property value is improper)
+(Note: Server will respond with `Incorrect data` when at least one input property value is improper)
 
 | Code | Description |
 | - | - |
@@ -667,21 +667,21 @@ Here is the list of supported codes:
 #### Limits
 You can only have **50** active collectibles (including collectibles generated by the game mode) at any time in your game
 
-Server will respond with `Too many Collectibles` for each collectible passing the limit
+The server will respond with `Too many Collectibles` for each collectible passing the limit
 
 #### Accessing
 You can check the collectibles still available to collect in the playfield by using: `game.collectibles`
 
 ### Asteroids
-You can access to the list of moving asteroids through the array `game.asteroids`
+You can access the list of moving asteroids through the array `game.asteroids`
 
-You can also find an asteroid with specific id using `game.findAsteroid(id)`, which returns an object represent the matched asteroid or `null` (if there are no asteroids matching the provided id)
+You can also find an asteroid with a specific id using `game.findAsteroid(id)`, which returns an object represents the matched asteroid or `null` (if no asteroids are matching the provided id)
 #### Creation
 To create an asteroid, use `game.addAsteroid({ options })`.
 
 Here is the list of accepted options:
 
-(Note: Server will response with `Incorrect data` when at least one input property value is improper)
+(Note: Server will respond with `Incorrect data` when at least one input property value is improper)
 
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
@@ -691,12 +691,12 @@ Here is the list of accepted options:
 | vy | Velocity vector Y component | 0 |
 | size | Size of the asteroid in the range [1-100] | 30 |
 
-A new `Asteroid` object is immediately added to `game.asteroids` ; however it cannot be used before it has been assigned an id (positive integer) by the server.
+A new `Asteroid` object is immediately added to `game.asteroids` ; however, it cannot be used before it has been assigned an id (positive integer) by the server.
 
 #### Limits
 You can only have **300** alive asteroids (including moving asteroids generated by the game mode) at any time in your game
 
-Server will respond with `Too many asteroids` for each asteroid passing the limit
+The server will respond with `Too many asteroids` for each asteroid passing the limit
 
 #### Configuration
 Once an asteroid is live and has an assigned id, you can set options to it. For example:
@@ -741,8 +741,8 @@ The mod can create custom, textured 3D objects and add them to the scenery using
 | id | a unique identifier for this object instance (mandatory, allows changing the object afterwards) |
 | type | [the object type definition](#object-type-options) |
 | position | coordinates for placing the object, dimensional property |
-| scale | allows to scale the object, dimensional property |
-| rotation | allows to rotate the object, dimensional property |
+| scale | allows scaling the object, dimensional property |
+| rotation | allows rotating the object, dimensional property |
 
 #### Object type options
 | Option | Description |
@@ -789,7 +789,7 @@ game.setObject({
 #### Accessing
 Game property `game.objects` stores all active 3D Objects maintained by the mod
 
-You shouldn't modify this property in order to keep the mod run smoothly
+You shouldn't modify this property to keep the mod running smoothly
 #### Changing or moving an object
 Use `game.setObject` again with the same object instance id.
 
@@ -806,7 +806,7 @@ This includes all properties defined in [`this.options`](#options), plus some ex
 | Field | Description |
 | - | - |
 | bouncing_lasers | if bouncing lasers is enabled or not |
-| max_tier_lives | number of lives when player reaches ships with the highest level (defined in `max_level` option) |
+| max_tier_lives | number of lives when the player reaches ships with the highest level (defined in `max_level` option) |
 #### Team mode specific accessible fields
 | Field | Description |
 | - | - |
@@ -847,7 +847,7 @@ There is also game boolean properties `game.is_open` is used to determine if the
 
 ### Common problems and how to fix them
 #### Black screen issue
-In most cases you're getting a black screen after loading your mod cause of bad ship tree.
+In most cases, you're getting a black screen after loading your mod due to a bad ship tree.
 
 Follow these rules to avoid it:
 
@@ -859,7 +859,7 @@ Follow these rules to avoid it:
 #### My mod closed accidentally but the game is not stopped
 Sometimes, some unexpected problems can crash the mod, but it only disconnects from the modding side, or so-called "controller" side, the game itself will continue running without control from your modding client until it meets the closing requirements (or even in some serious occasions, game developers - like PMGL - need to close it by themselves).
 
-Here is some reasons which can lead to mod crashing:
+Here are some reasons which can lead to mod crashing:
 
 1. Closing/Reloading the modding tab/window without stopping the mod first (Most common one)
 1. Very unstable internet connection
