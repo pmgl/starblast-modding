@@ -749,7 +749,6 @@ The mod can create custom, textured 3D objects and add them to the scenery using
 | - | - |
 | id | a unique identifier for this object type, mandatory |
 | obj | a URL to the OBJ file |
-| type | Object instance options, see the section below for more details |
 | diffuse | a URL to a diffuse texture file (optional) |
 | emissive | a URL to an emissive texture file (optional) |
 | specular | a URL to a specularity texture file (optional) |
