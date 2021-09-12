@@ -279,7 +279,7 @@ ship_groups: [
 ```
 #### Ticking
 ##### Definition
-Found in `this.tick` is a JavaScript function that is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automatically while the game is running. This function can be modified while the modded game is running and the changes will apply automatically.
+Found in `this.tick` is a JavaScript function that is called 60 times per second. In this function’s body, you will be able to code specific actions that your mod needs to take automagically while the game is running. This function can be modified while the modded game is running and the changes will apply automagically.
 #### Events
 ##### General
 Your mod can receive events through the function `this.event`:
