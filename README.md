@@ -324,7 +324,7 @@ All Modding commands relating to coordinates will be visualized on this map
 ##### Grid
 The map is divided into "grids".
 
-A Grid is a 10x10 square area which can only contains 1 static asteroid (which equals to 1 character to "paint" the map in [`this.options.custom_map`](#custom-asteroids-maps))
+A Grid is a 10x10 square area which can only contain 1 static asteroid (which equals to 1 character to "paint" the map in [`this.options.custom_map`](#custom-asteroids-maps))
 
 `map_size` is the number of grids along each dimension, which means that the number of grids in the map is calculated by the formula `map_size`<sup>2</sup>.
 
