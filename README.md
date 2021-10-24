@@ -255,7 +255,7 @@ Most of the options are inherited from the usual custom games. A few more option
 ##### Survival mode specific options
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
-| survival_time | When to trigger survival mode; 0 or a value in minutes | 60 |
+| survival_time | When to trigger survival mode (in minutes):<br>0 to disable survival time trigger<br>from 1 to 600 to set the survival trigger time | 60 |
 
 ##### Team mode specific options
 | Option | Description | Default value<br>(if omitted) |
@@ -263,8 +263,8 @@ Most of the options are inherited from the usual custom games. A few more option
 | hues | array of hue numbers for teams, with the same amount of elements as used for `friendly_colors` | Auto-generated hues |
 | station_regeneration | factor to apply to station shield regen | 1 |
 | station_size | size of the stations; integer from 1 to 5 | 2 |
-| station_crystal_capacity | factor to apply to the station crystal capacity, range [0.1,10] | 1 |
-| station_repair_threshold | part of the station crystal capacity that must be refilled to repair a module. In the range [0,1] | 0.25 |
+| station_crystal_capacity | factor to apply to the station crystal capacity, range [0.1,10], non-integer allowed | 1 |
+| station_repair_threshold | part of the station crystal capacity that must be refilled to repair a module. In the range [0,1], non-integer allowed | 0.25 |
 | auto_assign_teams | allow assigning players to a specific team (true) or let them choose the team themselves (false) | false |
 
 ##### Deatmatch mode specific options
@@ -308,7 +308,7 @@ this.event = function(event,game) {
 | asteroid_destroyed | A movable asteroid was just destroyed (this event won't trigger for non-movable asteroids) | event.asteroid, event.killer |
 | collectible_picked | A ship just picked a collectible item | event.collectible, event.ship |
 
-**Note:** * This event only works with unspecified `root_mode` (`root_mode: ""`)
+**Note:** * means that this event only works with unspecified `root_mode` (`root_mode: ""`)
 ### Map
 #### Definition
 All entities and objects in the game are moving on a 2D plane called "map"
