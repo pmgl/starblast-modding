@@ -236,16 +236,16 @@ Most of the options are inherited from the usual custom games. A few more option
 | crystal_drop | percentage of gems can be collected when a ship drain gems | 0.5 (deathmatch)<br>1 (others) |
 | release_crystal | true/false for allowing/forbidding `[V]` to release gems | true (team)<br>false (others) |
 | mines_self_destroy | true or false | true |
-| mines_destroy_delay | all landed mines will be destroyed after this interval if no enemies triggered the mines (in [ticks](#unit))<br>minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup> | 3600 (Battle Royale)<br>18000 (others) |
+| mines_destroy_delay | all landed mines will be destroyed after this interval if no enemies triggered the mines (in [ticks](#unit))<br>minimum 0, no actual maximum limit | 3600 (Battle Royale)<br>18000 (others) |
 | healing_enabled | true or false | true (team)<br>false(others) |
-| healing_ratio (not settable) | 0 to 2 | 1 |
-| shield_regen_factor | minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup>) | 1 |
-| power_regen_factor | minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup>) | 1 |
+| healing_ratio | 0 to 2 | 1 |
+| shield_regen_factor | minimum 0, no actual maximum limit | 1 |
+| power_regen_factor | minimum 0, no actual maximum limit | 1 |
 | invulnerable_ships | Ships are invulnerable or not (true/false) | false |
 | weapons_store | Set to false to remove access to the weapon store | true |
 | radar_zoom | Set value to 1, 2 or 4 | 2 |
 | auto_refill | When set to true, collecting an energy or shield pill immediately refills energy or shield ; the collected pill is not added to the active weapons | false |
-| projectile_speed | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit (highest ever reached is 10<sup>308</sup>) | 1 |
+| projectile_speed | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit | 1 |
 | choose_ship | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
 | collider | enable/disable (true/false) collisions of player ships with anything | true |
 | acw_allowed | Unlock limits in some options in order to do an AOW/ACW-like modded game | false |
