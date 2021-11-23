@@ -256,6 +256,7 @@ Most of the options are inherited from the usual custom games. A few more option
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
 | survival_time | When to trigger survival mode (in minutes):<br>0 to disable survival time trigger<br>from 1 to 600 to set the survival trigger time | 60 |
+| bouncing_lasers | Must be a value between 0 (no bounce) or 1 (bounce retains 100% of the laser damage), non-integer allowed<br>**Note:** This feature is planned to be applied to all root modes in the near future | 0.9 |
 
 ##### Team mode specific options
 | Option | Description | Default value<br>(if omitted) |
