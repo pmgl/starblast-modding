@@ -620,6 +620,7 @@ The server will respond with `Too many aliens` for each alien passing the limit
 You have access to the same properties as the available ones when you add aliens, plus some additional properties:
 
 | Option | Description |
+| - | - |
 | id | a unique identifier for the alien |
 
 #### Configuration
@@ -712,6 +713,7 @@ The server will respond with `Too many asteroids` for each asteroid passing the 
 You have access to the same properties as the available ones when you add asteroids, plus some additional properties:
 
 | Option | Description |
+| - | - |
 | id | a unique identifier for the asteroid |
 
 #### Configuration
