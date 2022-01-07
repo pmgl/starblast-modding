@@ -600,14 +600,14 @@ Here is the list of supported codes:
 | 10 | Chicken |
 | 11 | Crab |
 | 12 | Fortress |
-| 13 | Some weird new thingy |
+| 13 | Caterpillar |
 | 14 | Candlestick |
 | 15 | Hirsute |
 | 16 | Piranha |
 | 17 | Pointu |
 | 18 | Fork |
 | 19 | Saucer |
-| 20 | Final Boss |
+| 20 | Boss |
 
 A new `Alien` object is immediately added to `game.aliens`; however, it cannot be used before it has been assigned an id (positive integer) by the server.
 
