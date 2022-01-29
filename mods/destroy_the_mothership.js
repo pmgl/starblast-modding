@@ -8,6 +8,8 @@ CREDITS:
 * Testing and debugging: 45rfew, Bhpsngum
 * Poster design: Tournebulle
 
+REQUIREMENTS: ES2020 (Chrome & Edge 80, Firefox 74, Opera 67, Safari 13.1, NodeJS v14.0.0, fck IE) and above
+
 CHANGELOG 1.3.0
   * Small fixes and enhancements
 CHANGELOG 1.2.5
@@ -667,7 +669,7 @@ this.tick = function(game){
               },280);
             }
           }
-          else endgame(game, succ, "has been killed", "He's not here anymore");
+          else endgame(game, succ, "has been killed", "It's not here anymore");
         }
       }
     }
