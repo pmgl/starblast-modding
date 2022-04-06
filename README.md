@@ -133,16 +133,16 @@ The vocabulary used for the emote-chat system can be customized by setting the f
 as follows:
 ```js
 var vocabulary = [
-      { text: "Hello", icon:"\u0045", key:"O" },
-      { text: "Bye", icon:"\u0046", key:"B" },
-      { text: "Yes", icon:"\u004c", key:"Y" },
-      { text: "No", icon:"\u004d", key:"N" },
+  { text: "Hello", icon: "\u0045", key: "O" },
+  { text: "Bye", icon: "\u0046", key: "B" },
+  { text: "Yes", icon: "\u004c", key: "Y" },
+  { text: "No", icon: "\u004d", key: "N" },
 
-      { text: "Flower", icon:"\u{1F33B}", key:"F" },
-      { text: "Snowman", icon:"\u26c4", key:"M" },
-      { text: "Shark", icon:"\u{1F988}", key:"S" },
-      { text: "Ghost", icon:"\u{1F47B}", key:"G" }
-    ] ;
+  { text: "Flower", icon: "\u{1F33B}", key: "F" },
+  { text: "Snowman", icon: "\u26c4", key: "M" },
+  { text: "Shark", icon: "\u{1F988}", key: "S" },
+  { text: "Ghost", icon: "\u{1F47B}", key: "G" }
+];
 
 this.options = {
   vocabulary: vocabulary,
