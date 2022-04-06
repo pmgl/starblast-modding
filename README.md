@@ -3,7 +3,7 @@
 All Modding references in a single article
 
 ## Information
-![Standard Modding Interface, you can see the minimap of the mod in the bottom right corner while the mod is running](https://raw.githubusercontent.com/Bhpsngum/img-src/master/ModdingInterface.png)
+![Standard Modding Interface, you can see the minimap of the mod in the bottom right corner while the mod is running](resource_img/ModdingInterface.png)
 
 *Standard Modding Interface, you can see the minimap of the mod in the bottom right corner while the mod is running*
 
@@ -884,6 +884,13 @@ Here are some reasons which can lead to mod crashing:
 1. Browser tab hangs/crashes (careful of infinite while/for loops)
 
 Also keep in mind that you can't reconnect to your previously crashed server, even if it's still running.
+
+### Modding tips and tricks
+#### How can I set the sun in my mod to be like this (which could be seen in every [ACW](https://starblast.fandom.com/wiki/Alpha_Centauri_Wars)/[AOW](https://starblast.fandom.com/wiki/Alpha_Orionis_Wars) games)?
+
+![The special sun in the AOW](resource_img/aow_sun.png)
+
+You will only need to set `max_players` to a value higher or equal to 200, and `root_mode` as `"team"`
 
 ## Community resources
 ### Tutorial and Documentation
