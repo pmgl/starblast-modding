@@ -364,30 +364,30 @@ this.tick = function(game) {
     }
   }
 
-  if (game.step % 15 == 0)
-  {
-    var aliens_c = Math.max(3,Math.min(10,game.ships.length));
-    if (game.aliens.length<aliens_c + aliens)
-    {
-      var minute_c = game.step/3600 ;
-      var range_c = Math.min(alien_types.length,minute_c/4);
-      var index_c = Math.floor(Math.random()*range_c);
-      var angle_c = Math.random()*Math.PI*2;
-      var alien_c = alien_types_center[index_c] ;
-      alien_c.x = Math.cos(angle_c)*18 ;
-      alien_c.y = Math.sin(angle_c)*18 ;
-      game.addAlien(alien_c) ;
-    }
-    for (var i=0;i<game.ships.length;i++)
-    {
-      var ship = game.ships[i];
-      if (ship.custom.radar_updated == null)
-      {
-        ship.custom.radar_updated = true ;
-        ship.setUIComponent(radar_background);
-      }
-    }
-  }
+  // if (game.step % 15 == 0)
+  // {
+  //   var aliens_c = Math.max(3,Math.min(10,game.ships.length));
+  //   if (game.aliens.length<aliens_c + aliens)
+  //   {
+  //     var minute_c = game.step/3600 ;
+  //     var range_c = Math.min(alien_types.length,minute_c/4);
+  //     var index_c = Math.floor(Math.random()*range_c);
+  //     var angle_c = Math.random()*Math.PI*2;
+  //     var alien_c = alien_types_center[index_c] ;
+  //     alien_c.x = Math.cos(angle_c)*18 ;
+  //     alien_c.y = Math.sin(angle_c)*18 ;
+  //     game.addAlien(alien_c) ;
+  //   }
+  //   for (var i=0;i<game.ships.length;i++)
+  //   {
+  //     var ship = game.ships[i];
+  //     if (ship.custom.radar_updated == null)
+  //     {
+  //       ship.custom.radar_updated = true ;
+  //       ship.setUIComponent(radar_background);
+  //     }
+  //   }
+  // }
 } ;
 
 this.event = function(event,game) {
