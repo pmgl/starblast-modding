@@ -271,7 +271,7 @@ Most of the options are inherited from the usual custom games. A few more option
 ##### Deatmatch mode specific options
 | Option | Description | Default value<br>(if omitted) |
 | - | - | - |
-| ship_groups | An array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblast.fandom.com/wiki/Deathmatch) for a list of default ship groups<br>**Note:** The mod won't run if `reset_tree` option is set to `true`<br>Note that the ship groups will be automatically set to only U-Sniper if `map_name` are set to "Battle of Titans". Please [see here](https://starblast.fandom.com/wiki/Easter_Eggs#Battle_of_Titans) for more information|
+| ship_groups | An array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblast.fandom.com/wiki/Deathmatch) for a list of default ship groups. The mod won't run if `reset_tree` option is set to `true` without manually specifying the ship groups.<br>**Please note** that the ship groups will be automatically set to only U-Sniper if `map_name` are set to "Battle of Titans". Please [see here](https://starblast.fandom.com/wiki/Easter_Eggs#Battle_of_Titans) for more information|
 
 Example:
 ```js
