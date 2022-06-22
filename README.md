@@ -598,17 +598,17 @@ Here is the list of supported codes:
 
 | Code | Alien name |
 | - | - |
-| 10 | Chicken |
-| 11 | Crab |
-| 12 | Fortress |
-| 13 | Caterpillar |
-| 14 | Candlestick |
-| 15 | Hirsute |
-| 16 | Piranha |
-| 17 | Pointu |
-| 18 | Fork |
-| 19 | Saucer |
-| 20 | Boss |
+| 10 | [Chicken](https://starblast.fandom.com/wiki/Alien#Chicken) |
+| 11 | [Crab](https://starblast.fandom.com/wiki/Alien#Crab) |
+| 12 | [Fortress](https://starblast.fandom.com/wiki/Alien#Fortress) |
+| 13 | [Caterpillar](https://starblast.fandom.com/wiki/Alien#Caterpillar) |
+| 14 | [Candlestick](https://starblast.fandom.com/wiki/Alien#Candlestick) |
+| 15 | [Hirsute](https://starblast.fandom.com/wiki/Alien#Hirsute) |
+| 16 | [Piranha](https://starblast.fandom.com/wiki/Alien#Piranha) |
+| 17 | [Pointu](https://starblast.fandom.com/wiki/Alien#Pointu) |
+| 18 | [Fork](https://starblast.fandom.com/wiki/Alien#Fork) |
+| 19 | [Saucer](https://starblast.fandom.com/wiki/Alien#Saucer) |
+| 20 | [Final Boss](https://starblast.fandom.com/wiki/Alien#Final_Boss) |
 
 A new `Alien` object is immediately added to `game.aliens`; however, it cannot be used before it has been assigned an id (positive integer) by the server.
 
