@@ -250,7 +250,6 @@ Most of the options are inherited from the usual custom games. A few more option
 | projectile_speed | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit, non-integer allowed | 1 |
 | choose_ship | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
 | collider | enable/disable (true/false) collisions of player ships with anything | true |
-| acw_allowed | Unlock limits in some options in order to do an AOW/ACW-like modded game | false |
 
 ##### Survival mode specific options
 | Option | Description | Default value<br>(if omitted) |
@@ -267,6 +266,8 @@ Most of the options are inherited from the usual custom games. A few more option
 | station_crystal_capacity | factor to apply to the station crystal capacity, range [0.1,10], non-integer allowed | 1 |
 | station_repair_threshold | part of the station crystal capacity that must be refilled to repair a module. In the range [0,1], non-integer allowed | 0.25 |
 | auto_assign_teams | allow assigning players to a specific team (true) or let them choose the team themselves (false) | false |
+| all_ships_can_dock | allow players with ships having a higher level than their base's maximum level to enter the deposit modules (depots) or not | false |
+| all_ships_can_respawn | allow players with ships having a higher level than their base's maximum level to respawn at spawning modules (true) or randomly around the map (false) | false |
 
 ##### Deatmatch mode specific options
 | Option | Description | Default value<br>(if omitted) |
