@@ -266,8 +266,8 @@ Most of the options are inherited from the usual custom games. A few more option
 | station_crystal_capacity | factor to apply to the station crystal capacity, range [0.1,10], non-integer allowed | 1 |
 | station_repair_threshold | part of the station crystal capacity that must be refilled to repair a module. In the range [0,1], non-integer allowed | 0.25 |
 | auto_assign_teams | allow assigning players to a specific team (true) or let them choose the team themselves (false) | false |
-| all_ships_can_dock | allow players with ships having a higher level than their base's maximum level to enter the deposit modules (depots) or not | false |
-| all_ships_can_respawn | allow players with ships having a higher level than their base's maximum level to respawn at spawning modules (true) or randomly around the map (false) | false |
+| all_ships_can_dock | allow players with ships having a higher level than their base's ship level limit to enter the deposit modules (depots) or not | false |
+| all_ships_can_respawn | allow players with ships having a higher level than their base's ship level limit to respawn at spawning modules (true) or randomly around the map (false) | false |
 
 ##### Deatmatch mode specific options
 | Option | Description | Default value<br>(if omitted) |
