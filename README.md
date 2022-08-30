@@ -238,7 +238,7 @@ Most of the options are inherited from the usual custom games. A few more option
 | mines_self_destroy | boolean | Mines will self-destruct after a while or not | true |
 | mines_destroy_delay | integer | all landed mines will be destroyed after this interval if no enemies triggered the mines (in [ticks](#unit))<br>minimum 0, no actual maximum limit | 3600 (Battle Royale)<br>18000 (others) |
 | healing_enabled | boolean | Enable healing feature or not | true (team)<br>false (others) |
-| healing_ratio | float | Healing ratio to actual laser damage, from 0 to 2 | 0.5 |
+| healing_ratio | float | Healing ratio to actual laser damage, from 0 to 2 | 0.5 (team)<br>1 (others) |
 | shield_regen_factor | float | Shield regeneration multiplier to natural regeneration of ships, minimum 0, no actual maximum limit | 1 |
 | power_regen_factor | float | Power (Energy) regeneration multiplier to natural regeneration of ships, minimum 0, no actual maximum limit | 1 |
 | invulnerable_ships | boolean | Ships are invulnerable or not | false |
