@@ -212,11 +212,11 @@ Most of the options are inherited from the usual custom games. A few more option
 | - | - | - | - |
 | root_mode | string | The mod to inherit from: "survival", "team", "invasion", "deathmatch", "battleroyale" or unspecified (other values) | unspecified |
 | reset_tree | boolean | Set to true to remove the original ship tree | false |
-| ships | array<string> | An array of ships to add to the tree | None |
+| ships | array\<string\> | An array of ships to add to the tree | None |
 | map_size | integer | Size of the map, range from 20 to 200, even value only | 100 (survival)<br>80 (team and Battle Royale)<br>60 (unspecified)<br>30 (Invasion)<br>20 (deathmatch) |
-| soundtrack | string | "procedurality.mp3", "argon.mp3", "crystals.mp3", "red_mist.mp3", "civilisation.mp3" or "warp_drive.mp3" or none (empty string) | "crystals.mp3" (invasion and Batte Royale)<br>"argon.mp3" (deathmatch)<br>"procedurality.mp3" (others) |
-| max_players | integer | From 1 to 240 | 70 (team)<br>60 (survival)<br>40 (unspecified)<br>30 (Battle Royale)<br>20 (deathmatch)<br>6 (invasion) |
-| crystal_value | float | From 0 to 10 | 2 (team)<br>0 (deathmatch and Battle Royale)<br>1 (others) |
+| soundtrack | string | "procedurality.mp3", "argon.mp3", "crystals.mp3", "red_mist.mp3", "civilisation.mp3", "warp_drive.mp3" or none (other values) | "crystals.mp3" (invasion and Batte Royale)<br>"argon.mp3" (deathmatch)<br>"procedurality.mp3" (others) |
+| max_players | integer | Players limit of the game, from 1 to 240 | 70 (team)<br>60 (survival)<br>40 (unspecified)<br>30 (Battle Royale)<br>20 (deathmatch)<br>6 (invasion) |
+| crystal_value | float | Crystal multiplier applied to crystals dropping from destroyed asteroids, from 0 to 10 | 2 (team)<br>0 (deathmatch and Battle Royale)<br>1 (others) |
 | lives | integer | Number of lives, from 1 to 5 | 4 (team)<br>1 (deathmatch and Battle Royale)<br> 3 (others) |
 | maxtierlives | integer | number of lives (from 1 to 5) when player reaches ships with the highest level (defined in `max_level` option) | 0 (team and deathmatch)<br>1 (Battle Royale)<br>3 (others) |
 | max_level | integer | Max level you can reach, from 1 to 7 | 7 |
@@ -225,7 +225,7 @@ Most of the options are inherited from the usual custom games. A few more option
 | survival_level | integer | Level which triggers survival mode (8 for no trigger, 2 minimum) | 7 (survival)<br>8 (others) |
 | starting_ship | integer | Enter desired ship code: 101, 201, 404, etc. | 101 |
 | starting_ship_maxed | boolean | starting ship is maxed or not | false |
-| asteroids_strength | float | 0 to 1000000 | 5 (deathmatch)<br>0.5 (Battle Royale)<br>1 (others) |
+| asteroids_strength | float | The strength of the asteroids compared to their normal states, 0 to 1000000 | 5 (deathmatch)<br>0.5 (Battle Royale)<br>1 (others) |
 | friction_ratio | float | friction ratio of the game (0 to 2) | 1 |
 | strafe | float | strafing speed factor, from 0 to 1 | 0 |
 | speed_mod | float | Speed of the mod, from 0 to 2 | 1.25 (deathmatch)<br>1.2 (survival and team)<br>1 (others) |
@@ -237,7 +237,7 @@ Most of the options are inherited from the usual custom games. A few more option
 | release_crystal | boolean | allow `[V]` to release gems or not | true (team)<br>false (others) |
 | mines_self_destroy | boolean | Mines will self-destruct after a while or not | true |
 | mines_destroy_delay | integer | all landed mines will be destroyed after this interval if no enemies triggered the mines (in [ticks](#unit))<br>minimum 0, no actual maximum limit | 3600 (Battle Royale)<br>18000 (others) |
-| healing_enabled | boolean | Enable healing feature or not | true (team)<br>false(others) |
+| healing_enabled | boolean | Enable healing feature or not | true (team)<br>false (others) |
 | healing_ratio | float | Healing ratio to actual laser damage, from 0 to 2 | 0.5 |
 | shield_regen_factor | float | Shield regeneration multiplier to natural regeneration of ships, minimum 0, no actual maximum limit | 1 |
 | power_regen_factor | float | Power (Energy) regeneration multiplier to natural regeneration of ships, minimum 0, no actual maximum limit | 1 |
@@ -246,19 +246,19 @@ Most of the options are inherited from the usual custom games. A few more option
 | radar_zoom | float | Radar zoom ratio. Set value to 1, 2 or 4 (recommend values which are powers of 2) | 2 |
 | auto_refill | boolean | Collecting an energy or shield pill immediately refills energy or shield, otherwise the collected pill is added to the active weapons | false |
 | projectile_speed | float | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit | 1 |
-| choose_ship | array<integer> | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
+| choose_ship | array\<integer\> | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
 | collider | boolean | Enable collisions of player ships with anything or not | true |
 
 ##### Survival mode specific options
-| Option | Description | Default value<br>(if omitted) |
-| - | - | - |
+| Option | Expected data type | Description | Default value<br>(if omitted) |
+| - | - | - | - |
 | survival_time | float | When to trigger survival mode (in minutes):<br>0 to disable survival time trigger<br>from 1 to 600 to set the survival trigger time | 60 |
 | bouncing_lasers | float | Must be a value between 0 (no bounce) or 1 (bounce retains 100% of the laser damage)<br>**Note:** This feature is planned to be applied to all root modes in the near future | 0.9 |
 
 ##### Team mode specific options
 | Option | Expected data type | Description | Default value<br>(if omitted) |
 | - | - | - | - |
-| hues | array<integer> | Hue numbers for teams, with the same amount of elements as used for `friendly_colors` | Auto-generated hues |
+| hues | array\<integer\> | Hue numbers for teams, with the same amount of elements as used for `friendly_colors` | Auto-generated hues |
 | station_regeneration | float | factor to apply to station shield regen, from 0 to 2 | 1 |
 | station_size | integer | size of the stations; integer from 1 to 5 | 2 |
 | station_crystal_capacity | float | factor to apply to the station crystal capacity, from 0.1 to 10 | 1 |
@@ -270,7 +270,7 @@ Most of the options are inherited from the usual custom games. A few more option
 ##### Deatmatch mode specific options
 | Option | Expected data type | Description | Default value<br>(if omitted) |
 | - | - | - | - |
-| ship_groups | array<string> | An array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblast.fandom.com/wiki/Deathmatch) for a list of default ship groups. The mod won't run if `reset_tree` option is set to `true` without manually specifying the ship groups.<br>**Please note** that the ship groups will be automatically set to only U-Sniper if `map_name` are set to "Battle of Titans". Please [see here](https://starblast.fandom.com/wiki/Easter_Eggs#Battle_of_Titans) for more information|
+| ship_groups | array\<string\> | An array containing some arrays, each of them representing one ship group (by name) available for selection<br>See the example below.<br>The longer the array is, the lower chance for each ship group being available in a single match | See [Deathmatch](https://starblast.fandom.com/wiki/Deathmatch) for a list of default ship groups. The mod won't run if `reset_tree` option is set to `true` without manually specifying the ship groups.<br>**Please note** that the ship groups will be automatically set to only U-Sniper if `map_name` are set to "Battle of Titans". Please [see here](https://starblast.fandom.com/wiki/Easter_Eggs#Battle_of_Titans) for more information|
 
 Example:
 ```js
