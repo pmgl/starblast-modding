@@ -909,11 +909,10 @@ You will only need to set `max_players` to a value higher or equal to 200, and `
 * [General modding tutorial by Wolfan](https://www.youtube.com/watch?v=35SM5rFteIs&t)
 
 ### Tools
+* [Ship Editor](https://starblast.io/shipeditor/)
 * [Map Editor](https://bhpsngum.github.io/starblast/mapeditor/)
 
 ### Code resources
 * [Community Mods Archive](https://bhpsngum.github.io/starblast/mods/)
-* [WIP Modding plus by Dpleshkov](https://github.com/dpleshkov/starblast-modding-plus)
-* [Starblast code reference by Bhpsngum](https://github.com/bhpsngum/starblast/)
-* [Starblast code and objects reference by 45rfew](https://github.com/45rfew/Starblast-mods-n-objs)
+* [Starblast code reference by Bhpsngum](https://github.com/bhpsngum/starblast-snippets/)
 * [Starblast code reference by Wolfan](https://github.com/W0lfan/Starblast-code-snippets)
