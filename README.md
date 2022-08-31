@@ -224,30 +224,30 @@ Most of the options are inherited from the usual custom games. A few more option
 | map_name | string | Name of the map | Auto-generated name |
 | survival_level | integer | Level which triggers survival mode (8 for no trigger, 2 minimum) | 7 (survival)<br>8 (others) |
 | starting_ship | integer | Enter desired ship code: 101, 201, 404, etc. | 101 |
-| starting_ship_maxed | boolean | starting ship is maxed or not | false |
+| starting_ship_maxed | boolean | starting ship is maxed | false |
 | asteroids_strength | float | The strength of the asteroids compared to their normal states, 0 to 1000000 | 5 (deathmatch)<br>0.5 (Battle Royale)<br>1 (others) |
 | friction_ratio | float | friction ratio of the game (0 to 2) | 1 |
 | strafe | float | strafing speed factor, from 0 to 1 | 0 |
 | speed_mod | float | Speed of the mod, from 0 to 2 | 1.25 (deathmatch)<br>1.2 (survival and team)<br>1 (others) |
-| rcs_toggle | boolean | Enable RCS feature for ships or not | true |
+| rcs_toggle | boolean | Enable RCS feature for ships | true |
 | map_id | integer | Seed (ID) of the auto-generated map, from 0 to 9999 | Game ID |
 | map_density | float | Density of the map, from 0 to 2 | None |
 | weapon_drop | float | Probability that an asteroid will drop a weapon, from 0 to 10 | 0 |
 | crystal_drop | float | percentage of gems can be collected when a ship drain gems, from 0 to 1 | 0.5 (deathmatch)<br>1 (others) |
-| release_crystal | boolean | allow `[V]` to release gems or not | true (team)<br>false (others) |
-| mines_self_destroy | boolean | Mines will self-destruct after a while or not | true |
+| release_crystal | boolean | allow `[V]` to release gems | true (team)<br>false (others) |
+| mines_self_destroy | boolean | Mines will self-destruct after a while | true |
 | mines_destroy_delay | integer | all landed mines will be destroyed after this interval if no enemies triggered the mines (in [ticks](#unit))<br>minimum 0, no actual maximum limit | 3600 (Battle Royale)<br>18000 (others) |
-| healing_enabled | boolean | Enable healing feature or not | true (team)<br>false (others) |
+| healing_enabled | boolean | Enable healing feature | true (team)<br>false (others) |
 | healing_ratio | float | Healing ratio to actual laser damage, from 0 to 2 | 0.5 (team)<br>1 (others) |
 | shield_regen_factor | float | Shield regeneration multiplier to natural regeneration of ships, minimum 0, no actual maximum limit | 1 |
 | power_regen_factor | float | Power (Energy) regeneration multiplier to natural regeneration of ships, minimum 0, no actual maximum limit | 1 |
-| invulnerable_ships | boolean | Ships are invulnerable or not | false |
-| weapons_store | boolean | Allow access to the weapon store or not | true |
+| invulnerable_ships | boolean | Ships are invulnerable | false |
+| weapons_store | boolean | Allow access to the weapon store | true |
 | radar_zoom | float | Radar zoom ratio. Set value to 1, 2 or 4 (recommend values which are powers of 2) | 2 |
 | auto_refill | boolean | Collecting an energy or shield pill immediately refills energy or shield, otherwise the collected pill is added to the active weapons | false |
 | projectile_speed | float | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit | 1 |
 | choose_ship | array\<integer\> | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
-| collider | boolean | Enable collisions of player ships with anything or not | true |
+| collider | boolean | Enable collisions of player ships with anything | true |
 
 ##### Survival mode specific options
 | Option | Expected data type | Description | Default value<br>(if omitted) |
@@ -264,8 +264,8 @@ Most of the options are inherited from the usual custom games. A few more option
 | station_crystal_capacity | float | factor to apply to the station crystal capacity, from 0.1 to 10 | 1 |
 | station_repair_threshold | float | part of the station crystal capacity that must be refilled to repair a module, from 0 to 1 | 0.25 |
 | auto_assign_teams | boolean | allow assigning players to a specific team, otherwise let them choose the team themselves | false |
-| all_ships_can_dock | boolean | allow players with ships having a higher level than their base's ship level limit to enter the deposit modules (depots) or not | false |
-| all_ships_can_respawn | boolean | allow players with ships having a higher level than their base's ship level limit to respawn at spawning modules, otherwise randomly around the map | false |
+| all_ships_can_dock | boolean | allow ships of Tier higher than base station normally lets in, to enter depots | false |
+| all_ships_can_respawn | boolean | allow ships of Tier higher than base station normally lets in, to respawn from spawn ports, otherwise randomly on map | false |
 
 ##### Deatmatch mode specific options
 | Option | Expected data type | Description | Default value<br>(if omitted) |
@@ -836,8 +836,8 @@ This includes all properties defined in [`this.options`](#options), plus some ex
 | - | - |
 | teams | an array represent teams' most basic info<br>each item in the array contains:<br>`base_name`: name of the base<br>`faction`: faction name<br>`hue`: team hue |
 | crystal_capacity | an array presenting the capacity of the stations in the increasing level order |
-| deposit_shield<br>spawning_shield<br>structure_shield | an array presenting the the stations' deposits/spawnings/small structures shield in the increasing level order |
-| deposit_regen<br>spawning_regen<br>structure_regen | an array presenting the the stations' deposits/spawnings/small structures regeneration in the increasing level order |
+| deposit_shield<br>spawning_shield<br>structure_shield | an array presenting the the stations' deposit/spawning/structure modules (depots/spawn ports/small structurles) shield in the increasing level order |
+| deposit_regen<br>spawning_regen<br>structure_regen | an array presenting the the stations' depots/spawn ports/small structures regeneration in the increasing level order |
 
 ### Assigning custom properties to some entities/objects
 You can assign properties into some game entities or objects as side notes/indicators
