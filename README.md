@@ -716,7 +716,7 @@ You can only have **300** alive asteroids (including moving asteroids generated 
 The server will respond with `Too many asteroids` for each asteroid passing the limit
 
 #### Accessible fields
-For each alien object in `game.asteroids`, You have access to the same properties as the available ones when you add asteroids, plus some additional properties:
+For each asteroid object in `game.asteroids`, You have access to the same properties as the available ones when you add asteroids, plus some additional properties:
 
 | Option | Description |
 | - | - |
