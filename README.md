@@ -900,15 +900,17 @@ Also keep in mind that you can't reconnect to your previously crashed server, ev
 You will only need to set `max_players` to a value higher or equal to 200, and `root_mode` as `"team"`
 
 ## Community resources
-### Tutorial and Documentation
-* [Gamepedia/Fandom version](https://starblastio.fandom.com/wiki/Modding_Tutorial)
+### Tutorials and Documentation
+* [Modding Tutorial - GitHub version](https://starblastio.fandom.com/wiki/Modding_Tutorial)
+* [Ship Editor Tutorial](https://starblastio.fandom.com/wiki/Ship_Editor_Tutorial)
 * [How to add ship to the mod - by InterdictorSD](https://www.youtube.com/watch?v=3b2zKArOkXk)
 * [Modding Live #2 by PMGL](https://www.twitch.tv/videos/270359062)
 * [General modding tutorial by Wolfan](https://www.youtube.com/watch?v=35SM5rFteIs&t)
 
 ### Tools
+* [Mod Editor](https://starblast.io/modding.html)
 * [Ship Editor](https://starblast.io/shipeditor/)
-* [Map Editor](https://bhpsngum.github.io/starblast/mapeditor/)
+* [Map Editor](https://bhpsngum.github.io/starblast/mapeditor/) (by community)
 
 ### Code resources
 * [Community Mods Archive](https://bhpsngum.github.io/starblast/mods/)
