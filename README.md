@@ -901,7 +901,7 @@ You will only need to set `max_players` to a value higher or equal to 200, and `
 
 ## Community resources
 ### Tutorials and Documentation
-* [Modding Tutorial - GitHub version](https://starblastio.fandom.com/wiki/Modding_Tutorial)
+* [Modding Tutorial - Wiki version](https://starblastio.fandom.com/wiki/Modding_Tutorial)
 * [Ship Editor Tutorial](https://starblastio.fandom.com/wiki/Ship_Editor_Tutorial)
 * [How to add ship to the mod - by InterdictorSD](https://www.youtube.com/watch?v=3b2zKArOkXk)
 * [Modding Live #2 by PMGL](https://www.twitch.tv/videos/270359062)
