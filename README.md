@@ -307,6 +307,7 @@ this.event = function(event,game) {
 | alien_destroyed | An alien was just killed | event.alien, event.killer |
 | asteroid_destroyed | A movable asteroid was just destroyed (this event won't trigger for non-movable asteroids) | event.asteroid, event.killer |
 | collectible_picked | A ship just picked a collectible item | event.collectible, event.ship |
+| ui_component_clicked | A ship just clicked a (clickable) UI component on their screen | event.ship, event.id |
 
 **Note:** * means that this event only works with unspecified `root_mode` (`root_mode: ""`)
 ### Map
