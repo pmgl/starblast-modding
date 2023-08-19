@@ -837,7 +837,7 @@ This includes all properties defined in [`this.options`](#options), plus some ex
 | - | - |
 | teams | an array represent teams' most basic info<br>each item in the array contains:<br>`base_name`: name of the base<br>`faction`: faction name<br>`hue`: team hue |
 | crystal_capacity | an array presenting the capacity of the stations in the increasing level order |
-| deposit_shield<br>spawning_shield<br>structure_shield | an array presenting the the stations' deposit/spawning/structure modules (depots/spawn ports/small structurles) shield in the increasing level order |
+| deposit_shield<br>spawning_shield<br>structure_shield | an array presenting the the stations' deposit/spawning/structure modules (depots/spawn ports/small structures) shield in the increasing level order |
 | deposit_regen<br>spawning_regen<br>structure_regen | an array presenting the the stations' depots/spawn ports/small structures regeneration in the increasing level order |
 
 ### Assigning custom properties to some entities/objects
