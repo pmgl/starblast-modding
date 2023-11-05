@@ -500,7 +500,7 @@ Here is the list of UIComponent's accepted options:
 | type | type of the subcomponent<br>currently supported: "round", "text", "box" or "player" | None (subcomponent won't be rendered) |
 | id ("player" type only) | id of the player associated with the subcomponent, which will be disapleyd as their name and badge (if exists) in the rendered subcomponent | None (blank player info) |
 | position | positions of the subcomponent, formatted as `[x,y,width,height]`<br>that subcomponent are meant within the main component coordinates | None (subcomponent won't be rendered) |
-| value | value of the subcomponent, e.g `value:"Sample text"` | Empty string (`""`) |
+| value ("text" type only) | value of the text subcomponent, e.g `value:"Sample text"` | Empty string (`""`) |
 | color | text color of the subcomponent, this can be a string with any color formats (hex, hsla, rgb, etc.), e.g `"#fff"` | [Black](https://convertingcolors.com/hex-color-000000.html) (with opacity 1) |
 | fill | background color of the subcomponent, same format as the `color` property | [Black](https://convertingcolors.com/hex-color-000000.html) (with opacity 0) |
 | width | width of the subcomponent's border<br>One unit of this value equals (1 / ([End user screen's pixel density](https://en.wikipedia.org/wiki/Pixel_density))) [CSS](https://en.wikipedia.org/wiki/CSS) pixels (px) | 0 |
