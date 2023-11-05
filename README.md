@@ -503,7 +503,7 @@ Here is the list of UIComponent's accepted options:
 | value | value of the subcomponent, e.g `value:"Sample text"` | Empty string (`""`) |
 | color | text color of the subcomponent, this can be a string with any color formats (hex, hsla, rgb, etc.), e.g `"#fff"` | [Black](https://convertingcolors.com/hex-color-000000.html) (with opacity 1) |
 | fill | background color of the subcomponent, same format as the `color` property | [Black](https://convertingcolors.com/hex-color-000000.html) (with opacity 0) |
-| width | width of the subcomponent's border (in percent) | 0 |
+| width | width of the subcomponent's border<br>One unit of this value equals (1 / ([End user screen's pixel density](https://en.wikipedia.org/wiki/Pixel_density))) [CSS](https://en.wikipedia.org/wiki/CSS) pixels (px) | 0 |
 | stroke | border color of the subcomponent, same format as the `color` property | [Black](https://convertingcolors.com/hex-color-000000.html) (with opacity 0) |
 | align | alignment of the texts inside the subcomponent<br>"left", "right" or "center" only | `"center"` |
 
