@@ -746,13 +746,6 @@ List of accepted options when using `asteroid.set`:
 ### Add 3D objects to the scenery
 The mod can create custom, textured 3D objects and add them to the scenery using `game.setObject` method.
 
-#### Notes
-* All URLs included in this method must satisfy these conditions:
-  1. The protocol must be `https`
-  1. The domain only matches one of these domains:
-    * `starblast.io` (Official Starblast site)
-    * `starblast.data.neuronality.com` (Starblast Data site)
-    * `raw.githubusercontent.com` (Raw GitHub)
 * A dimensional property included in this method is defined as an object with three fields represent 3 Axes in [Coordinates](#coordinates)
 
 | Field | Represent for |
@@ -771,20 +764,34 @@ The mod can create custom, textured 3D objects and add them to the scenery using
 | rotation | allows rotating the object, dimensional property |
 
 #### Object type options
-| Option | Description |
-| - | - |
-| id | a unique identifier for this object type, mandatory |
-| obj | a URL to the OBJ file |
-| diffuse | a URL to a diffuse texture file (optional) |
-| emissive | a URL to an emissive texture file (optional) |
-| specular | a URL to a specularity texture file (optional) |
-| bump | a URL to a bump texture map (optional) |
-| diffuseColor | diffuse color of the object, e.g. `0xFF0000` (for red) |
-| emissiveColor | emissive color of the object, e.g. `0x00FF00` (for green) |
-| specularColor | specular color of the object, e.g. `0x0000FF` (for blue) |
-| transparent | whether the object's texture has transparency or not |
-| bumpScale | scale for bump mapping (default: 0.1) |
-| physics | [Object's physics](#object-physics-options) |
+| Option | Description | Default value |
+| - | - | - |
+| id | a unique identifier for this object type, mandatory | `"undefined"` or `"null"` depending on implementation |
+| obj | a URL to the OBJ file | None |
+| diffuse | a URL to a diffuse texture file (optional) | None |
+| emissive | a URL to an emissive texture file (optional) | None |
+| specular | a URL to a specularity texture file (optional) | None |
+| bump | a URL to a bump texture map (optional) | None |
+| emissiveColor | emissive color of the object, e.g. `0xFF0000` (for red) | [White](https://convertingcolors.com/hex-color-FFFFFF.html) if `emissive` is valid, [Black](https://convertingcolors.com/hex-color-000000.html) otherwise |
+| diffuseColor | diffuse color of the object, e.g. `0x00FF00` (for green) | [White](https://convertingcolors.com/hex-color-FFFFFF.html) if `diffuse` is valid, [Black](https://convertingcolors.com/hex-color-000000.html) otherwise |
+| specularColor | specular color of the object, e.g. `0x0000FF` (for blue) | [White](https://convertingcolors.com/hex-color-FFFFFF.html) if `specular` is valid, [Black](https://convertingcolors.com/hex-color-000000.html) otherwise |
+| transparent | whether the object's texture has transparency or not | `true` |
+| bumpScale | scale for bump mapping | 0.1 |
+| shininess | the shininess of the specular map | 30 |
+| physics | [Object's physics](#object-physics-options) | None |
+
+All URLs included as property value must satisfy one of these conditions:
+1. It's a [Data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs) (`data:` protocol)
+1. The protocol must be `https` (explicitly, not omitted) and the domain only matches one of these:
+  * `starblast.io` (Official Starblast)
+  * `starblast.data.neuronality.com` (Neuronality's Starblast Data)
+  * `github.com` (GitHub)
+  * `raw.githubusercontent.com` (Raw GitHub Content)
+  * `gitlab.com` (GitLab)
+
+If any URL-required fields mentioned above are present but don't satisfy these conditions, the whole object is rejected to be set on the players' clients.
+
+Please note that GitHub and GitLab URLs can be easily converted into raw data URLs (such as changing `/blob/` into `/raw/` or appending `?raw=true` at the end for GitHub URLs exclusively). Any URL using GitHub or GitLab domain should point to the raw file content and not the webpage version of the file itself.
 
 #### Object physics options
 **Note:** We recommend not to use this property as it usually doesn't work as expected
@@ -816,7 +823,9 @@ Game property `game.objects` stores all active 3D Objects maintained by the mod
 
 You shouldn't modify this property to keep the mod running smoothly
 #### Changing or moving an object
-Use `game.setObject` again with the same object instance id.
+Use `game.setObject` again with the same object instance ID.
+
+**Note:** [Object type's properties](#object-type-options) **can not** be changed once set. You may need to define a new object type instance with different ID and set the object you wish to update with the new object type ID.
 
 #### Removing an object
 `game.removeObject(id)` removes the object with given id. You can omit the id parameter, which will remove all custom objects in the scene.
