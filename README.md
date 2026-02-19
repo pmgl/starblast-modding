@@ -247,7 +247,6 @@ Most of the options are inherited from the usual custom games. A few more option
 | auto_refill | boolean | Collecting an energy or shield pill immediately refills energy or shield, otherwise the collected pill is added to the active weapons | false |
 | projectile_speed | float | Affects the speed of rockets, missiles and torpedoes; use 1 for default speed<br>(minimum 0, no actual maximum limit | 1 |
 | choose_ship | array\<integer\> | e.g. setting to `[301,302,303]` will let player choose a ship from these 3 ships before entering the game | None |
-| collider | boolean | Enable collisions of player ships with anything | true |
 
 ##### Survival mode specific options
 | Option | Expected data type | Description | Default value<br>(if omitted) |
